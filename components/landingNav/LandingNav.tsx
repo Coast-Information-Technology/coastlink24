@@ -6,7 +6,7 @@ import Image from "next/image";
 export const LandingNav = () => {
   return (
     <div className={`${styles.landingNavCont} `}>
-      <h2 className="text-blue-900 font-bold">CoastLink24</h2>
+      <h2 className="text-blue-900 text-xl font-bold">CoastLink24</h2>
 
       <div className={`${styles.nav}`}>
         <ul role="list" className={`${styles.navList} `}>
@@ -14,7 +14,7 @@ export const LandingNav = () => {
             About
           </li>
           <li role="listitem" className={`${styles.navListItem}`}>
-            Product
+            Product Info
           </li>
           <li role="listitem" className={`${styles.navListItem}`}>
             Blog
@@ -30,7 +30,7 @@ export const LandingNav = () => {
 
       <Link
         href="/"
-        className="bg-blue-700 text-white p-2 rounded text-sm hover:bg-purple-900"
+        className={`${styles.btnHover} bg-blue-700 text-white p-2 rounded text-sm `}
       >
         Get Started ($0)
       </Link>
