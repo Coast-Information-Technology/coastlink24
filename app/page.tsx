@@ -49,8 +49,8 @@ export default function Home() {
       </div>
 
       {/* Cients logo */}
-      <div className={`${styles.clientLogoCont} p-12 flex items-center `}>
-        <p className="text-bold text-xl">Shh Our clints Logo are coming up..........Watch Out!</p>
+      <div className={`${styles.clientLogoCont} p-12 flex items-center justify-center`}>
+        <p className="font-bold text-xl">Shh Our clints Logo are coming up..........Watch Out!</p>
         <div className="logoCaurosel">
 
         </div>
