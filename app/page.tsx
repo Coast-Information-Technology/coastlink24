@@ -50,7 +50,7 @@ export default function Home() {
 
       {/* Cients logo */}
       <div className={`${styles.clientLogoCont} p-12 flex items-center `}>
-        <p className="text-bold">Shh Our clints Logo are coming up..........Watch Out!</p>
+        <p className="text-bold text-xl">Shh Our clints Logo are coming up..........Watch Out!</p>
         <div className="logoCaurosel">
 
         </div>
