@@ -17,3 +17,27 @@ h5,
 h6 {
   font-family: "Spectral", serif;
 }
+
+.primary-color {
+  color: #005dfa;
+}
+
+.primary-bg-color {
+  background-color: #005dfa;
+}
+
+.plain-color {
+  color: #fff;
+}
+
+.plain-bg-color {
+  background-color: #fff;
+}
+
+.accent-color {
+  color: #ccccff;
+}
+
+.accent-bg-color {
+  background-color: #ccccff;
+}

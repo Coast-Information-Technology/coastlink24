@@ -5,47 +5,73 @@ import Image from "next/image";
 
 export const LandingNav = () => {
   return (
-    <div className={`${styles.landingNavCont} `}>
-      <span className="logoBox flex items-center">
-        <Image src='/CoastlinkLogo.png' alt="CoastLink24" width={90} height={90} />
+    <div
+      className={`${styles.landingNavCont} bg-transparent absolute w-full z-30`}
+    >
+      <Link href="/" className="logoBox flex items-center">
+        <Image
+          src="/Coastlink-brandlogo.png"
+          alt="CoastLink24"
+          width={150}
+          height={150}
+        />
         {/* <h2 className="text-blue-900 text-xl text-primary font-bold">CoastLink24</h2> */}
-      </span>
-      
+      </Link>
+
       <div className={`${styles.nav}`}>
         <ul role="list" className={`${styles.navList} `}>
-          <li role="listitem" className={`${styles.navListItem}`}>
+          <Link
+            href="#"
+            role="listitem"
+            className={`${styles.navListItem} plain-color`}
+          >
             About
-          </li>
-          <li role="listitem" className={`${styles.navListItem}`}>
+          </Link>
+          <Link
+            href="#"
+            role="listitem"
+            className={`${styles.navListItem} plain-color`}
+          >
             Product Info
-          </li>
-          <li role="listitem" className={`${styles.navListItem}`}>
+          </Link>
+          <Link
+            href="#"
+            role="listitem"
+            className={`${styles.navListItem} plain-color`}
+          >
             Blog
-          </li>
-          <li role="listitem" className={`${styles.navListItem}`}>
+          </Link>
+          <Link
+            href="#"
+            role="listitem"
+            className={`${styles.navListItem} plain-color`}
+          >
             Resources
-          </li>
-          <li role="listitem" className={`${styles.navListItem}`}>
+          </Link>
+          <Link
+            href="#"
+            role="listitem"
+            className={`${styles.navListItem} plain-color`}
+          >
             Contact Us
-          </li>
+          </Link>
         </ul>
       </div>
 
       <span className="cTa flex gap-2">
-      <Link
-        href="/"
-        className={`${styles.btnHover} bg-primary text-white p-2 rounded text-sm `}
-      >
-        Sign Up Now
-      </Link>
-      <Link
-        href="/"
-        className={`${styles.btnHover} bg-primary text-white p-2 rounded text-sm `}
-      >
-        Get Started Today ($0)
-      </Link>
+        <Link
+          href="/"
+          className={`${styles.btnHover} plain-bg-color primary-color px-4 py-2 rounded-full`}
+        >
+          Sign Up Now
+        </Link>
+        <Link
+          href="/"
+          className={`${styles.btnHover} plain-bg-color primary-color px-4 py-2 rounded-full`}
+        >
+          Get Started Now
+        </Link>
       </span>
-      
     </div>
   );
 };

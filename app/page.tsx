@@ -9,25 +9,44 @@ export default function Home() {
   return (
     <div>
       <LandingNav />
-      <div className={`${styles.landingCont} `}>
-        <div className={`${styles.heroSect} `}>
+      <div className={`${styles.landingCont}`}>
+        <div className={`${styles.heroSect} relative z-20`}>
           <div className={`${styles.heroTextBox} `}>
             <h1 className={`${styles.mainText} `}>
-              Welcome to Coastlink24 – Your Trusted <span className="text-primary">Fintech Solution for Lenders</span>
+              Welcome to Coastlink24 – Your Trusted{" "}
+              <span className="accent-color">Fintech Solution for Lenders</span>
             </h1>
-            <p className="pt-2 text-justify">
-              Say goodbye to the hassle of traditonal lending<br /> process - with our
-              streamlined process, you can<br />navigate international transactions
-              with ease.
+            <p>
+              Revolutionizing Lending Services with Cutting-Edge Technology.
+              Manage loan requests, disbursements, and repayments through our
+              innovative, user-friendly platform for both USSD and web users.
             </p>
 
-            <div className={`${styles.inputGroup} pt-8 `}>
-              <input type="email" className={`${styles.input} `} id="Email" name="Email" placeholder="Enter your email" autoComplete="on" />
-              <input className={`${styles.buttonSubmit} `} value="Subscribe" type="submit" />
+            <div className={`${styles.inputGroup} pt-8 gap-4`}>
+              <Link
+                href="/"
+                className={`plain-bg-color primary-color px-4 py-2 rounded-md font-bold`}
+              >
+                Sign Up Now
+              </Link>
+              <Link
+                href="/"
+                className={`accent-bg-color plain-color px-4 py-2 rounded-md font-bold `}
+              >
+                Learn More
+              </Link>
             </div>
           </div>
 
-          <div className={`${styles.imgBox} `}>
+          <Image
+            src="/hero.jpg"
+            alt="coastlink24 dashboard ui"
+            width={900}
+            height={800}
+            className="w-[40%] rounded-lg"
+          />
+
+          {/* <div className={`${styles.imgBox} `}>
             <div className="imgHolder flex flex-col justify-center">
               <Image
                 src="/piggybank.jpg"
@@ -45,13 +64,24 @@ export default function Home() {
               />
             </div>
             <Image src="/BusinessPhone.jpg" alt="chart" width={100} height={100} className={`${styles.imageTwo} p-2`}/>
-          </div>
+          </div> */}
         </div>
+        <Image
+          src="/shape-2.png"
+          alt="clip art illustration"
+          width={1000}
+          height={1000}
+          className="absolute top-0 right-0"
+        />
       </div>
 
       {/* Cients logo */}
-      <div className={`${styles.clientLogoCont} p-12 flex items-center justify-center`}>
-        <p className="font-bold text-xl">Shh Our clints Logo are coming up..........Watch Out!</p>
+      <div
+        className={`${styles.clientLogoCont} p-12 flex items-center justify-center`}
+      >
+        <p className="font-bold text-xl">
+          Shh Our clints Logo are coming up..........Watch Out!
+        </p>
         {/* <Carousel /> */}
       </div>
     </div>
