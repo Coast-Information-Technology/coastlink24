@@ -6,7 +6,7 @@ import Image from "next/image";
 export const LandingNav = () => {
   return (
     <div
-      className={`${styles.landingNavCont} bg-transparent absolute w-full z-30`}
+      className={`${styles.landingNavCont} bg-transparent absolute w-full z-30 top-0`}
     >
       <Link href="/" className="logoBox flex items-center">
         <Image
@@ -20,6 +20,13 @@ export const LandingNav = () => {
 
       <div className={`${styles.nav}`}>
         <ul role="list" className={`${styles.navList} `}>
+          <Link
+            href="/"
+            role="listitem"
+            className={`${styles.navListItem} plain-color`}
+          >
+            Home
+          </Link>
           <Link
             href="#"
             role="listitem"
