@@ -3,6 +3,7 @@ import styles from "./styles/landing.module.css";
 import { LandingNav } from "@/components/landingNav/LandingNav";
 import Image from "next/image";
 import Link from "next/link";
+// import Carousel  from '@/components/carousel/Carousel'
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
         <div className={`${styles.heroSect} `}>
           <div className={`${styles.heroTextBox} `}>
             <h1 className={`${styles.mainText} `}>
-              Elevate Your Lending Process With Our Seamless Money Conversion
+              Welcome to Coastlink24 – Your Trusted <span className="text-primary">Fintech Solution for Lenders</span>
             </h1>
             <p className="pt-2 text-justify">
               Say goodbye to the hassle of traditonal lending<br /> process - with our
@@ -51,9 +52,7 @@ export default function Home() {
       {/* Cients logo */}
       <div className={`${styles.clientLogoCont} p-12 flex items-center justify-center`}>
         <p className="font-bold text-xl">Shh Our clints Logo are coming up..........Watch Out!</p>
-        <div className="logoCaurosel">
-
-        </div>
+        {/* <Carousel /> */}
       </div>
     </div>
   );

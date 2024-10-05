@@ -8,6 +8,7 @@ const config = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+  
   prefix: "",
   theme: {
     container: {
@@ -18,6 +19,9 @@ const config = {
       },
     },
     extend: {
+      colors: {
+        primary: '#005dfa', // Add custom primary color here
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

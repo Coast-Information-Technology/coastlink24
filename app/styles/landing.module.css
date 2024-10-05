@@ -1,5 +1,6 @@
 .landingCont {
-     background-color: rgb(193, 229, 250); 
+     background-color:#fff;
+      /* rgb(193, 229, 250);  */
         /* background: linear-gradient(300deg,deepskyblue,darkviolet,rgb(34, 125, 245));
         background-size: 180% 180%;
         animation: gradient-animation 18s ease infinite; */
@@ -69,7 +70,7 @@
     padding: .5em 1em;
     border: none;
     border-radius: 0 6px 6px 0;
-    background-color: rgb(46, 46, 238);
+    background-color:#005dfa;
     color: #ffffff;
     font-size: 15px;
     cursor: pointer;
