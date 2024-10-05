@@ -6,14 +6,15 @@ import Image from "next/image";
 export const LandingNav = () => {
   return (
     <div
-      className={`${styles.landingNavCont} bg-transparent absolute w-full z-30 top-0`}
+      className={`${styles.landingNavCont} bg-transparent absolute w-full z-30 top-0 p-6`}
     >
       <Link href="/" className="logoBox flex items-center">
         <Image
+          className="mt-6"
           src="/Coastlink-brandlogo.png"
           alt="CoastLink24"
-          width={150}
-          height={150}
+          width={210}
+          height={180}
         />
         {/* <h2 className="text-blue-900 text-xl text-primary font-bold">CoastLink24</h2> */}
       </Link>

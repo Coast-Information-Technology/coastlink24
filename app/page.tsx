@@ -43,7 +43,7 @@ export default function Home() {
             alt="coastlink24 dashboard ui"
             width={900}
             height={800}
-            className="w-[40%] rounded-lg"
+            className="w-[45%] rounded-lg"
           />
 
           {/* <div className={`${styles.imgBox} `}>
