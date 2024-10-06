@@ -99,15 +99,20 @@
   --fs-lg-primary-heading: 3rem;
   --fs-md-primary-heading: 2.5rem;
   --fs-sm-primary-heading: 2rem;
-  --fs-xsm-primary-heading: 1.5rem;
+  --fs-xsm-primary-heading: 0.8rem;
 
   --fs-lg-secondary-heading: 2.4rem;
-  --fs-md-secondary-heading: 2rem;
-  --fs-sm-secondary-heading: 1.7rem;
-  --fs-xsm-secondary-heading: 1.2rem;
+  --fs-md-secondary-heading: 1.6rem;
+  --fs-sm-secondary-heading: 1rem;
+  --fs-xsm-secondary-heading: 1rem;
+
+  --fs-lg-tertiary-heading: 1.7rem;
+  --fs-md-tertiary-heading: 1.4rem;
+  --fs-sm-tertiary-heading: 1rem;
+  --fs-xsm-tertiary-heading: 0.5rem;
 
   --lg-padding: 2rem;
-  --md-padding: 1.5rem;
+  --md-padding: 1.5rem; 
   --sm-padding: 1rem;
   --xs-padding: 0.6rem;
 
@@ -118,6 +123,12 @@
   --section-paddding-block-start-mobile: 7.2rem;
   --section-paddding-block-start-tablet: 8.1rem;
   --section-paddding-block-start-desktop: 4.5rem;
+
+  /* not for hero section */
+  --section-paddding-block-start-mobiles: 2rem;
+  --section-paddding-block-start-tablets: 2.5rem;
+  --section-paddding-block-start-desktops: 1.4rem;
+
 }
 
 /* 1.   Global variables ends */
@@ -224,11 +235,11 @@ svg {
   white-space: no-wrap;
   border: 0;
 }
-
+/* Mobile view */
 .primary-heading {
   font-size: var(--fs-sm-primary-heading);
   font-family: var(--ff-heading);
-  font-weight: var(--fw-bold);
+  /* font-weight: var(--fw-bold); */
   line-height: 1.1;
 }
 
@@ -237,6 +248,17 @@ svg {
   font-family: var(--ff-heading);
   font-weight: var(--fw-bold);
   line-height: 1.1;
+}
+
+.tertiary-heading{
+  font-size: var(--fs-md-tertiary-heading);
+  font-family: var(--ff-heading);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+
+.p-primary-heading{
+  font-size: var(--fs-xsm-primary-heading);
 }
 
 .cta {
@@ -252,6 +274,22 @@ svg {
 
 .primary-cta:hover {
   color: #fff;
+  font-weight: bold;
+  background: rgb(131, 58, 180);
+  background: -moz-linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 113, 253, 1) 50%, rgba(155, 69, 252, 1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgb(177, 203, 247) 50%, rgba(155, 69, 252, 1) 100%);
+  background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 113, 253, 1) 50%, rgba(155, 69, 252, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4", endColorstr="#9b45fc", GradientType=1);
+}
+
+.second-primary-cta {
+  background-color: var(--clr-primary) ;
+  color: var(--clr-white) ;
+}
+
+.second-primary-cta:hover {
+  color: #fff;
+  border:none;
   font-weight: bold;
   background: rgb(131, 58, 180);
   background: -moz-linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 113, 253, 1) 50%, rgba(155, 69, 252, 1) 100%);
@@ -284,6 +322,29 @@ svg {
   border: 1.5px solid var(--clr-primary);
   font-weight: var(--fw-bold);
 }
+
+.headColor{
+  color: var(--clr-primary);
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-gradent-primary {
+  background: linear-gradient(270deg, #225ce3, #05235f);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+}
+
 
 .footer {
   background-color: var();
@@ -330,11 +391,17 @@ svg {
   padding-block: var(--section-padding-block);
 } */
 
+
 .section-padding-block-start {
   padding-block-start: var(--section-paddding-block-start-mobile);
   padding-inline: 1.5rem;
   background-color: var(--clr-primary);
 }
+
+.section-padding-blocks{
+  padding-block-start: var(--section-paddding-block-start-mobiles);
+}
+
 
 .even-columns {
   display: grid;
@@ -361,6 +428,28 @@ svg {
   color: var(--clr-grey);
 }
 
+.bg-secondary-color {
+  background-color: var(--clr-grey);
+}
+
+.imageCard{
+  width: 100%;
+  height: 100%;
+}
+
+.card-img-top{
+  height: 100%;
+  width: 100%;
+}
+
+.imageCardBenefit{
+  width: 100%;
+  height:100%;
+}
+
+
+
+/* Desktop View*/
 /* Change media query size to 375px (23.4375 em) for frontend mentor */
 @media (min-width: 768px) {
 
@@ -372,9 +461,58 @@ svg {
     font-size: var(--fs-lg-primary-heading);
   }
 
+  .secondary-heading {
+    font-size: var(--fs-md-secondary-heading);
+  }
+
+  .tertiary-heading{
+    font-size: var(--fs-md-tertiary-heading);
+  
+  }
+
   .section-padding-block-start {
     padding-block: var(--section-paddding-block-start-tablet);
   }
+
+ .section-padding-blocks {
+    padding-block: var(--section-paddding-block-start-tablets);
+  }
+
+  .second-primary-cta {
+    background-color: var(--clr-primary) ;
+    color: var(--clr-white) ;
+  }
+  
+  .second-primary-cta:hover {
+    color: #fff;
+    border:none;
+    font-weight: bold;
+    background: rgb(131, 58, 180);
+    background: -moz-linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 113, 253, 1) 50%, rgba(155, 69, 252, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgb(177, 203, 247) 50%, rgba(155, 69, 252, 1) 100%);
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 113, 253, 1) 50%, rgba(155, 69, 252, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4", endColorstr="#9b45fc", GradientType=1);
+  }
+  
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .bg-gradent-primary {
+    background: linear-gradient(270deg, #225ce3, #05235f);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+  
 
   .footer .even-columns {
     display: grid;
@@ -411,6 +549,8 @@ svg {
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
   }
+
+  
 }
 
 /* 3.   Utility Classes ends */
