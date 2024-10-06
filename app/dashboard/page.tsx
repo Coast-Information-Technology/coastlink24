@@ -28,7 +28,7 @@ const DashboardPage: React.FC<Props> = () => {
     <div>
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="text-white bg-gradient-to-r from-purple-500 from-10% via-purple-600 via-20% to-purple-900 to-90%">
+          <Card className="plain-color bg-gradient-to-r from-purple-500 from-10% via-purple-600 via-20% to-purple-900 to-90%">
             <CardHeader className="pb-4">
               <CardTitle>Total Loans</CardTitle>
               <CardDescription></CardDescription>

@@ -1,35 +1,14 @@
-.landingCont {
+/* .heroSection {
   background-color: #005dfa;
-  /* rgb(193, 229, 250);  */
-  /* background: linear-gradient(300deg,deepskyblue,darkviolet,rgb(34, 125, 245));
-        background-size: 180% 180%;
-        animation: gradient-animation 18s ease infinite; */
   overflow: hidden;
   padding-top: 5rem;
   height: 111vh;
 }
 
-/*       
-      @keyframes landingCont {
-        0% {
-          background-position: 0% 50%;
-        }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      } */
-
-
-.heroSect {
-  /* height: 100vh; */
+.landingCont {
   width: 100vw;
   padding: 2rem 4rem;
-  display: flex;
-  gap: 6rem;
-  justify-items: space-between;
+  display: grid;
   overflow: hidden;
 }
 
@@ -43,15 +22,12 @@
   color: #fff;
 }
 
-
 .mainText {
-  font-size: 2.83rem;
+  font-size: 2rem;
   font-weight: bolder;
-  padding: 1rem 0rem;
 }
 
-/* style for email subcription */
-.inputGroup {
+.ctaGroup {
   display: flex;
   align-items: start;
   justify-content: flex-start;
@@ -103,12 +79,10 @@
   padding: 6rem 0rem;
   justify-content: center;
   gap: 0.71rem;
-  /* border: 1px solid red; */
 }
 
 .imgHolder {
   display: flex;
-  /* s */
   justify-content: center;
 }
 
@@ -123,3 +97,17 @@
   height: 100%;
   border-radius: 1rem;
 }
+
+@media (min-width: 481px) {
+  .heroSect {
+    flex-direction: column;
+  }
+
+  .heroTextBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+} */

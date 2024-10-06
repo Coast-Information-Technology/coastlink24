@@ -4,40 +4,604 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 47.9 95.8% 53.1%;
+    --primary-foreground: 26 83.3% 14.1%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 20 14.3% 4.1%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 47.9 95.8% 53.1%;
+    --primary-foreground: 26 83.3% 14.1%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 35.5 91.7% 32.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+/* Table of Content */
+
+/* 1.   Global variables*/
+
+/* 2.   Basic resets */
+
+/* 3.   Utility Classes */
+
+/* 4.   General styling */
+
+/* Table of Content ends*/
+
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+
+/* 1.   Global variables*/
+:root {
+  --clr-primary: hsl(218, 100%, 49%);
+  --clr-white: hsl(218, 100%, 100%);
+  --clr-grey: hsl(240, 2%, 89%);
+
+  --ff-body: "Poppins", sans-serif;
+  --ff-heading: "Spectral", serif;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  --fs-xs: 0.9rem;
+  --fs-sm: 1rem;
+  --fs-md: 1.875rem;
+  --fs-lg: 2.5rem;
+
+  --fs-lg-primary-heading: 3rem;
+  --fs-md-primary-heading: 2.5rem;
+  --fs-sm-primary-heading: 2rem;
+  --fs-xsm-primary-heading: 1.5rem;
+
+  --fs-lg-secondary-heading: 2.4rem;
+  --fs-md-secondary-heading: 2rem;
+  --fs-sm-secondary-heading: 1.7rem;
+  --fs-xsm-secondary-heading: 1.2rem;
+
+  --lg-padding: 2rem;
+  --md-padding: 1.5rem;
+  --sm-padding: 1rem;
+  --xs-padding: 0.6rem;
+
+  --cta-padding-block: 0.6rem;
+  --cta-padding-inline: 1.2rem;
+
+  --section-padding-block: var(--lg-padding);
+  --section-paddding-block-start-mobile: 7.2rem;
+  --section-paddding-block-start-tablet: 8.1rem;
+  --section-paddding-block-start-desktop: 4.5rem;
+}
+
+/* 1.   Global variables ends */
+
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+
+/* 2.   Basic resets */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+html,
 body {
-  font-family: "Spectral", serif;
-  font-optical-sizing: auto;
+  min-height: 100%;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Spectral", serif;
+/* Set core body defaults */
+body {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+  font-size: 12px;
 }
 
-.primary-color {
-  color: #005dfa;
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
 }
 
-.primary-bg-color {
-  background-color: #005dfa;
+/* Remove all underline decoration from anchor tags */
+a {
+  text-decoration: none;
 }
 
-.plain-color {
+/* Remove border from all buttons and center the text within */
+
+button,
+button:is(:hover, :focus-visible) {
+  border: 0;
+  line-height: 0;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 2.   Basic resets ends */
+
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+
+/* 3.   Utility Classes*/
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: no-wrap;
+  border: 0;
+}
+
+.primary-heading {
+  font-size: var(--fs-sm-primary-heading);
+  font-family: var(--ff-heading);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+
+.secondary-heading {
+  font-size: var(--fs-sm-secondary-heading);
+  font-family: var(--ff-heading);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
+
+.cta {
+  font-weight: var(--fw-bold);
+  padding-block: var(--cta-padding-block);
+  padding-inline: var(--cta-padding-inline);
+}
+
+.primary-cta {
+  background-color: var(--clr-white);
+  color: var(--clr-primary);
+}
+
+.primary-cta:hover {
   color: #fff;
+  font-weight: bold;
+  background: rgb(131, 58, 180);
+  background: -moz-linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 113, 253, 1) 50%, rgba(155, 69, 252, 1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgb(177, 203, 247) 50%, rgba(155, 69, 252, 1) 100%);
+  background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(29, 113, 253, 1) 50%, rgba(155, 69, 252, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4", endColorstr="#9b45fc", GradientType=1);
 }
 
-.plain-bg-color {
-  background-color: #fff;
+.secondary-cta {
+  background-color: var(--clr-grey);
+  color: var(--clr-white);
+  font-weight: var(--fw-bold);
 }
 
-.accent-color {
-  color: #ccccff;
+.secondary-cta:hover {
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+  font-weight: var(--fw-bold);
 }
 
-.accent-bg-color {
-  background-color: #ccccff;
+.tertiary-cta {
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+  font-weight: var(--fw-bold);
+}
+
+.tertiary-cta:hover {
+  background-color: transparent;
+  color: var(--clr-primary);
+  border: 1.5px solid var(--clr-primary);
+  font-weight: var(--fw-bold);
+}
+
+.footer {
+  background-color: var();
+  color: var();
+}
+
+.container {
+  --max-width: 69.375rem;
+  --padding: var(--lg-padding);
+
+  width: min(var(--max-width), 100% - (var(--padding) * 2));
+  margin-inline: auto;
+}
+
+.button {
+  display: inline-flex;
+  cursor: pointer;
+  border: 0;
+  border-radius: 100vmax;
+  padding: max(1.8em, 1.3em) max(2em, 1em);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  color: var(--clr-neutral-very-pale-red);
+  background-color: var(--clr-primary-bright-red);
+  /* box-shadow: 0 1.125em 1em 1em var(--clr-primary-bright-red); */
+}
+
+.button[data-type="inverted"] {
+  background-color: var(--clr-neutral-very-pale-red);
+  color: var(--clr-primary-bright-red);
+}
+
+.button:is(:hover, :focus-visible) {
+  background-color: var(--clr-neutral-bright-red-hover);
+}
+
+.button[data-type="inverted"]:is(:hover, :focus-visible) {
+  border: none;
+  background-color: var(--clr-neutral-very-pale-red);
+  color: var(--clr-neutral-bright-red-hover);
+}
+
+/* .section-padding-block {
+  padding-block: var(--section-padding-block);
+} */
+
+.section-padding-block-start {
+  padding-block-start: var(--section-paddding-block-start-mobile);
+  padding-inline: 1.5rem;
+  background-color: var(--clr-primary);
+}
+
+.even-columns {
+  display: grid;
+  gap: 3rem;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
+.vertical-align-center {
+  align-items: center;
+}
+
+:where(.flow :not(:first-child)) {
+  margin-block-start: var(--flow-spacer, 2rem);
+}
+
+.text-primary {
+  color: var(--clr-primary);
+}
+
+.text-grey {
+  color: var(--clr-grey);
+}
+
+/* Change media query size to 375px (23.4375 em) for frontend mentor */
+@media (min-width: 768px) {
+
+  .justify-self-end-md {
+    justify-self: end;
+  }
+
+  .primary-heading {
+    font-size: var(--fs-lg-primary-heading);
+  }
+
+  .section-padding-block-start {
+    padding-block: var(--section-paddding-block-start-tablet);
+  }
+
+  .footer .even-columns {
+    display: grid;
+    background-color: var(--clr-primary-bright-red);
+    padding-inline: var(--section-padding-block);
+    gap: var(--md-padding);
+    grid-template-areas: "logo-social nav form";
+  }
+
+  .footer .even-columns> :nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    /* padding: var(--lg-padding); */
+    grid-area: logo-social;
+  }
+
+  .footer .even-columns> :nth-child(2) {
+    grid-area: nav;
+  }
+
+  .footer .even-columns> :nth-child(3) {
+    padding-block: var(--lg-padding);
+    gap: var(--section-padding-block);
+    grid-area: form;
+  }
+
+  input {
+    margin-block-end: 0.7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .even-columns {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+}
+
+/* 3.   Utility Classes ends */
+
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+/****************************************************************************************************************/
+
+/* 4.   General styling */
+
+body {
+  font-size: var(--fs-body);
+  font-family: var(--ff-body);
+  font-weight: var(--fw-regular);
+  color: var(--clr-primary-dark-blue);
+}
+
+/* navigation */
+
+.primary-header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: 100vw;
+  background-color: var(--clr-neutral-very-light-gray);
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+}
+
+.app-logo {
+  width: 8rem;
+}
+
+.mobile-nav-toggle {
+  display: none;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(var(--md-padding), 5vw, var(--lg-padding));
+  font-size: var(--fs-nav);
+}
+
+/* social list */
+.social-list {
+  display: flex;
+  gap: var(--sm-padding);
+  justify-content: center;
+  align-items: center;
+}
+
+.social-icon {
+  width: var(--fs-md);
+  aspect-ratio: 1;
+  fill: var(--clr-neutral-very-pale-red);
+}
+
+.social-list a:is(:hover, :focus) .social-icon {
+  fill: var(--clr-primary-bright-red);
+}
+
+/* footer navigation */
+.footer-nav {
+  width: 100%;
+  columns: 2;
+}
+
+.footer-nav a {
+  color: var(--clr-neutral-very-pale-red);
+}
+
+.footer-nav a:is(:hover, :focus) {
+  color: var(--clr-neutral-very-dark-blue);
+}
+
+p {
+  font-size: var(--fs-sm);
+}
+
+@media (max-width: 800px) {
+  .nav-list {
+    gap: var(--xs-padding);
+  }
+}
+
+@media (max-width: 677px) {
+
+  /* Navigation */
+  .primary-navigation {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: min(10vh, 10rem) 2rem;
+  }
+
+  .header-cta {
+    display: none;
+  }
+
+  .primary-navigation[data-visible] {
+    display: block;
+  }
+
+  .nav-list {
+    position: absolute;
+    z-index: 10;
+    flex-direction: column;
+    inset: 5em 2em auto;
+    align-items: center;
+    overflow-x: hidden;
+    justify-content: space-between;
+    gap: var(--lg-padding);
+    background: var(--clr-neutral-very-light-gray);
+    font-weight: var(--fw-bold);
+    box-shadow: 0 0 2 rgba(3, 3, 3, 0.5);
+    border-radius: 0.25rem;
+    padding-block: 2rem;
+  }
+
+  .nav-list li {
+    flex: 1;
+  }
+
+  .nav-list:is(:hover, :focus-visible) {
+    color: var(--clr-neutral-very-pale-red);
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+    position: fixed;
+    right: 2rem;
+    cursor: pointer;
+    z-index: 100;
+    background: transparent;
+  }
+
+  .mobile-nav-toggle .icon-close {
+    display: none;
+  }
+
+  /* cta */
+  .cta {
+    text-align: left;
+  }
+}
+
+/* 4.   General styling ends */
+
+main {
+  margin-block-start: var(--xs-padding);
+}
+
+section li {
+  --flow-spacer: 1rem;
+  margin-block-end: var(--flow-spacer);
+}
+
+p {
+  font-size: var(--fs-xs);
+}
+
+p:not([class]) {
+  opacity: 0.5;
+  max-width: 35ch;
+  color: var(--clr-neutral-very-light-gray);
+}
+
+p[data-width="wide"] {
+  max-width: 42ch;
+}
+
+.cta {
+  position: relative;
+  isolation: isolate;
+  text-align: center;
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background-position: -15rem -5rem, 50rem -42rem;
+  background-repeat: no-repeat;
+  opacity: 0.1;
 }
