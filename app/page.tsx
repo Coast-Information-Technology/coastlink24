@@ -248,7 +248,7 @@ export default function Home() {
             </h2>
             
             {/* Section Description */}
-            <p className="mx-auto mb-8 max-w-2xl font-light  p-primary-heading sm:text-xl">
+            <p className="mx-auto mb-8 max-w-2xl font-light text-sm  p-primary-heading sm:text-xl">
             Join Coastlink24 and elevate your lending business to new heights. Whether you're looking to manage loan requests, improve loan disbursement efficiency, or automate collections, Coastlink24 is your one-stop solution for all things lending.
             </p>
             
