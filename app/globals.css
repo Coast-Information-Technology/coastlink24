@@ -424,8 +424,11 @@ svg {
   color: var(--clr-primary);
 }
 
-.text-grey {
+.text-secondary {
   color: var(--clr-grey);
+}
+.text-tertiary {
+  color: #fff;
 }
 
 .bg-secondary-color {
