@@ -7,6 +7,7 @@ import carouselStyles from './styles/carousel.module.css';
 import { FaCircle } from "react-icons/fa";
 import { Badge } from "@/components/ui/badge"
 import { Footer } from "@/components/footer/Footer";
+import WhatsAppForm from "@/components/contact/WhatsAppForm";
 
 
 export default function Home() {
@@ -157,44 +158,55 @@ export default function Home() {
       
       {/* Who can benefit */}
       <section className="flex flex-col items-center gap-8 sm:ps-4 md:p-6 lg:p-8 pb-8 pt-2 ">
-      <h4 className="text-primary tertiary-heading headColor pt-12">WHO CAN BENEFIT FROM COASTLINK24?</h4>
-
-
         {/* Responsive grid container */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
-          
-          {/* Card 1 */}
-          <div className="imgText gap-4 flex flex-col md:flex-row items-center justify-center p-4">
-            <Image src='/featuresBusines.jpg' alt='' width={100} height={100} className="imageCardBenefit"/>
-            
-            <span className="flex flex-col gap-2 text-center md:text-left">
-              <h3 className="text-lg tertiary-heading text-primary pt-4">Lenders</h3>                
-              <p className="text-justify">
-                From micro-lenders to established financial institutions, Coastlink24 offers a versatile platform that supports <strong>loan origination, management, and repayment tracking</strong>. Manage your loan portfolio with ease and scale your operations.
-              </p>
-            </span>
-          </div>
+        <div className="bg-secondary-color w-full">
+          <div className=" py-16 px-4">
+            <h2 className="text-primary tertiary-heading headColor pt-0 pb-8 text-center">WHO CAN BENEFIT FROM COASTLINK24?</h2>
 
-          {/* Card 2 */}
-          <div className="imgText gap-4 flex flex-col md:flex-row items-center justify-center p-4">
-            <Image src='/featuresBusines.jpg' alt='' width={100} height={100} className="imageCardBenefit"/>
-            <span className="flex flex-col gap-2 text-center md:text-left">
-              <h3 className="text-lg text-primary pt-4 tertiary-heading">Borrowers</h3>
-              <p className="text-justify">
-                From micro-lenders to established financial institutions, Coastlink24 offers a versatile platform that supports <strong>loan origination, management, and repayment tracking</strong>. Manage your loan portfolio with ease and scale your operations.
-              </p>
-            </span>
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-md:max-w-md mx-auto">
+              {/* Lenders */}
+              <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg hover:shadow-blue-700/50 transition-all">
+                <div className="p-8">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#007bff" className="w-8 mb-6" viewBox="0 0 640 512">
+                    <path d="M344 416H120c-26.51 0-48-21.49-48-48V144c0-26.51 21.49-48 48-48h224c23.5 0 44.23 14.88 52.13 36.31l73.59 172.44c8.39 20.1-5.08 43.25-27.96 43.25H344z" />
+                  </svg>
+                  <h3 className="secondary-heading  mb-3">Lenders</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">From micro-lenders to established financial institutions, Coastlink24 offers a versatile platform that supports <strong>loan origination, management, and repayment tracking</strong>. Manage your loan portfolio with ease and scale your operations.</p>
+                </div>
+              </div>
+              
+              {/*Borrowers */}
+              <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg hover:shadow-blue-700/50 transition-all">
+                <div className="p-8">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="#007bff" className="w-8 mb-6" viewBox="0 0 576 512">
+                    <path d="M288 96c-45.48 0-87.94 17.62-119.6 49.48C138.04 174.9 128 203.79 128 232v32c0 10.84 1.37 21.36 4 31.25L96 335.05v37.65c0 24.35 19.65 44 44 44h242.41c-8.32-14.63-14.57-30.83-18.04-48H192c-13.25 0-24-10.75-24-24v-24h224v-32h-224v-24c0-13.25 10.75-24 24-24h224c14.14 0 26.63 4.08 37.32 10.88l39.68-39.68A191.49 191.49 0 0 0 288 96zM464 384c0 13.25-10.75 24-24 24H256c-13.25 0-24-10.75-24-24v-48h128c22.06 0 42.12-6.08 60.11-16.44l49.4 49.4c14.53 14.53 20.47 35.61 17.06 55.06z" />
+                  </svg>
+                  <h3 className="secondary-heading mb-3">Support</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">Borrowers enjoy an easy, transparent loan process with <strong> instant approvals</strong> and flexible repayment terms. Coastlink24 offers multiple access points, including USSD for borrowers without internet access..</p>
+                </div>
+              </div>
 
-          {/* Card 3 */}
-          <div className="imgText gap-4 flex flex-col md:flex-row items-center justify-center p-4">
-            <Image src='/featuresBusines.jpg' alt='' width={100} height={100} className="imageCardBenefit"/>
-            <span className="flex flex-col gap-2 text-center md:text-left">
-              <h3 className="text-lg text-primary pt-2 tertiary-heading">Lenders Team</h3>
-              <p className="text-justify">
-                Empower your team with <strong>collaborative tools</strong> to monitor and manage loan applications, track disbursements, and improve customer interactions—all from a single, intuitive platform.
-              </p>
-            </span>
+
+              {/* Lenders Team */}
+              <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg hover:shadow-blue-700/50 transition-all">
+                <div className="p-8">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="#007bff" className="w-8 mb-6" viewBox="0 0 682.667 682.667">
+                    <defs>
+                      <clipPath id="a" clipPathUnits="userSpaceOnUse">
+                        <path d="M0 512h512V0H0Z" data-original="#000000" />
+                      </clipPath>
+                    </defs>
+                    <g fill="none" stroke="#007bff" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="40" clipPath="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
+                      <path d="M256 492 60 410.623v-98.925C60 183.674 137.469 68.38 256 20c118.53 48.38 196 163.674 196 291.698v98.925z" data-original="#000000" />
+                      <path d="M178 271.894 233.894 216 334 316.105" data-original="#000000" />
+                    </g>
+                  </svg>
+                  <h3 className="secondary-heading mb-3">Lenders Team</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">Empower your team with <strong>collaborative tools</strong> to monitor and manage loan applications, track disbursements, and improve customer interactions—all from a single, intuitive platform.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -248,7 +260,7 @@ export default function Home() {
             </h2>
             
             {/* Section Description */}
-            <p className="mx-auto mb-8 max-w-2xl font-light text-sm  p-primary-heading sm:text-xl">
+            <p className="mx-auto mb-8 max-w-2xl font-light p-primary-heading sm:text-xl">
             Join Coastlink24 and elevate your lending business to new heights. Whether you're looking to manage loan requests, improve loan disbursement efficiency, or automate collections, Coastlink24 is your one-stop solution for all things lending.
             </p>
             
@@ -272,7 +284,7 @@ export default function Home() {
             </div>
               <div className="mx-auto max-w-screen-sm text-sm text-left text-gray-500 dark:text-gray-300 text-center">
               Sign Up Now and experience the future of lending with Coastlink24.
-                <a href="#" className="font-medium text-primary-600 hover:underline">
+                <a href="/sign-up" className="font-medium text-primary-600 hover:underline">
                 
                 </a>
               </div>
@@ -282,111 +294,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="max-w-5xl lg:max-w-full mx-auto bg-white my-6 font-sans">
-        {/* Header Section */}
-        <div className="text-center px-6">
-          <h2 className="text-gray-800 secondary-heading  text-primary font-bold">Contact Us</h2>
-          <p className="secondary-heading text-gray-500 mt-4">
-          Have questions? We're here to help.
-          </p>
-        </div>
-
-        {/* Contact Form and Information Section */}
-        <div className="grid lg:grid-cols-3 items-start gap-4 p-2 shadow-md rounded-lg mt-12">
-          {/* Contact Information */}
-          <div className="bg-gradent-primary rounded-lg p-6 h-full order-1 pt-12 lg:order-none">
-            <h2 className="text-xl text-white">Contact Information</h2>
-            <p className="text-md text-gray-300 mt-4">
-              Have questions? We're here to help.
-            </p>
-            <ul className="mt-12 space-y-8">
-              <li className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16px"
-                  height="16px"
-                  fill="#fff"
-                  viewBox="0 0 479.058 479.058"
-                >
-                  <path d="M434.146 59.882H44.912C20.146 59.882 0 80.028 0 104.794v269.47c0 24.766 20.146 44.912 44.912 44.912h389.234c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969.422 5.738 1.159L239.529 264.631 39.173 90.982a14.902 14.902 0 0 1 5.738-1.159zm0 299.411H44.912c-8.26 0-14.971-6.71-14.971-14.971V122.615l199.778 173.141c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.778-173.141v251.649c-.001 8.26-6.711 14.97-14.971 14.97z" />
-                </svg>
-                <a
-                  href="mailto:info@coastlink24.com "
-                  className="text-white text-sm text-gray-500 ml-4"
-                >
-                  info@coastlink24.com  
-                </a>
-              </li>
-              <li className="flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16px"
-                  height="16px"
-                  fill="#fff"
-                  viewBox="0 0 482.6 482.6"
-                >
-                  <path d="M98.339 320.8c47.6 56.9 104.9 101.7 170.3 133.4 24.9 11.8 58.2 25.8 95.3 28.2 2.3.1 4.5.2 6.8.2 24.9 0 44.9-8.6 61.2-26.3.1-.1.3-.3.4-.5 5.8-7 12.4-13.3 19.3-20 4.7-4.5 9.5-9.2 14.1-14 21.3-22.2 21.3-50.4-.2-71.9l-60.1-60.1c-10.2-10.6-22.4-16.2-35.2-16.2-12.8 0-25.1 5.6-35.6 16.1l-35.8 35.8c-3.3-1.9-6.7-3.6-9.9-5.2-4-2-7.7-3.9-11-6-32.6-20.7-62.2-47.7-90.5-82.4-14.3-18.1-23.9-33.3-30.6-48.8 9.4-8.5 18.2-17.4 26.7-26.1 3-3.1 6.1-6.2 9.2-9.3 10.8-10.8 16.6-23.3 16.6-36s-5.7-25.2-16.6-36l-29.8-29.8c-3.5-3.5-6.8-6.9-10.2-10.4-6.6-6.8-13.5-13.8-20.3-20.1-10.3-10.1-22.4-15.4-35.2-15.4-12.7 0-24.9 5.3-35.6 15.5l-37.4 37.4c-13.6 13.6-21.3 30.1-22.9 49.2-1.9 23.9 2.5 49.3 13.9 80 17.5 47.5 43.9 91.6 83.1 138.7z" />
-                </svg>
-                <span className="text-white text-sm text-gray-500 ml-4">
-                +234 (XXX) XXX-XXXX
-                </span>
-              </li>
-              <li className="flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg"
-                width="16px"
-                height="16px"
-                fill="#fff"
-                viewBox="0 0 384 512"
-              >
-                <path d="M168 0C75.05 0 0 75.05 0 168c0 87.4 71.6 169.5 166.6 261.6a31.94 31.94 0 0 0 44.8 0C312.4 337.5 384 255.4 384 168 384 75.05 308.95 0 216 0H168zm0 192c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48z"/>
-              </svg>
-
-                <span className="text-white text-sm text-gray-500 ml-4">
-                No. XX, Street Name, City, Nigeria
-                </span>
-              </li>
-
-            </ul>
-          </div>
-
-          {/* Contact Form Part*/}
-          <div className="lg:col-span-2 bg-white rounded-lg p-6 h-full shadow-lg">
-            <form className="grid grid-cols-1 gap-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="p-4 border border-gray-300 rounded-lg w-full focus:outline-none"
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="p-4 border border-gray-300 rounded-lg w-full focus:outline-none"
-                />
-              </div>
-
-              <input
-                type="email"
-                placeholder="Email"
-                className="p-4 border border-gray-300 rounded-lg w-full focus:outline-none"
-              />
-
-              <textarea
-                placeholder="Your message"
-                rows="6"
-                className="p-4 border border-gray-300 rounded-lg w-full focus:outline-none"
-              />
-
-              <button
-                type="submit"
-                className="text-white second-primary-cta py-6 rounded-lg transition-colors duration-300"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
+      {/* Contact */}
+      <WhatsAppForm />
 
       <Footer />
         

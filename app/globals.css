@@ -446,10 +446,36 @@ svg {
 }
 
 .imageCardBenefit{
-  width: 100%;
-  height:100%;
+  width: 70%;
+  height:70%;
 }
 
+.card {
+  height: 400px; /* Set the desired height */
+  padding: 16px; /* Adjust padding */
+  display: flex; /* Ensure children are arranged vertically */
+  flex-direction: column; /* Stack content */
+  justify-content: space-between; /* Adjust spacing for content */
+}
+
+.card-img-top {
+  padding-bottom: 8px; /* Reduce bottom padding */
+  max-height: 200px; /* Limit the image height */
+}
+
+.card-text {
+  padding: 8px; /* Compact the text area */
+  overflow: hidden; /* Prevent overflow */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  color: #ffffff; /* Ensure text is visible (adjust if needed) */
+}
+
+.card-body {
+  flex-grow: 1; /* Allow body to take available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center align the text */
+}
 
 
 /* Desktop View*/
@@ -498,23 +524,7 @@ svg {
   }
   
 
-  @keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
   
-  .bg-gradent-primary {
-    background: linear-gradient(270deg, #225ce3, #05235f);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
-  }
   
 
   .footer .even-columns {
