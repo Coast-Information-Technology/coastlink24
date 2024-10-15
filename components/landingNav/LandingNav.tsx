@@ -39,26 +39,37 @@ export const LandingNav = () => {
       <div className={`${styles.nav} ${isOpen ? "flex" : "hidden lg:flex"}`}>
         <ul
           role="list"
-          className={`${styles.navList} font-bold text-[14px] gap-5 text-white`}
+          className={`${styles.navList} flex font-bold text-[14px] gap-6 text-white`}
         >
-          <Link href="/" role="listitem" className={`${styles.navListItem}`}>
-            Home
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            About
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Product Info
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Blog
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Resources
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Contact Us
-          </Link>
+          <li role="listitem" >
+          <Link href="/" className={`${styles.navListItem}`}>
+            Home</Link>
+          </li>
+
+          <li role="listitem">
+          <Link href="#" className={`${styles.navListItem}`}>
+            Features</Link>
+          </li>
+
+          <li role="listitem">
+          <Link href="#"  className={`${styles.navListItem}`}>
+            How It Works</Link>
+          </li>
+
+          <li role="listitem" >
+          <Link href="#" className={`${styles.navListItem}`}>
+            Pricing</Link>
+          </li>
+
+          <li role="listitem" >
+          <Link href="#" className={`${styles.navListItem}`}>
+            About Us</Link>
+          </li>
+
+          <li role="listitem">
+          <Link href="#"  className={`${styles.navListItem}`}>
+            Contact</Link>
+          </li>
         </ul>
 
         {/* CTA buttons for mobile */}

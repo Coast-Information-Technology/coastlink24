@@ -19,7 +19,7 @@ const WhatsAppForm = () => {
   };
 
   return (
-    <section className="max-w-5xl lg:max-w-full mx-auto bg-white my-6 font-sans">
+    <section className="max-w-5xl lg:max-w-full mx-auto bg-white my-6 font-sans p-4">
       {/* Header Section */}
       <div className="text-center px-6">
         <h2 className="text-gray-800 secondary-heading text-primary font-bold">Contact Us</h2>
@@ -68,7 +68,7 @@ const WhatsAppForm = () => {
                 <path d="M168 0C75.05 0 0 75.05 0 168c0 87.4 71.6 169.5 166.6 261.6a31.94 31.94 0 0 0 44.8 0C312.4 337.5 384 255.4 384 168 384 75.05 308.95 0 216 0H168zm0 192c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48z" />
               </svg>
               <span className="text-white text-sm text-gray-500 ml-4">
-                Coast House, opposite NMPC, Olopomewa, Ibadan, Nigeria
+                Coast House, opposite NMPC, Ibadan Poly Road, Ibadan, Oyo State, Nigeria.
               </span>
             </li>
           </ul>

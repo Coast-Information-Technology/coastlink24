@@ -63,7 +63,7 @@ export default function Home() {
       <section className="section-padding-block py-8 flex flex-col items-center gap-6">
         <h2 className="text-primary headColor tertiary-heading ">OUR PARTNERS</h2>
         <div className={`${carouselStyles.brandCarousel} flex items-center justify-evenly gap-12`}>
-          <img src="/partners/Coastlink24.png" alt="..." width={50} height={100} className={carouselStyles.carouselImage} />
+          <img src="/partners/logo.webp" alt="..." width={100} height={100} className={`${carouselStyles.carouselImage} bg-purple-800`} />
           <img src="/partners/Coast.jpeg" alt="logo2" width={50} height={100} className={carouselStyles.carouselImage} />
           <img src="/partners/Coast.jpeg" alt="logo2" width={50} height={100} className={carouselStyles.carouselImage} />
           <img src="/partners/Coastlink24.png" alt="..." width={50} height={100} className={carouselStyles.carouselImage} />
@@ -127,19 +127,19 @@ export default function Home() {
               <FaCircle color=" hsl(240, 2%, 89%)" />
                 <h3 className="secondary-heading text-primary py-4 ">Efficient Borrower Management</h3>
               </span>
-              <p className="text-justify px-6">Track every borrower's <strong>loan history</strong>, repayment progress, and disbursement details in one place. Coastlink24 allows lenders to easily access borrower profiles and stay on top of every loan.</p>
+              <p className="text-justify px-6">Track every borrower's loan history, repayment progress, and disbursement details in one place. Coastlink24 allows lenders to easily access borrower profiles and stay on top of every loan.</p>
 
               <span className="flex flex-row items-center gap-2">
                   <FaCircle color=" hsl(240, 2%, 89%)" />
                 <h3 className="secondary-heading text-primary py-4 ">Customizable Loan Products</h3>
               </span>
-              <p className="text-justify px-6">Tailor your loan offerings to fit diverse borrower needs. With our,<strong>flexible loan product settings</strong>lenders can adjust interest rates, loan tenures, and repayment structures to meet the demands of different clients.</p>
+              <p className="text-justify px-6">Tailor your loan offerings to fit diverse borrower needs. With our,<strong> flexible loan product settings</strong> lenders can adjust interest rates, loan tenures, and repayment structures to meet the demands of their different products.</p>
 
               <span className="flex flex-row items-center gap-2">
                   <FaCircle color=" hsl(240, 2%, 89%)" />
                   <h3 className="secondary-heading text-primary py-4 ">Automated Loan Processes</h3>
               </span>
-              <p className="text-justify px-6">Reduce administrative load and increase efficiency with our<strong>automated loan approval</strong> and processing system. Coastlink24 handles the heavy lifting, from loan applications to final disbursements, ensuring faster turnaround times.</p>
+              <p className="text-justify px-6">Reduce administrative load and increase your efficiency with our<strong> automated loan approval</strong> and processing system. Coastlink24 automates the heavy lifting, from loan applications to final disbursements, ensuring faster turnaround times.</p>
 
                <span className="flex flex-row items-center gap-2">
                   <FaCircle color=" hsl(240, 2%, 89%)" />
@@ -151,7 +151,7 @@ export default function Home() {
                 <FaCircle color=" hsl(240, 2%, 89%)" />
                 <h3 className="secondary-heading text-primary py-4 ">Detailed Analytics and Reporting</h3>
               </span>
-              <p className="text-justify px-6">Gain valuable insights into your lending operations with our<strong>advanced analytics tools</strong>. Monitor loan performance, track repayment trends, and view real-time borrower activity, allowing you to make data-driven decisions.</p>
+              <p className="text-justify px-6">Gain valuable insights into your lending operations with our<strong> advanced analytics tools</strong>. Monitor loan performance, track repayment trends, and view real-time borrower activity, allowing you to make data-driven decisions.</p>
           </div> 
         </div> 
       </section>
@@ -182,7 +182,7 @@ export default function Home() {
                     <path d="M288 96c-45.48 0-87.94 17.62-119.6 49.48C138.04 174.9 128 203.79 128 232v32c0 10.84 1.37 21.36 4 31.25L96 335.05v37.65c0 24.35 19.65 44 44 44h242.41c-8.32-14.63-14.57-30.83-18.04-48H192c-13.25 0-24-10.75-24-24v-24h224v-32h-224v-24c0-13.25 10.75-24 24-24h224c14.14 0 26.63 4.08 37.32 10.88l39.68-39.68A191.49 191.49 0 0 0 288 96zM464 384c0 13.25-10.75 24-24 24H256c-13.25 0-24-10.75-24-24v-48h128c22.06 0 42.12-6.08 60.11-16.44l49.4 49.4c14.53 14.53 20.47 35.61 17.06 55.06z" />
                   </svg>
                   <h3 className="secondary-heading mb-3">Support</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">Borrowers enjoy an easy, transparent loan process with <strong> instant approvals</strong> and flexible repayment terms. Coastlink24 offers multiple access points, including USSD for borrowers without internet access..</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">Borrowers enjoy an easy, transparent loan process with <strong> instant approvals</strong> and flexible repayment terms. Coastlink24 offers multiple access points, including USSD for borrowers without internet access.</p>
                 </div>
               </div>
 

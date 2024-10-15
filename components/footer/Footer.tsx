@@ -11,42 +11,53 @@ export const Footer = () => {
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">Quick Links</h2>
           <ul role='list' className="space-y-4 flex flex-col">
-            <Link href="/" role="listiterm" className="text-secondary  hover:text-white text-sm transition-all">Products </Link>
-          
-            <Link href="/" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Pricing
+            <li role="listiterm">
+            <Link href="/products" className="text-secondary  hover:text-white text-sm transition-all">Products </Link>
+            </li>
+            <li role="listiterm">
+            <Link href="pricing/" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Pricing
             </Link>
-            <Link href="/" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Careers
+            </li>
+            <li role="listiterm">
+            <Link href="/careers" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Careers
             </Link>
+            </li>
           </ul>
         </div>
 
         <div>
           <h2 className="text-tertiary text-lg font-semibold mb-4">Follow Us</h2>
           <ul className="space-y-4 flex flex-col">
-            <Link href="/" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Github
-            </Link>
-            <Link href="/" role="listiterm" className="text-secondary  hover:text-white text-sm transition-all">LinkedIn
-            </Link>
-            <Link href="/" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Twitter 
-            </Link>
+            <li role="listiterm">
+              <Link href="/" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Github</Link>
+            </li>
+            <li role="listiterm">
+              <Link href="/" role="listiterm" className="text-secondary  hover:text-white text-sm transition-all">LinkedIn</Link>
+            </li>
+            <li role="listiterm">
+              <Link href="/" role="listiterm" className="text-secondary hover:text-white text-sm transition-all">Twitter</Link>
+            </li>
           </ul>
         </div>
 
         <div>
           <h2 className="text-white text-lg font-semibold mb-4">Company</h2>
           <ul role="list" className="space-y-4  flex flex-col">
-            <Link href="/" role="listitem" className="text-secondary hover:text-white text-sm transition-all">About
-            </Link>
-            <Link href="/"  role="listitem"className="text-secondary  hover:text-white text-sm transition-all">Privacy Policy
-            </Link> 
-            <Link href="/terms"  role="listitem"className="text-secondary hover:text-white text-sm transition-all">Terms &amp; Conditions
-            </Link>
+          <li role="listiterm">
+            <Link href="/" role="listitem" className="text-secondary hover:text-white text-sm transition-all">About</Link>
+          </li>
+          <li role="listiterm">
+            <Link href="/"  role="listitem"className="text-secondary  hover:text-white text-sm transition-all">Privacy Policy</Link> 
+          </li>
+          <li role="listiterm">
+            <Link href="/terms"  role="listitem"className="text-secondary hover:text-white text-sm transition-all">Terms &amp; Conditions</Link>
+          </li>
           </ul>
         </div>
 
         <div className="flex items-center lg:justify-center">
           <Link href='/'>
-            <Image src="/Coastlink-brandlogo.png" alt="logo" width={40} height={10} className='w-60' />
+          <Image src="/Coastlink-brandlogo.png" alt="Coastlink company logo" width={40} height={10} className='w-60' />
           </Link>
         </div>
       </div>
@@ -72,7 +83,8 @@ export const Footer = () => {
           </Link>
         </div>
 
-        <Link href='https://www.coastresearchtechnology.com.ng' className='text-secondary text-sm hover:text-tertiary'>© Coast Research Technology. All rights reserved 2024.</Link>
+        <Link href="https://www.coastresearchtechnology.com.ng" target="_blank" rel="noopener noreferrer" className='text-secondary text-sm hover:text-tertiary'>© Coast Research Technology. All rights reserved 2024.</Link>
+
       </div>
     </footer>  
 
