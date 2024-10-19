@@ -60,13 +60,14 @@ export default function Home() {
     </section>
 
       {/* Brand Logo Section */}
-      <section className="section-padding-block py-8 flex flex-col items-center gap-6">
+      <section className="section-padding-block py-8 flex mb-4 flex-col items-center gap-6">
         <h2 className="text-primary headColor tertiary-heading ">OUR PARTNERS</h2>
         <div className={`${carouselStyles.brandCarousel} flex items-center justify-evenly gap-12`}>
           <img src="/partners/logo.webp" alt="..." width={100} height={100} className={`${carouselStyles.carouselImage} bg-purple-800`} />
+          <img src="/partners/brand2.jpeg" alt="logo2" width={50} height={100} className={carouselStyles.carouselImage} />
           <img src="/partners/Coast.jpeg" alt="logo2" width={50} height={100} className={carouselStyles.carouselImage} />
-          <img src="/partners/Coast.jpeg" alt="logo2" width={50} height={100} className={carouselStyles.carouselImage} />
-          <img src="/partners/Coastlink24.png" alt="..." width={50} height={100} className={carouselStyles.carouselImage} />
+          <img src="/partners/brand3.jpeg
+          " alt="..." width={50} height={100} className={carouselStyles.carouselImage} />
           <img src="/partners/Coast.jpeg" alt="logo2" width={50} height={100} className={carouselStyles.carouselImage} />
         </div>
       </section>

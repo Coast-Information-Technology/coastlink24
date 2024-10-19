@@ -1,6 +1,6 @@
 .carouselImage{
-    height: 5%;
-    width: 5%;
+    height: 10%;
+    width: 10%;
     transition: transform 0.3s ease-in-out;
     transform-style: preserve-3d;
 }
