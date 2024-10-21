@@ -1,17 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
-import styles from "@/app/styles/landingNav.module.css";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { MenuIcon, X } from "lucide-react";
 
 export const LandingNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const isActive = (href: string) => pathname === href;
 
   return (
     <header className="bg-transparent absolute w-full z-30 top-0 px-6 flex justify-between items-center h-[15vh]">
@@ -27,68 +41,126 @@ export const LandingNav = () => {
       </Link>
 
       {/* Hamburger icon for mobile view */}
-      <div className={styles.hamburger} onClick={toggleMenu}>
-        {isOpen ? (
-          <X size={40} className="text-white relative z-50" />
-        ) : (
-          <MenuIcon size={40} className="text-white" />
-        )}
+      <div
+        className="mobile-nav-toggle cursor-pointer relative z-50 lg:hidden"
+        onClick={toggleMenu}
+        aria-label="Toggle navigation menu"
+      >
+        {!isOpen && <MenuIcon size={30} className="text-white relative z-30" />}
       </div>
 
-      {/* Navigation menu */}
-      <div className={`${styles.nav} ${isOpen ? "flex" : "hidden lg:flex"}`}>
+      <nav className={`nav ${isOpen ? "open" : ""} lg:flex lg:static`}>
+        {/* X icon inside nav */}
+        {isOpen && (
+          <div
+            className="close-menu cursor-pointer absolute top-6 right-6"
+            onClick={toggleMenu}
+            aria-label="Close navigation menu"
+          >
+            <X size={30} className="text-white" />
+          </div>
+        )}
+
         <ul
           role="list"
-          className={`${styles.navList} font-bold text-[14px] gap-5 text-white`}
+          className="nav-lists font-bold text-[14px] gap-5 text-white flex flex-col lg:flex-row justify-center items-center h-screen lg:h-auto"
         >
-          <Link href="/" role="listitem" className={`${styles.navListItem}`}>
-            Home
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            About
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Product Info
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Blog
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Resources
-          </Link>
-          <Link href="#" role="listitem" className={`${styles.navListItem}`}>
-            Contact Us
-          </Link>
+          <li>
+            <Link
+              href="/"
+              role="listitem"
+              className={`nav-list-items ${
+                isActive("/") ? "text-green-400" : ""
+              }`}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/about"
+              role="listitem"
+              className={`nav-list-items ${
+                isActive("/about") ? "text-green-400" : ""
+              }`}
+            >
+              About
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/product-info"
+              role="listitem"
+              className={`nav-list-items ${
+                isActive("/product-info") ? "text-green-400" : ""
+              }`}
+            >
+              Product Info
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/blog"
+              role="listitem"
+              className={`nav-list-items ${
+                isActive("/blog") ? "text-green-400" : ""
+              }`}
+            >
+              Blog
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/resources"
+              role="listitem"
+              className={`nav-list-items ${
+                isActive("/resources") ? "text-green-400" : ""
+              }`}
+            >
+              Resources
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/contact"
+              role="listitem"
+              className={`nav-list-items ${
+                isActive("/contact") ? "text-green-400" : ""
+              }`}
+            >
+              Contact Us
+            </Link>
+          </li>
         </ul>
 
         {/* CTA buttons for mobile */}
-        <span className={`${styles.ctaMobile} gap-2 md:hidden text-[12px]`}>
+        <span className="gap-2 md:hidden text-[12px] flex flex-col items-center">
           <Link
-            href="/"
-            className={`${styles.btnHover} secondary-cta px-4 py-2 rounded-full`}
+            href="/signup"
+            className="secondary-cta px-4 py-2 rounded-full cursor-pointer"
           >
             Sign Up Now
           </Link>
           <Link
-            href="/"
-            className={`${styles.btnHover} secondary-cta px-4 py-2 rounded-full`}
+            href="/get-started"
+            className="secondary-cta px-4 py-2 rounded-full cursor-pointer"
           >
             Get Started Now
           </Link>
         </span>
-      </div>
+      </nav>
 
       {/* CTA buttons for desktop */}
       <span className="cta gap-2 hidden lg:flex text-[12px]">
         <Link
-          href="/"
-          className={`${styles.btnHover} tertiary-cta px-3 py-2 rounded-full`}
+          href="/signup"
+          className="tertiary-cta px-3 py-2 rounded-full cursor-pointer"
         >
           Sign Up Now
         </Link>
         <Link
-          href="/"
-          className={`${styles.btnHover} tertiary-cta px-3 py-2 rounded-full`}
+          href="/get-started"
+          className="tertiary-cta px-3 py-2 rounded-full cursor-pointer"
         >
           Get Started Now
         </Link>
