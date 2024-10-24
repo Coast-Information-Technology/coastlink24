@@ -359,8 +359,27 @@ svg {
   color: var(--clr-primary);
 }
 
+.bg-primary {
+  background-color: var(--clr-primary);
+}
+
 .text-grey {
   color: var(--clr-grey);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+  cursor: pointer;
 }
 
 /* Change media query size to 375px (23.4375 em) for frontend mentor */

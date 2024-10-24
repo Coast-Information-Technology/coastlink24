@@ -37,7 +37,7 @@ const UsersPage: React.FC = () => {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
       <div className="flex items-center justify-between">
-        <div className="flex gap-4 items-end">
+        <div className="flex items-center gap-4 items-end">
           <h1 className="text-2xl font-bold">Users</h1>
 
           <div className="w-full flex-1">

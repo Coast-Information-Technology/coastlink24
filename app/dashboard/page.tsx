@@ -1,255 +1,407 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+"use client";
+
+import { useRouter } from "next/navigation";
 import {
-  CardTitle,
+  Card,
+  CardContent,
   CardDescription,
   CardHeader,
-  CardContent,
-  Card,
+  CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableCell,
-  TableBody,
-  Table,
-} from "@/components/ui/table";
+import { getTokenFromCookies } from "@/lib/cookies";
+import { useEffect, useState } from "react";
+import { getAllApiRequest, getSingleApiRequest } from "@/lib/apiRequest";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+import { SlRefresh } from "react-icons/sl";
 import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
-import { PlusCircleIcon } from "lucide-react";
+import { getTokenExpiryInDays } from "@/utils/tokenExpiry";
+import LoadingSpinner from "@/components/reusables/LoadingSpinner";
+import { formatDateTime } from "@/utils/dateTimeUtils";
+import { DataTable } from "@/components/ui/custom/data-table";
 
-interface Props {}
-
-const DashboardPage: React.FC<Props> = () => {
-  return (
-    <div>
-      <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card className="plain-color bg-gradient-to-r from-purple-500 from-10% via-purple-600 via-20% to-purple-900 to-90%">
-            <CardHeader className="pb-4">
-              <CardTitle>Total Loans</CardTitle>
-              <CardDescription></CardDescription>
-            </CardHeader>
-            <CardContent></CardContent>
-          </Card>
-          <Card className="text-white bg-gradient-to-r from-orange-500 from-10% via-orange-600 via-20% to-red-700 to-90%">
-            <CardHeader className="pb-4">
-              <CardTitle>Total Users</CardTitle>
-              <CardDescription></CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold"></div>
-            </CardContent>
-          </Card>
-          <Card className="text-white bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%">
-            <CardHeader className="pb-4">
-              <CardTitle>Video Performance</CardTitle>
-              <CardDescription></CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-sm text-gray-500 dark:text-gray-400"></div>
-            </CardContent>
-          </Card>
-          <Card className="border-dashed border-2 bg-transparent">
-            <CardHeader className="pb-4 cursor-pointer flex">
-              <PlusCircleIcon className="" />
-              <span>Add New Card</span>
-            </CardHeader>
-            <CardContent className="text-sm text-gray-500 dark:text-gray-400"></CardContent>
-          </Card>
-        </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Publish New Video</CardTitle>
-              <CardDescription>
-                Create and publish a new video to your channel.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form className="grid gap-4">
-                <Input placeholder="Video Title" />
-                <Textarea placeholder="Video Description" rows={3} />
-                <div className="flex gap-2">
-                  <Button variant="outline">Upload Thumbnail</Button>
-                  <Button>Publish Video</Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Top Performing Videos</CardTitle>
-              <CardDescription>
-                A list of your most popular videos by views.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Video</TableHead>
-                    <TableHead>Views</TableHead>
-                    <TableHead>Likes</TableHead>
-                    <TableHead>Comments</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <Image
-                          alt="Video thumbnail"
-                          className="aspect-video rounded-md object-cover"
-                          height="36"
-                          src="/placeholder.svg"
-                          width="64"
-                        />
-                        <div>
-                          <div className="font-medium">
-                            How to Grow Your YouTube Channel
-                          </div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
-                            10 min
-                          </div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>250K</TableCell>
-                    <TableCell>12K</TableCell>
-                    <TableCell>1.5K</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <Image
-                          alt="Video thumbnail"
-                          className="aspect-video rounded-md object-cover"
-                          height="36"
-                          src="/placeholder.svg"
-                          width="64"
-                        />
-                        <div>
-                          <div className="font-medium">
-                            The Best Camera Gear for Vlogging
-                          </div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
-                            15 min
-                          </div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>180K</TableCell>
-                    <TableCell>8K</TableCell>
-                    <TableCell>900</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <Image
-                          alt="Video thumbnail"
-                          className="aspect-video rounded-md object-cover"
-                          height="36"
-                          src="/placeholder.svg"
-                          width="64"
-                        />
-                        <div>
-                          <div className="font-medium">
-                            5 Tips for Better YouTube Thumbnails
-                          </div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
-                            8 min
-                          </div>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>120K</TableCell>
-                    <TableCell>6K</TableCell>
-                    <TableCell>700</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-4">
-              <CardTitle>Upcoming Playlists</CardTitle>
-              <CardDescription>
-                A list of playlists you&rsquo;re planning to create.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Playlist</TableHead>
-                    <TableHead>Videos</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">YouTube Basics</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Beginner&rsquo;s guide to YouTube
-                      </div>
-                    </TableCell>
-                    <TableCell>12</TableCell>
-                    <TableCell>
-                      <Badge
-                        className="rounded-full px-2 py-1"
-                        variant="outline"
-                      >
-                        Planned
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Advanced Editing</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Tips and tricks for video editing
-                      </div>
-                    </TableCell>
-                    <TableCell>8</TableCell>
-                    <TableCell>
-                      <Badge
-                        className="rounded-full px-2 py-1"
-                        variant="outline"
-                      >
-                        Planned
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">YouTube Growth Hacks</div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400">
-                        Strategies to grow your channel
-                      </div>
-                    </TableCell>
-                    <TableCell>15</TableCell>
-                    <TableCell>
-                      <Badge
-                        className="rounded-full px-2 py-1"
-                        variant="outline"
-                      >
-                        Planned
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </div>
-      </main>
-    </div>
-  );
+const getBadgeVariant = (status: string) => {
+  switch ((status || "").toLowerCase()) {
+    case "processing":
+      return "secondary"; // Map "warning" to "secondary"
+    case "active":
+      return "default"; // Map "success" to "default"
+    case "rejected":
+      return "destructive"; // Map "danger" to "destructive"
+    default:
+      return "default"; // Default to "default"
+  }
 };
 
-export default DashboardPage;
+// Define column configuration for DataTable with default values
+const columns = [
+  {
+    accessorKey: "id",
+    header: "Loan ID",
+  },
+  {
+    accessorKey: "phone_number",
+    header: "Phone Number",
+    cell: (info: any) => info.getValue() || "N/A", // Default for missing phone numbers
+  },
+  {
+    accessorKey: "principal_amount",
+    header: "Principal Amount",
+    cell: (info: any) =>
+      new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+      }).format(info.getValue() || 0), // Default to 0 if undefined
+  },
+  {
+    accessorKey: "tenure",
+    header: "Tenure",
+    cell: (info: any) => info.getValue() || "N/A", // Default value for missing tenure
+  },
+  {
+    accessorKey: "interest_amount",
+    header: "Interest Amount",
+    cell: (info: any) =>
+      new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+      }).format(info.getValue() || 0), // Default to 0 if undefined
+  },
+  {
+    accessorKey: "processing_fee",
+    header: "Processing Fee",
+    cell: (info: any) =>
+      new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+      }).format(info.getValue() || 0), // Default to 0 if undefined
+  },
+  {
+    accessorKey: "disbursement_status",
+    header: "Disbursement Status",
+    cell: (info: any) => (
+      <Badge variant={getBadgeVariant(info.getValue() || "N/A")}>
+        {info.getValue() || "N/A"} {/* Default status */}
+      </Badge>
+    ),
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: (info: any) => (
+      <Badge variant={getBadgeVariant(info.getValue() || "N/A")}>
+        {info.getValue() || "N/A"} {/* Default status */}
+      </Badge>
+    ),
+  },
+  {
+    accessorKey: "disbursement_date",
+    header: "Disbursement Date",
+    cell: (info: any) =>
+      info.getValue() ? formatDateTime(info.getValue()) : "N/A", // Check if value exists, otherwise return "N/A"
+  },
+  {
+    accessorKey: "mandate_reference",
+    header: "Mandate Reference",
+    cell: (info: any) => info.getValue() || "N/A", // Default for missing references
+  },
+  {
+    accessorKey: "repayment_amount",
+    header: "Repayment Amount",
+    cell: (info: any) =>
+      new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+      }).format(info.getValue() || 0), // Default to 0 if undefined
+  },
+  {
+    accessorKey: "total_repayment_amount",
+    header: "Total Repayment Amount",
+    cell: (info: any) =>
+      new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+      }).format(info.getValue() || 0), // Default to 0 if undefined
+  },
+  {
+    accessorKey: "repayment_frequency",
+    header: "Repayment Frequency",
+    cell: (info: any) => info.getValue() || "N/A", // Default frequency
+  },
+  {
+    accessorKey: "repayment_date",
+    header: "Repayment Date",
+    cell: (info: any) =>
+      info.getValue() ? formatDateTime(info.getValue()) : "N/A", // Return "N/A" if the date is invalid or missing
+  },
+  {
+    accessorKey: "total_outstanding_amount",
+    header: "Total Outstanding Amount",
+    cell: (info: any) =>
+      new Intl.NumberFormat("en-NG", {
+        style: "currency",
+        currency: "NGN",
+      }).format(info.getValue() || 0), // Default to 0 if undefined
+  },
+  {
+    accessorKey: "last_installment_date",
+    header: "Last Installment Date",
+    cell: (info: any) =>
+      info.getValue() ? formatDateTime(info.getValue()) : "N/A", // Default to "N/A" if date is not available
+  },
+  {
+    accessorKey: "created_at",
+    header: "Created Date",
+    cell: (info: any) =>
+      info.getValue() ? formatDateTime(info.getValue()) : "N/A", // Handle missing date
+  },
+  {
+    accessorKey: "updated_at",
+    header: "Updated Date",
+    cell: (info: any) =>
+      info.getValue() ? formatDateTime(info.getValue()) : "N/A", // Return "N/A" for missing or invalid dates
+  },
+];
+
+export default function Home() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loadingSpin, setLoadingSpin] = useState<boolean>(false);
+  const [loanData, setLoanData] = useState<any[]>([]);
+  const [loanHistory, setLoanHistory] = useState<any>(null);
+  const [remitaRequest, setRemitaRequest] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  const token = getTokenFromCookies();
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        const daysUntilExpiry = token ? getTokenExpiryInDays(token) : 0;
+
+        if (!token || !isLoggedIn || daysUntilExpiry === 0) {
+          const errorMessage =
+            !token || !isLoggedIn
+              ? "Please log in."
+              : "Session expired. Please log in again.";
+          toast.error(errorMessage);
+          localStorage.removeItem("isLoggedIn");
+          router.push("/login");
+          return;
+        }
+
+        setLoading(true);
+        setError(null);
+
+        // Fetch loan data
+        const loanData = await getAllApiRequest("/api/loans/me/", token);
+        setLoanData(loanData.slice(0, 5)); // Default to 5 records
+        console.log(`Loan Data ${loanData}`);
+
+        // // Function to fetch loan history
+        const fetchLoanHistory = async (token: string) => {
+          try {
+            // Make API request to fetch the latest loan history
+            const loanHistoryResponse = await getAllApiRequest(
+              "/api/borrower/latest-loan-history/",
+              token
+            );
+
+            // Handle response based on status
+            if (loanHistoryResponse?.status === 200) {
+              // Loan history found, set the data
+              setLoanHistory(loanHistoryResponse?.data);
+            } else if (
+              loanHistoryResponse?.status === 404 &&
+              loanHistoryResponse?.message === "No loan history found."
+            ) {
+              // No loan history found, set default values
+              setLoanHistory({
+                principal_amount: 0,
+                disbursement_status: "none",
+              });
+            } else {
+              // Handle unexpected cases (error handling)
+              throw new Error("Unexpected response or unknown error.");
+            }
+
+            // Logging response details for debugging
+            console.log(
+              `Loan History: ${loanHistoryResponse.message} (Status: ${loanHistoryResponse.status})`
+            );
+          } catch (error: any) {
+            // Handle errors
+            console.error("Error fetching loan history:", error.message);
+            toast.error("Failed to load loan history. Please try again later.");
+          }
+        };
+
+        // Fetch latest Remita Request
+        const remitaRequestResponse = await getAllApiRequest(
+          "/api/borrower/latest-maximum-eligible-offer",
+          token
+        );
+        setRemitaRequest(remitaRequestResponse?.data || null);
+        console.log(`Remita Requesta ${remitaRequestResponse}`);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setError("Failed to load data. Please try again later.");
+        toast.error("Failed to load data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [token, router]);
+
+  const handleRefreshMaximumOffer = async () => {
+    try {
+      setLoadingSpin(true);
+      const response = await getSingleApiRequest(
+        "/api/borrower/latest-maximum-eligible-offer"
+      );
+      setRemitaRequest(response?.data);
+      toast.success("Maximum eligible offer refreshed.");
+    } catch (error) {
+      console.error("Failed to refresh offer:", error);
+      toast.error("Failed to refresh maximum eligible offer.");
+    } finally {
+      setLoadingSpin(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  return (
+    <section>
+      <h2 className="text-3xl font-bold tracking-tight my-4 ml-8">Dashboard</h2>
+
+      <div className="flex-1 space-y-4 md:pl-6">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Latest Maximum Eligible Offer
+              </CardTitle>
+              <SlRefresh
+                size={20}
+                className={`cursor-pointer ${loadingSpin ? "spin" : ""}`}
+                onClick={handleRefreshMaximumOffer}
+              />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {loadingSpin ? (
+                  <span className="text-[12px]">
+                    Fetching your Max Eligible Offer...
+                  </span>
+                ) : (
+                  <>
+                    <span className="text-[1.35rem]">&#x20A6;</span>
+                    {remitaRequest
+                      ? remitaRequest.toLocaleString("en-NG", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })
+                      : "0"}
+                  </>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground">Amount</p>
+            </CardContent>
+          </Card>
+
+          {/* Loan Request Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Latest Loan Request
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                <span className="text-[1.35rem]">&#x20A6;</span>
+                {loanHistory?.principal_amount
+                  ? Number(loanHistory?.principal_amount).toLocaleString(
+                      "en-NG",
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }
+                    )
+                  : "0"}
+              </div>
+              <p className="text-xs text-muted-foreground">Amount</p>
+            </CardContent>
+          </Card>
+
+          {/* Corrected Disbursement Status Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Latest Loan Request Status
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-xl font-bold">
+                {loanHistory?.disbursement_status || "no status"}
+              </div>
+              <p className="text-xs text-muted-foreground">Status</p>
+            </CardContent>
+          </Card>
+
+          {/* Last Loan Monthly Repayment Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Last Loan Monthly Repayment
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                <span className="text-[1.35rem]">&#x20A6;</span>
+                {loanHistory?.repayment_amount
+                  ? Number(loanHistory.repayment_amount).toLocaleString(
+                      "en-NG",
+                      {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }
+                    )
+                  : "0"}
+              </div>
+              <p className="text-xs text-muted-foreground">Amount</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
+          <Card className="lg:col-span-7">
+            <CardHeader>
+              <CardTitle>Recent Loans</CardTitle>
+              <CardDescription>Last 5 recent loans</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <DataTable data={loanData} columns={columns} />
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+}

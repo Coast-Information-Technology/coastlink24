@@ -1,58 +1,106 @@
 "use client";
 
-import React, { useState, ChangeEvent } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { ToastContainer, toast } from "react-toastify";
-import Image from "next/image";
-import { Eye, EyeOff, Phone, Lock } from "lucide-react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { Eye, EyeOff, Lock, Mail, Phone } from "lucide-react";
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { postApiRequest } from "@/lib/apiRequest";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
+import { ToastContainer, toast } from "react-toastify";
+import { signUpSchema } from "@/utils/zodDefinition";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { emailPasswordResetLink, postApiRequest } from "@/lib/apiRequest";
+import "react-toastify/dist/ReactToastify.min.css";
+import { ZodError } from "zod";
 
-const LoginPage = () => {
-  const router = useRouter();
-  const [formData, setFormData] = useState({
-    phoneNumber: "",
-    password: "",
-  });
+const INITIAL_FORM_DATA = {
+  email: "",
+  phoneNumber: "",
+  password: "",
+  confirmPassword: "",
+};
+
+const SignUpPage: React.FC = () => {
+  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [pending, setPending] = useState(false);
-  const [errors, setErrors] = useState<{
-    phoneNumber?: string;
-    password?: string;
-  }>({});
+  const [countdown, setCountdown] = useState(0);
 
+  // Input change handler
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // Form submission
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setPending(true);
     setErrors({});
 
-    try {
-      const response = await postApiRequest("/auth/login", formData);
+    const validationResult = signUpSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const formErrors = validationResult.error.errors.reduce(
+        (acc, error) => ({ ...acc, [error.path[0] as string]: error.message }),
+        {}
+      );
+      setErrors(formErrors);
+      setPending(false);
+      return;
+    }
 
-      if (response.success) {
-        toast.success("Login successful!");
-        router.push("/dashboard");
+    try {
+      const response = await postApiRequest("/api/signup/", {
+        email: formData.email,
+        phone_number: formData.phoneNumber,
+        password: formData.password,
+      });
+
+      if (response.data) {
+        toast.success("Signup successful, please verify your email address");
+        setCountdown(180); // Start 3-minute countdown for resending the link
       } else {
-        setErrors(response.errors);
-        toast.error(response.message || "Login failed!");
+        throw new Error(response.message || "An unexpected error occurred");
       }
     } catch (error) {
-      toast.error("An error occurred while logging in.");
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
+      setErrors({ general: errorMessage });
+      toast.error(errorMessage);
     } finally {
       setPending(false);
     }
   };
 
+  // Countdown logic
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setInterval(() => setCountdown((prev) => prev - 1), 1000);
+      return () => clearInterval(timer);
+    }
+  }, [countdown]);
+
+  // Handle resend activation link
+  const handleResendActivationLink = async () => {
+    try {
+      await emailPasswordResetLink(formData.email);
+      setCountdown(180);
+      toast.success("Activation link resent. Please check your email.");
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to resend activation link";
+      setErrors({ general: errorMessage });
+      toast.error(errorMessage);
+    }
+  };
+
   return (
     <main className="flex m-0">
+      {/* Sidebar */}
       <div
         className="hidden lg:flex flex-col pl-14 pr-24 justify-center w-full h-[100vh] gap-8 bg-primary"
         style={{
@@ -83,6 +131,7 @@ const LoginPage = () => {
         </p>
       </div>
 
+      {/* Main section */}
       <section className="h-screen w-full flex justify-center items-center bg-background dark:bg-[#222222]">
         <ToastContainer />
         <div className="space-y-2 p-6 md:p-8 rounded-md shadow-lg lg:shadow-none m-auto md:min-w-[35vw] dark:bg-[#272727]">
@@ -98,19 +147,28 @@ const LoginPage = () => {
             />
             {/* <p>Coastlink 24</p> */}
           </Link>
-          <h1 className="text-2xl font-bold">Login to Your Account</h1>
+          <h1 className="text-2xl font-bold">Create a New Account</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm pb-6">
-            Don{"'"}t have an account?{" "}
+            Already have an account?{" "}
             <Link
-              href="/auth/register"
+              href="/auth/login"
               className="text-primary dark:text-emerald-500 font-bold underline"
             >
-              Sign Up
+              Login
             </Link>
           </p>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
+            <InputField
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              icon={<Mail size={22} color="#bbb" />}
+              value={formData.email}
+              onChange={handleInputChange}
+              error={errors.email}
+            />
             <InputField
               id="phoneNumber"
               type="tel"
@@ -129,14 +187,33 @@ const LoginPage = () => {
               onChange={handleInputChange}
               error={errors.password}
             />
+            <PasswordField
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              showPassword={showConfirmPassword}
+              onTogglePassword={() =>
+                setShowConfirmPassword(!showConfirmPassword)
+              }
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              error={errors.confirmPassword}
+            />
 
             {/* Submit Button */}
             <Button
-              type="submit"
-              disabled={pending}
+              disabled={pending || countdown > 0}
+              onClick={countdown > 0 ? handleResendActivationLink : undefined}
               className="w-full primary-button dark:bg-emerald-500"
             >
-              {pending ? "Logging in..." : "Login"}
+              {countdown > 0
+                ? `Resend Activation Link in ${Math.floor(countdown / 60)
+                    .toString()
+                    .padStart(2, "0")}:${(countdown % 60)
+                    .toString()
+                    .padStart(2, "0")}`
+                : pending
+                ? "Resend Activation Link"
+                : "Sign Up"}
             </Button>
           </form>
 
@@ -149,7 +226,7 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
 
 // Reusable InputField component
 const InputField: React.FC<{

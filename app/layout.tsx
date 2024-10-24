@@ -4,7 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/lib/theme-provider";
 import { Themes } from "@/components/Context/ThemeContext";
 import InternetCheck from "@/utils/internetCheck";
-import { LandingNav } from "@/components/landingNav/LandingNav";
+import { Header } from "@/components/Header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -34,7 +34,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <LandingNav />
+            <Header />
             {children}
             <InternetCheck />
           </ThemeProvider>
