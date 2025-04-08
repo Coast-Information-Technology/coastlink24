@@ -199,8 +199,8 @@ const CreateNewPasswordPage: React.FC = () => {
           <Image
             src="/coastlink-brandlogo.png"
             alt="coastlink 24 brand logo"
-            height={60}
-            width={60}
+            height={250}
+            width={250}
           />
         </div>
         <p className="text-white text-[14px] font-extralight text-justify w-[33vw]">
