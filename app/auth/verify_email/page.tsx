@@ -32,12 +32,11 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { postApiRequest } from "@/lib/apiRequest";
-import { getTokenFromCookies, saveTokenToCookies } from "@/lib/cookies";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { Loader2 } from "lucide-react";
 
-// Component to handle email and OTP verification
 const EmailAddressVerificationPage: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -48,16 +47,15 @@ const EmailAddressVerificationPage: React.FC = () => {
     const email = searchParams.get("email");
     const otp = searchParams.get("otp");
 
-    // Check for missing email or OTP
     if (!email || !otp) {
-      const errorMessage = "Email or OTP is missing.";
+      const errorMessage = "Email or OTP is missing. Please try again.";
       setError(errorMessage);
       setLoading(false);
       toast.error(errorMessage);
+      setTimeout(() => router.push("/register"), 3000);
       return;
     }
 
-    // Function to verify the email and OTP
     const verifyEmailAddress = async () => {
       try {
         const response = await postApiRequest("/api/borrower/verify_email/", {
@@ -65,60 +63,81 @@ const EmailAddressVerificationPage: React.FC = () => {
           email,
         });
 
-        // If Email Verification succeeds
-        if (response.message === "Email verified successfully.") {
-          toast.success("Email verified successfully!");
-          router.push("/login"); // Redirect to reset password
+        if (response.success) {
+          toast.success("Email verified successfully! Redirecting to login...");
+          setTimeout(() => router.push("/login"), 2000);
         } else {
-          // If the server response contains a failure message
           throw new Error(response.message || "Verification failed.");
         }
       } catch (err: any) {
         let errorMessage = "An error occurred during verification.";
+        let redirectDelay = 3000;
 
-        // Handle throttling error (e.g., "Request was throttled. Expected available in ... seconds.")
         if (err.message.includes("Request was throttled")) {
           const match = err.message.match(/(\d+) seconds/);
           const waitTime = match ? match[1] : "a few";
-          errorMessage = `You have tried too many times. Please try again in ${waitTime} seconds.`;
+          errorMessage = `Too many attempts. Please try again in ${waitTime} seconds.`;
+          redirectDelay = 5000;
         } else if (err.message.includes("OTP has expired")) {
-          errorMessage = "Your OTP has expired. Please request a new one.";
+          errorMessage = "Your verification code has expired. Please request a new one.";
         } else if (err.message.includes("Invalid email or OTP")) {
-          errorMessage = "Invalid email or OTP. Please try again.";
+          errorMessage = "Invalid verification details. Please try again.";
         }
 
-        // Display the appropriate error message
         toast.error(errorMessage);
-
-        // Redirect to the sign up page after showing the error
-        router.push("/register");
+        setError(errorMessage);
+        setTimeout(() => router.push("/register"), redirectDelay);
+      } finally {
+        setLoading(false);
       }
     };
+
     verifyEmailAddress();
   }, [searchParams, router]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
-      <ToastContainer />
-      {loading ? (
-        <p>Verifying email...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <p>Redirecting...</p>
-      )}
-    </div>
+    <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        theme="light"
+      />
+      <div className="flex flex-col justify-center items-center min-h-screen p-4">
+        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+          {loading ? (
+            <div className="space-y-4">
+              <Loader2 className="animate-spin h-8 w-8 mx-auto text-blue-500" />
+              <p className="text-gray-600">Verifying your email address...</p>
+            </div>
+          ) : error ? (
+            <div className="space-y-4">
+              <div className="text-red-500 text-lg">{error}</div>
+              <p className="text-gray-500">Redirecting you shortly...</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="text-green-500 text-lg">Verification successful!</div>
+              <p className="text-gray-500">Redirecting to login page...</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </main>
   );
 };
 
-// Fallback component to be shown while loading
 const FallbackLoader = () => (
-  <div className="flex justify-center items-center min-h-screen">
-    <p>Verifying, please wait...</p>
+  <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+    <div className="bg-white p-8 rounded-lg shadow-lg">
+      <Loader2 className="animate-spin h-8 w-8 mx-auto text-blue-500" />
+      <p className="mt-4 text-gray-600">Loading verification page...</p>
+    </div>
   </div>
 );
 
-// Suspense-wrapped component
 const EmailAddressVerificationWrapper: React.FC = () => {
   return (
     <Suspense fallback={<FallbackLoader />}>

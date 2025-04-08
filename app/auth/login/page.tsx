@@ -5,22 +5,23 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
-import { Eye, EyeOff, Phone, Lock } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { postApiRequest } from "@/lib/apiRequest";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const LoginPage = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    phoneNumber: "",
+    email: "",
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [pending, setPending] = useState(false);
   const [errors, setErrors] = useState<{
-    phoneNumber?: string;
+    email?: string;
     password?: string;
   }>({});
 
@@ -53,10 +54,11 @@ const LoginPage = () => {
 
   return (
     <main className="flex m-0">
+      {/* Left Sidebar - Hidden on mobile */}
       <div
         className="hidden lg:flex flex-col pl-14 pr-24 justify-center w-full h-[100vh] gap-8 bg-primary"
         style={{
-          backgroundImage: "url('/shape.png')",
+          backgroundImage: "url('/auth-bg.png')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "bottom right",
@@ -72,53 +74,54 @@ const LoginPage = () => {
             height={250}
             width={250}
           />
-          {/* <h1 className="text-white font-semibold pr-20 text-[2.7rem]">
-            Coastlink 24
-          </h1> */}
         </div>
-        <p className="text-white text-[1rem] font-extralight text-justify w-[33vw]">
+        <p className="text-white text-[14px] font-extralight text-justify w-[33vw]">
           Revolutionizing Lending Services with Cutting-Edge Technology. Manage
           loan requests, disbursements, and repayments through our innovative,
           user-friendly platform for both USSD and web users.
         </p>
       </div>
 
-      <section className="h-screen w-full flex justify-center items-center bg-background dark:bg-[#222222]">
+      {/* Right Content Section */}
+      <section className="h-screen w-full flex justify-center items-center bg-white">
         <ToastContainer />
-        <div className="space-y-2 p-6 md:p-8 rounded-md shadow-lg lg:shadow-none m-auto md:min-w-[35vw] dark:bg-[#272727]">
+        <div className="space-y-4 p-6 md:p-8 rounded-md shadow-lg lg:shadow-none m-auto md:w-[35vw]">
+          {/* Mobile Logo - Hidden on desktop */}
           <Link
             href="/"
-            className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-orange-300 to-red-600 dark:from-indigo-500 dark:via-sky-500 dark:to-emerald-500"
+            className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-indigo-500 to-blue-500"
           >
             <Image
               src="/coastlink-brandlogo.png"
-              alt="coast link logo"
+              alt="coastlink24 brand logo"
               height={150}
               width={150}
             />
-            {/* <p>Coastlink 24</p> */}
           </Link>
-          <h1 className="text-2xl font-bold">Login to Your Account</h1>
-          <p className="text-gray-500 dark:text-gray-400 text-sm pb-6">
-            Don{"'"}t have an account?{" "}
-            <Link
-              href="/auth/register"
-              className="text-primary dark:text-emerald-500 font-bold underline"
-            >
-              Sign Up
-            </Link>
-          </p>
+          
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-black">Login to Your Account</h1>
+            <p className="text-gray-500 text-[12px]">
+              Don{"'"}t have an account?{" "}
+              <Link
+                href="/auth/register"
+                className="text-indigo-600 font-bold underline"
+              >
+                Sign Up
+              </Link>
+            </p>
+          </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Login Form */}
+          <form onSubmit={handleSubmit} className="space-y-5 mt-6">
             <InputField
-              id="phoneNumber"
-              type="tel"
-              placeholder="080xxxxxxxx"
-              icon={<Phone size={22} color="#bbb" />}
-              value={formData.phoneNumber}
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              icon={<Mail size={22} color="#bbb" />}
+              value={formData.email}
               onChange={handleInputChange}
-              error={errors.phoneNumber}
+              error={errors.email}
             />
             <PasswordField
               id="password"
@@ -134,13 +137,13 @@ const LoginPage = () => {
             <Button
               type="submit"
               disabled={pending}
-              className="w-full primary-button dark:bg-emerald-500"
+              className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:bg-indigo-600 hover:to-blue-600 w-full py-6 rounded-md transition ease-in-out duration-150"
             >
               {pending ? "Logging in..." : "Login"}
             </Button>
           </form>
 
-          <p className="text-[10px] fixed bottom-8 left-14 text-white font-light">
+          <p className="text-[10px] fixed bottom-8 left-14 text-gray-500 font-light">
             © 2024 Coastlink24. All rights reserved.
           </p>
         </div>
@@ -167,7 +170,7 @@ const InputField: React.FC<{
       type={type}
       value={value}
       onChange={onChange}
-      className="pl-10"
+      className="pl-10 bg-white border-[1px] border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
       placeholder={placeholder}
     />
     <div className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -201,7 +204,7 @@ const PasswordField: React.FC<{
       type={showPassword ? "text" : "password"}
       value={value}
       onChange={onChange}
-      className="pl-10 pr-10"
+      className="pl-10 pr-10 bg-white border-[1px] border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
       placeholder={placeholder}
     />
     <div className="absolute inset-y-0 left-0 flex items-center pl-3">

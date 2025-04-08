@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { AlertCircleIcon, Eye, EyeOff, Lock, Mail, Phone } from "lucide-react";
+import { AlertCircleIcon, Eye, EyeOff } from "lucide-react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { signUpSchema } from "@/utils/zodDefinition";
 import { emailPasswordResetLink, postApiRequest } from "@/lib/apiRequest";
 import "react-toastify/dist/ReactToastify.min.css";
-import { CiBank } from "react-icons/ci";
 import { MdOutlinePersonPin, MdOutlineEmail, MdOutlinePhone, MdOutlineDescription, MdOutlineBusinessCenter, MdOutlineAssignment } from "react-icons/md";
 
 const INITIAL_FORM_DATA = {
@@ -54,6 +53,13 @@ const SignUpPage: React.FC = () => {
   const [licenseDocument, setLicenseDocument] = useState<File | null>(null);
   const [form7Document, setForm7Document] = useState<File | null>(null);
 
+  // Password requirement states
+  const [hasMinLength, setHasMinLength] = useState(false);
+  const [hasUppercase, setHasUppercase] = useState(false);
+  const [hasLowercase, setHasLowercase] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [hasSpecialChar, setHasSpecialChar] = useState(false);
+
   // Handler to go to the next step
   const nextStep = () => setCurrentStep(currentStep + 1);
 
@@ -70,8 +76,44 @@ const SignUpPage: React.FC = () => {
 
   // Password validation function
   const validatePassword = (value: string) => {
-    if (value.length < 8) {
-      setPasswordError("Password must be at least 8 characters long");
+    // Check minimum length
+    if (value.length >= 6) {
+      setHasMinLength(true);
+    } else {
+      setHasMinLength(false);
+    }
+    
+    // Check for uppercase
+    if (/[A-Z]/.test(value)) {
+      setHasUppercase(true);
+    } else {
+      setHasUppercase(false);
+    }
+    
+    // Check for lowercase
+    if (/[a-z]/.test(value)) {
+      setHasLowercase(true);
+    } else {
+      setHasLowercase(false);
+    }
+    
+    // Check for number
+    if (/[0-9]/.test(value)) {
+      setHasNumber(true);
+    } else {
+      setHasNumber(false);
+    }
+    
+    // Check for special character
+    if (/[!@#$%^&*?\\/]/.test(value)) {
+      setHasSpecialChar(true);
+    } else {
+      setHasSpecialChar(false);
+    }
+    
+    // Overall validation
+    if (value.length < 6) {
+      setPasswordError("Password must be at least 6 characters long");
       return false;
     } else if (!/[A-Z]/.test(value)) {
       setPasswordError("Password must contain at least one uppercase letter");
@@ -81,6 +123,9 @@ const SignUpPage: React.FC = () => {
       return false;
     } else if (!/[0-9]/.test(value)) {
       setPasswordError("Password must contain at least one number");
+      return false;
+    } else if (!/[!@#$%^&*?\\/]/.test(value)) {
+      setPasswordError("Password must contain at least one special character");
       return false;
     } else {
       setPasswordError("");
@@ -455,6 +500,24 @@ const SignUpPage: React.FC = () => {
                       {passwordError}
                     </p>
                   )}
+
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    <span className={`text-white ${password.length >= 6 ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                      Password must be at least 6 characters
+                    </span> 
+                    <span className={`text-white ${/[A-Z]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                      Uppercase
+                    </span> 
+                    <span className={`text-white ${/[a-z]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                      Lowercase
+                    </span> 
+                    <span className={`text-white ${/[0-9]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                      Number
+                    </span> 
+                    <span className={`text-white ${/[!@#$%^&*?\\/]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                      Special Character . $ % _ ! & * @ #
+                    </span>
+                  </div>
                 </div>
 
                 {/* Confirm Password Field */}

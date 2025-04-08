@@ -1,14 +1,15 @@
 import { Carousel } from "flowbite-react";
+import Image from "next/image";
 
-export function Component() {
+export const CarouselComponent = () => {
   return (
     <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
       <Carousel>
-        <img src="/partners/AssestLend.png" alt="logo3" />
-        <img src="/partners/Coast.jpeg" alt="logo2" />
-        <img src="/partners/coastin.png" alt="..." />
-        <img src="/partners/Coastlink24.png" alt="..." />
-        <img src="Lend.jpeg" alt="..." />
+        <Image src="/partners/AssestLend.png" alt="logo3" width={100} height={100} />
+        <Image src="/partners/Coast.jpeg" alt="logo2" width={100} height={100} />
+        <Image src="/partners/coastin.png" alt="..." width={100} height={100} />
+        <Image src="/partners/Coastlink24.png" alt="..." width={100} height={100} />
+        <Image src="Lend.jpeg" alt="..." width={100} height={100} />
       </Carousel>
     </div>
   );

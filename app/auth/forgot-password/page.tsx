@@ -89,7 +89,7 @@ const ForgotPasswordPage: React.FC = () => {
       <div
         className="hidden lg:flex flex-col pl-14 pr-24 justify-center w-full h-[100vh] gap-8 bg-primary"
         style={{
-          backgroundImage: "url('/shape.png')",
+          backgroundImage: "url('/auth-bg.png')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "bottom right",
@@ -109,7 +109,7 @@ const ForgotPasswordPage: React.FC = () => {
             Coastlink 24
           </h1>
         </div>
-        <p className="text-white text-[1rem] font-extralight text-justify w-[33vw]">
+        <p className="text-white text-[14px] font-extralight text-justify w-[33vw]">
           Revolutionizing Lending Services with Cutting-Edge Technology. Manage
           loan requests, disbursements, and repayments through our innovative,
           user-friendly platform for both USSD and web users.
@@ -117,10 +117,10 @@ const ForgotPasswordPage: React.FC = () => {
       </div>
 
       {/* Right section */}
-      <section className="w-full h-[100vh] flex items-center justify-center bg-background dark:bg-[#222222] overflow-hidden">
+      <section className="w-full h-[100vh] flex items-center justify-center bg-white overflow-hidden">
         <form
           onSubmit={handleLogin}
-          className="space-y-4 shadow-xl lg:shadow-none mx-auto min-w-[90vw] md:min-w-[35vw] p-10 rounded-md dark:bg-[#272727]"
+          className="space-y-4 shadow-xl lg:shadow-none mx-auto min-w-[90vw] md:min-w-[35vw] p-10"
           aria-label="login-form"
         >
           <Link href="/" aria-label="homepage">
