@@ -99,7 +99,7 @@ const LoginPage = () => {
             />
           </Link>
           
-          <div className="space-y-2">
+          <div className="space-y-2 pb-8">
             <h1 className="text-2xl font-bold text-black">Login to Your Account</h1>
             <p className="text-gray-500 text-[12px]">
               Don{"'"}t have an account?{" "}
@@ -114,36 +114,46 @@ const LoginPage = () => {
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-5 mt-6">
-            <InputField
-              id="email"
-              type="email"
-              placeholder="Enter your email"
-              icon={<Mail size={22} color="#bbb" />}
-              value={formData.email}
-              onChange={handleInputChange}
-              error={errors.email}
-            />
-            <PasswordField
-              id="password"
-              placeholder="Password"
-              showPassword={showPassword}
-              onTogglePassword={() => setShowPassword(!showPassword)}
-              value={formData.password}
-              onChange={handleInputChange}
-              error={errors.password}
-            />
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-medium text-gray-700">
+                Email Address
+              </label>
+              <InputField
+                id="email"
+                type="email"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleInputChange}
+                error={errors.email}
+              />
+            </div>
+            
+            <div className="space-y-2 mb-6">
+              <label htmlFor="password" className="text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <PasswordField
+                id="password"
+                placeholder="Password"
+                showPassword={showPassword}
+                onTogglePassword={() => setShowPassword(!showPassword)}
+                value={formData.password}
+                onChange={handleInputChange}
+                error={errors.password}
+              />
+            </div>
 
             {/* Submit Button */}
             <Button
               type="submit"
               disabled={pending}
-              className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:bg-indigo-600 hover:to-blue-600 w-full py-6 rounded-md transition ease-in-out duration-150"
+              className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:bg-indigo-600 hover:to-blue-600 w-full py-6 mt-6 rounded-md transition ease-in-out duration-150"
             >
               {pending ? "Logging in..." : "Login"}
             </Button>
           </form>
 
-          <p className="text-[10px] fixed bottom-8 left-14 text-gray-500 font-light">
+          <p className="text-[10px] text-white fixed bottom-8 left-14 text-gray-500 font-light">
             © 2024 Coastlink24. All rights reserved.
           </p>
         </div>
@@ -159,7 +169,7 @@ const InputField: React.FC<{
   id: string;
   type: string;
   placeholder: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   error?: string;
@@ -170,12 +180,10 @@ const InputField: React.FC<{
       type={type}
       value={value}
       onChange={onChange}
-      className="pl-10 bg-white border-[1px] border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+      className="pl-10 bg-white dark:bg-white border-[1px] border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
       placeholder={placeholder}
+      aria-label={placeholder}
     />
-    <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-      {icon}
-    </div>
     {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
   </div>
 );
@@ -204,18 +212,18 @@ const PasswordField: React.FC<{
       type={showPassword ? "text" : "password"}
       value={value}
       onChange={onChange}
-      className="pl-10 pr-10 bg-white border-[1px] border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+      className="pl-10 pr-10 bg-white dark:bg-white border-[1px] border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
       placeholder={placeholder}
+      aria-label={placeholder}
     />
-    <div className="absolute inset-y-0 left-0 flex items-center pl-3">
-      <Lock size={22} color="#bbb" />
-    </div>
-    <div
+    <button
+      type="button"
       className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
       onClick={onTogglePassword}
+      aria-label={showPassword ? "Hide password" : "Show password"}
     >
       {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
-    </div>
+    </button>
     {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
   </div>
 );

@@ -800,32 +800,80 @@ const SignUpPage: React.FC = () => {
                 {/* Document Upload Fields */}
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
                   <label htmlFor="cacDocument">CAC Document</label>
-                  <input
-                    id="cacDocument"
-                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                    type="file"
-                    onChange={(e) => setCacDocument(e.target.files ? e.target.files[0] : null)}
-                  />
+                  <div className="relative">
+                    <input
+                      id="cacDocument"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                      type="file"
+                      onChange={(e) => setCacDocument(e.target.files ? e.target.files[0] : null)}
+                    />
+                    <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <p className="text-sm text-gray-500">Drag and drop your file here or <span className="text-blue-500 font-medium">browse</span></p>
+                      {cacDocument && (
+                        <p className="text-xs text-green-600 mt-2 flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {cacDocument.name}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
                   <label htmlFor="licenseDocument">CBN or Lending License</label>
-                  <input
-                    id="licenseDocument"
-                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                    type="file"
-                    onChange={(e) => setLicenseDocument(e.target.files ? e.target.files[0] : null)}
-                  />
+                  <div className="relative">
+                    <input
+                      id="licenseDocument"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                      type="file"
+                      onChange={(e) => setLicenseDocument(e.target.files ? e.target.files[0] : null)}
+                    />
+                    <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <p className="text-sm text-gray-500">Drag and drop your file here or <span className="text-blue-500 font-medium">browse</span></p>
+                      {licenseDocument && (
+                        <p className="text-xs text-green-600 mt-2 flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {licenseDocument.name}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
                   <label htmlFor="form7Document">Form7 or Status Report</label>
-                  <input
-                    id="form7Document"
-                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                    type="file"
-                    onChange={(e) => setForm7Document(e.target.files ? e.target.files[0] : null)}
-                  />
+                  <div className="relative">
+                    <input
+                      id="form7Document"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                      type="file"
+                      onChange={(e) => setForm7Document(e.target.files ? e.target.files[0] : null)}
+                    />
+                    <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      </svg>
+                      <p className="text-sm text-gray-500">Drag and drop your file here or <span className="text-blue-500 font-medium">browse</span></p>
+                      {form7Document && (
+                        <p className="text-xs text-green-600 mt-2 flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          {form7Document.name}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Navigation buttons */}

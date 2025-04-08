@@ -44,7 +44,7 @@ const CreateNewPasswordPage: React.FC = () => {
   
   // Password requirements
   const [passwordRequirements, setPasswordRequirements] = useState<PasswordRequirement[]>([
-    { id: "length", label: "At least 8 characters", regex: /.{8,}/, met: false },
+    { id: "length", label: "At least 6 characters", regex: /.{5,}/, met: false },
     { id: "uppercase", label: "At least one uppercase letter", regex: /[A-Z]/, met: false },
     { id: "lowercase", label: "At least one lowercase letter", regex: /[a-z]/, met: false },
     { id: "number", label: "At least one number", regex: /[0-9]/, met: false },
@@ -77,7 +77,7 @@ const CreateNewPasswordPage: React.FC = () => {
     if (/[0-9]/.test(password)) strength += 20;
     if (/[!@#$%^&*?\\/]/.test(password)) strength += 10;
     
-    return Math.min(strength, 100);
+    return Math.min(strength, 80);
   };
 
   // Update password requirements
@@ -209,28 +209,28 @@ const CreateNewPasswordPage: React.FC = () => {
           user-friendly platform for both USSD and web users.
         </p>
       </div>
-      <section className="w-full h-[100vh] flex items-center justify-center bg-background dark:bg-[#222222]">
+      <section className="w-full h-[100vh] flex items-center justify-center bg-white">
         <form
           onSubmit={handleNewPassword}
-          className="space-y-6 shadow-xl lg:shadow-none mx-auto w-[90vw] md:w-[35vw] p-10 rounded-md dark:bg-[#272727]"
+          className="space-y-6 shadow-xl lg:shadow-none mx-auto w-[90vw] md:w-[35vw] p-10"
         >
           <Link href="/" aria-label="homepage">
             <div className="flex lg:hidden items-center justify-center p-4 rounded-md text-white font-bold text-2xl gap-2 bg-gradient-to-r from-orange-300 via-orange-400 to-red-600 dark:from-indigo-500 dark:via-sky-500 dark:to-emerald-500">
               <Image
                 src="/assets/sharp_credit.webp"
                 alt="Coastlink24 brand logo"
-                height={50}
-                width={50}
+                height={250}
+                width={250}
               />
-              <p>Coastlink24</p>
+              {/* <p>Coastlink24</p> */}
             </div>
           </Link>
 
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold dark:text-foreground">
+            <h1 className="text-3xl font-bold text-black">
               Create New Password
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm">
+            <p className="text-gray-500 text-[14px]">
               Set your new password below.
             </p>
           </div>
@@ -251,11 +251,13 @@ const CreateNewPasswordPage: React.FC = () => {
                   validateNewPassword(e.target.value);
                 }}
                 className="pr-10"
+                aria-label="New password"
               />
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
                 className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-blue-500 transition"
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -316,11 +318,13 @@ const CreateNewPasswordPage: React.FC = () => {
                   validateConfirmPassword(e.target.value);
                 }}
                 className="pr-10"
+                aria-label="Confirm password"
               />
               <button
                 type="button"
                 onClick={toggleConfirmPasswordVisibility}
                 className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-blue-500 transition"
+                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
               >
                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -339,7 +343,7 @@ const CreateNewPasswordPage: React.FC = () => {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full primary-button dark:bg-emerald-500"
+            className="w-full primary-button bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold p-6 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
           >
             {loading ? (
               <span className="flex items-center">
