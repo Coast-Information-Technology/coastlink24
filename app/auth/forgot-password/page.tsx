@@ -110,9 +110,9 @@ const ForgotPasswordPage: React.FC = () => {
           </h1>
         </div>
         <p className="text-white text-[1rem] font-extralight text-justify w-[33vw]">
-          Get instant access to instant cash loans for emergency and personal
-          loan within the next 24hrs. Service is available to federal and state
-          civil servants under the remita payroll.
+          Revolutionizing Lending Services with Cutting-Edge Technology. Manage
+          loan requests, disbursements, and repayments through our innovative,
+          user-friendly platform for both USSD and web users.
         </p>
       </div>
 
@@ -127,11 +127,11 @@ const ForgotPasswordPage: React.FC = () => {
             <div className="flex lg:hidden items-center justify-center p-4 rounded-md text-white font-bold text-2xl gap-2 bg-gradient-to-r from-orange-300 via-orange-400 to-red-600 dark:from-indigo-500 dark:via-sky-500 dark:to-emerald-500">
               <Image
                 src="/assets/sharp_credit.webp"
-                alt="sharp credit brand logo"
+                alt="Coastlink24 brand logo"
                 height={50}
                 width={50}
               />
-              <p>Sharp Credit</p>
+              <p>Coastlink24</p>
             </div>
           </Link>
 
@@ -208,7 +208,7 @@ const ForgotPasswordPage: React.FC = () => {
         </form>
 
         <p className="text-[10px] fixed bottom-8 left-14 text-white pt-6 font-light">
-          © 2024 Sharp Credit. All rights reserved.
+          © 2024 Coastlink24. All rights reserved.
         </p>
       </section>
     </main>

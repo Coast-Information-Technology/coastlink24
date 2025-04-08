@@ -77,9 +77,9 @@ const LoginPage = () => {
           </h1> */}
         </div>
         <p className="text-white text-[1rem] font-extralight text-justify w-[33vw]">
-          Get instant access to instant cash loans for emergency and personal
-          loan within the next 24hrs. Service is available to federal and state
-          civil servants under the remita payroll.
+          Revolutionizing Lending Services with Cutting-Edge Technology. Manage
+          loan requests, disbursements, and repayments through our innovative,
+          user-friendly platform for both USSD and web users.
         </p>
       </div>
 
@@ -141,7 +141,7 @@ const LoginPage = () => {
           </form>
 
           <p className="text-[10px] fixed bottom-8 left-14 text-white font-light">
-            © 2024 Sharp Credit. All rights reserved.
+            © 2024 Coastlink24. All rights reserved.
           </p>
         </div>
       </section>
