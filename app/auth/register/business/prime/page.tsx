@@ -9,6 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { signUpSchema } from "@/utils/zodDefinition";
 import { emailPasswordResetLink, postApiRequest } from "@/lib/apiRequest";
 import "react-toastify/dist/ReactToastify.min.css";
+import { CiBank } from "react-icons/ci";
+import { MdOutlinePersonPin, MdOutlineEmail, MdOutlinePhone, MdOutlineDescription, MdOutlineBusinessCenter, MdOutlineAssignment } from "react-icons/md";
 
 const INITIAL_FORM_DATA = {
   email: "",
@@ -19,6 +21,7 @@ const INITIAL_FORM_DATA = {
 
 const SignUpPage: React.FC = () => {
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+  const [currentStep, setCurrentStep] = useState(1);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -26,39 +29,87 @@ const SignUpPage: React.FC = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [bvn, setBVN] = useState("");
-  const [bvnError, setBVNError] = useState("");
+  const [businessBVN, setBusinessBVN] = useState("");
+  const [bvnError, setBvnError] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [pending, setPending] = useState(false);
   const [countdown, setCountdown] = useState(0);
+  
+  // Add state for personal information fields
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [country, setCountry] = useState("");
+  
+  // Add state for business information fields
+  const [businessName, setBusinessName] = useState("");
+  const [businessEmail, setBusinessEmail] = useState("");
+  const [businessAddress, setBusinessAddress] = useState("");
+  const [businessPhone, setBusinessPhone] = useState("");
+  const [businessType, setBusinessType] = useState("");
+  const [businessCountry, setBusinessCountry] = useState("");
+  const [cacDocument, setCacDocument] = useState<File | null>(null);
+  const [licenseDocument, setLicenseDocument] = useState<File | null>(null);
+  const [form7Document, setForm7Document] = useState<File | null>(null);
+
+  // Handler to go to the next step
+  const nextStep = () => setCurrentStep(currentStep + 1);
+
+  // Handler to go to the previous step
+  const prevStep = () => setCurrentStep(currentStep - 1);
+
+  // Handle form input changes
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   // Password validation function
   const validatePassword = (value: string) => {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!regex.test(value)) {
-      setPasswordError(
-        "Password must contain at least 8 characters, including uppercase, lowercase, number, and special character."
-      );
+    if (value.length < 8) {
+      setPasswordError("Password must be at least 8 characters long");
+      return false;
+    } else if (!/[A-Z]/.test(value)) {
+      setPasswordError("Password must contain at least one uppercase letter");
+      return false;
+    } else if (!/[a-z]/.test(value)) {
+      setPasswordError("Password must contain at least one lowercase letter");
+      return false;
+    } else if (!/[0-9]/.test(value)) {
+      setPasswordError("Password must contain at least one number");
+      return false;
     } else {
       setPasswordError("");
+      return true;
     }
   };
 
   // Confirm Password Validation
   const validateConfirmPassword = (value: string) => {
     if (value !== password) {
-      setConfirmPasswordError("Passwords do not match.");
+      setConfirmPasswordError("Passwords do not match");
+      return false;
     } else {
       setConfirmPasswordError("");
+      return true;
     }
   };
 
   // BVN validation function
   const validateBVN = (value: string) => {
-    if (!/^\d{10}$/.test(value)) {
-      setBVNError("BVN must be exactly 10 digits.");
+    if (value.length !== 11) {
+      setBvnError("BVN must be 11 digits");
+      return false;
+    } else if (!/^\d+$/.test(value)) {
+      setBvnError("BVN must contain only numbers");
+      return false;
     } else {
-      setBVNError("");
+      setBvnError("");
+      return true;
     }
   };
 
@@ -132,13 +183,68 @@ const SignUpPage: React.FC = () => {
     }
   };
 
+  // Validate step 1 (Requirements)
+  const isStep1Valid = () => {
+    // Step 1 is just information, no validation needed
+    return true;
+  };
+  
+  // Validate step 2 (Personal Info)
+  const isStep2Valid = () => {
+    return (
+      firstName.trim() !== "" &&
+      lastName.trim() !== "" &&
+      email.trim() !== "" &&
+      phoneNumber.trim() !== "" &&
+      dateOfBirth !== "" &&
+      country !== "" &&
+      bvn.trim() !== "" &&
+      password.trim() !== "" &&
+      confirmPassword.trim() !== "" &&
+      !passwordError &&
+      !confirmPasswordError &&
+      !bvnError
+    );
+  };
+  
+  // Validate step 3 (Business Info)
+  const isStep3Valid = () => {
+    return (
+      businessName.trim() !== "" &&
+      businessEmail.trim() !== "" &&
+      businessAddress.trim() !== "" &&
+      businessPhone.trim() !== "" &&
+      businessType !== "" &&
+      businessCountry !== "" &&
+      businessBVN.trim() !== "" &&
+      !bvnError &&
+      cacDocument !== null &&
+      licenseDocument !== null &&
+      form7Document !== null
+    );
+  };
+  
+  // Check if current step is valid
+  const isCurrentStepValid = () => {
+    switch (currentStep) {
+      case 1:
+        return isStep1Valid();
+      case 2:
+        return isStep2Valid();
+      case 3:
+        return isStep3Valid();
+      default:
+        return false;
+    }
+  };
+
   return (
     <main className="flex m-0">
       {/* Sidebar */}
       <div
         className="hidden lg:flex flex-col pl-14 pr-24 justify-center w-full h-[100vh] gap-8 bg-primary"
         style={{
-          backgroundImage: "url('/bg.png')",
+          backgroundImage: "url('/auth-bg.png')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "bottom right",
@@ -158,7 +264,7 @@ const SignUpPage: React.FC = () => {
             Coastlink 24
           </h1> */}
         </div>
-        <p className="text-white text-[12px] font-thin text-justify w-[33vw]">
+        <p className="text-white text-[14px] font-thin text-justify w-[33vw]">
           Revolutionizing Lending Services with Cutting-Edge Technology. Manage
           loan requests, disbursements, and repayments through our innovative,
           user-friendly platform for both USSD and web users.
@@ -168,7 +274,7 @@ const SignUpPage: React.FC = () => {
       {/* Main section */}
       <section className="h-screen w-full flex justify-center items-center bg-white overflow-auto form-custom-scrollbar">
         <ToastContainer />
-        <div className="space-y-2 p-6 md:p-8 rounded-md shadow-lg lg:shadow-none m-auto md:min-w-[35vw]">
+        <div className="space-y-2 p-6 md:p-8 rounded-md shadow-lg lg:shadow-none m-auto md:w-[40vw]">
           <Link
             href="/"
             className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500"
@@ -181,9 +287,7 @@ const SignUpPage: React.FC = () => {
             />
             {/* <p>Coastlink 24</p> */}
           </Link>
-          <div className="flex items-center justify-between pb-10">
-            <h2 className="text-2xl font-bold text-black">Ready👌</h2>
-            <p className="text-gray-600 text-[12px]">
+            <p className="text-gray-600 text-[12px] text-right">
               Already have an account?{" "}
               <Link
                 href="/auth/login"
@@ -192,408 +296,498 @@ const SignUpPage: React.FC = () => {
                 Login
               </Link>
             </p>
-          </div>
 
-          {/* Form ONE */}
-          <form className="flex flex-col">
-            <div className="flex space-x-4 mb-4">
-              {/* First Name Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="">First Name</label>
-                <input
-                  placeholder="Enter First Name"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  type="text"
-                />
+          <form>
+            {/* Step indicator */}
+            <div className="flex justify-between py-6">
+              <div className={`step flex flex-col items-center ${currentStep >= 1 ? 'active' : ''}`}>
+                <div className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>1</div>
+                <div className={`step-title text-xs mt-1 ${currentStep >= 1 ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>Requirements</div>
               </div>
-
-              {/* Last Name Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="">Last Name</label>
-                <input
-                  placeholder="Enter Last Name"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-                  type="text"
-                />
+              <div className={`step flex flex-col items-center ${currentStep >= 2 ? 'active' : ''}`}>
+                <div className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>2</div>
+                <div className={`step-title text-xs mt-1 ${currentStep >= 2 ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>Personal Info</div>
+              </div>
+              <div className={`step flex flex-col items-center ${currentStep >= 3 ? 'active' : ''}`}>
+                <div className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
+                <div className={`step-title text-xs mt-1 ${currentStep >= 3 ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>Business Info</div>
               </div>
             </div>
 
-            {/* Email Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="">Email</label>
-              <input
-                placeholder="Email"
-                className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                type="email"
-              />
-            </div>
+            {/* Page ONE */}
+            {currentStep === 1 && (
+              <div>
+                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6">Things to note before you <br/>commence</h2>
+                <p className="text-gray-600 text-[14px] w-[24vw] pt-2 pb-4">To complete the KYC process for your business , the following are a few things you need to have...</p>
+                
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlinePersonPin size={30} />
+                  <div className="">
+                    <h3 className="text-black">You and Your Director{"'"}s BVN</h3>
+                    <p>We need this information as this is in accordance with the CBN regulations for compliance and account creation.</p>
+                  </div>
+                </div>
 
-            {/* Password Field */}
-            <div className="flex flex-col text-gray-700 w-full text-[13px] mb-2">
-              <label htmlFor="password">Password</label>
-              <div className="relative">
-                <input
-                  id="password"
-                  placeholder="Enter Password"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    validatePassword(e.target.value);
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-3 pb-3 flex items-center text-gray-500 hover:text-blue-500 transition"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-              {passwordError && (
-                <p className="text-red-500 text-xs -mt-2 w-[30vw]">
-                  {passwordError}
-                </p>
-              )}
-            </div>
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlineEmail size={30} />
+                  <div className="">
+                    <h3 className="text-black">Valid Email Address</h3>
+                    <p>To successfully create your account, you need to enter a valid email address for yourself and the business.</p>
+                  </div>
+                </div>
 
-            {/* Confirm Password Field */}
-            <div className="flex flex-col text-gray-700 w-full text-[13px] mb-2">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <div className="relative">
-                <input
-                  id="confirmPassword"
-                  placeholder="Confirm Password"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  type={showConfirmPassword ? "text" : "password"}
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    validateConfirmPassword(e.target.value);
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-3 pb-3 flex items-center text-gray-500 hover:text-blue-500 transition"
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff size={20} />
-                  ) : (
-                    <Eye size={20} />
-                  )}
-                </button>
-              </div>
-              {confirmPasswordError && (
-                <p className="text-red-500 text-xs -mt-2">
-                  {confirmPasswordError}
-                </p>
-              )}
-            </div>
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlinePhone size={30} />
+                  <div className="">
+                    <h3 className="text-black">Valid Phone Number</h3>
+                    <p>Kindly provide a valid phone number for yourself and the business.</p>
+                  </div>
+                </div>
 
-            <div className="flex space-x-4 mb-4">
-              {/* Phone Number Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="phone">Phone Number</label>
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlineDescription size={30} />
+                  <div className="">
+                    <h3 className="text-black">CAC Document</h3>
+                    <p>You will be required to upload your CAC document.</p>
+                  </div>
+                </div>
 
-                <div className="flex items-center border-[1px] bg-white border-[#ccc] rounded-md w-full focus-within:ring-1 focus-within:ring-blue-500 transition ease-in-out duration-150">
-                  {/* Country Code Select */}
-                  <select className="bg-transparent text-gray-700 text-[14px] pl-2 py-3 border-r-[1px] border-[#ccc] outline-none focus:ring-0">
-                    <option value="+234">+234</option>
-                    <option value="+1">+1</option>
-                    <option value="+44">+44</option>
-                    <option value="+91">+91</option>
-                    <option value="+27">+27</option>
-                    <option value="+61">+61</option>
-                    <option value="+49">+49</option>
-                  </select>
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlineBusinessCenter size={30} />
+                  <div className="">
+                    <h3 className="text-black">CBN or Lending License</h3>
+                    <p>You will be required to upload your CAC document.</p>
+                  </div>
+                </div>
 
-                  {/* Phone Number Input */}
-                  <input
-                    id="phone"
-                    placeholder="Enter Phone Number"
-                    className="text-gray-700 text-[14px] mb-0 p-3 w-full outline-none bg-transparent"
-                    type="text"
-                  />
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlineAssignment size={30} />
+                  <div className="">
+                    <h3 className="text-black">Form7 or Status Report</h3>
+                    <p>You will be required to upload your Form7 or Status report document.</p>
+                  </div>
+                </div>
+
+                {/* Navigation buttons */}
+                <div className="flex justify-end mt-6">
+                  <button
+                    className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold p-6 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+                    type="button"
+                    onClick={nextStep}
+                  >
+                    Continue
+                  </button>
                 </div>
               </div>
+            )}
 
-              {/* Gender Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="gender">Select a Gender</label>
-                <select
-                  className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  id="gender"
-                >
-                  <option value="">Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-            </div>
+            {/* Page TWO */}
+            {currentStep === 2 && (
+              <div className="flex flex-col">
+                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">Personal Information</h2>
+                
+                <div className="flex space-x-4 mb-4">
+                  {/* First Name Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="firstName">First Name</label>
+                    <input
+                      id="firstName"
+                      placeholder="Enter First Name"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </div>
 
-            {/* Date of Birth Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="">Date of Birth</label>
-              <input
-                placeholder="mm/dd/yyyy"
-                className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                type="date"
-              />
-            </div>
+                  {/* Last Name Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input
+                      id="lastName"
+                      placeholder="Enter Last Name"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </div>
+                </div>
 
-            {/* Country Selction Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="country">Country</label>
-              <select
-                id="country"
-                className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-              >
-                <option value="">Select your Country</option>
-                <option value="Australia">Australia</option>
-                <option value="Brazil">Brazil</option>
-                <option value="Canada">Canada</option>
-                <option value="France">France</option>
-                <option value="Germany">Germany</option>
-                <option value="India">India</option>
-                <option value="Nigeria">Nigeria</option>
-                <option value="South Africa">South Africa</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="United States">United States</option>
-              </select>
-            </div>
-
-            {/* BVN Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="bvn">Bank Verification Number (BVN)</label>
-              <input
-                id="bvn"
-                placeholder="Enter your BVN"
-                className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                type="text"
-                value={bvn}
-                onChange={(e) => {
-                  setBVN(e.target.value);
-                  validateBVN(e.target.value);
-                }}
-              />
-              {bvnError && (
-                <p className="text-red-500 text-xs -mt-4 flex items-center gap-1">
-                  <AlertCircleIcon size={15} className="text-red-500" />
-                  {bvnError}
-                </p>
-              )}
-            </div>
-
-            {/* Submit Field */}
-            <button
-              className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-6 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
-              type="submit"
-            >
-              Continue
-            </button>
-          </form>
-
-          {/* Form TWO */}
-          <form className="flex flex-col">
-            <div className="flex space-x-4 mb-4">
-              {/* First Name Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="">First Name</label>
-                <input
-                  placeholder="Enter First Name"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  type="text"
-                />
-              </div>
-
-              {/* Last Name Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="">Last Name</label>
-                <input
-                  placeholder="Enter Last Name"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-                  type="text"
-                />
-              </div>
-            </div>
-
-            {/* Email Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="">Email</label>
-              <input
-                placeholder="Email"
-                className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                type="email"
-              />
-            </div>
-
-            {/* Password Field */}
-            <div className="flex flex-col text-gray-700 w-full text-[13px] mb-2">
-              <label htmlFor="password">Password</label>
-              <div className="relative">
-                <input
-                  id="password"
-                  placeholder="Enter Password"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    validatePassword(e.target.value);
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-3 pb-3 flex items-center text-gray-500 hover:text-blue-500 transition"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-              {passwordError && (
-                <p className="text-red-500 text-xs -mt-2 w-[30vw]">
-                  {passwordError}
-                </p>
-              )}
-            </div>
-
-            {/* Confirm Password Field */}
-            <div className="flex flex-col text-gray-700 w-full text-[13px] mb-2">
-              <label htmlFor="confirmPassword">Confirm Password</label>
-              <div className="relative">
-                <input
-                  id="confirmPassword"
-                  placeholder="Confirm Password"
-                  className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  type={showConfirmPassword ? "text" : "password"}
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    validateConfirmPassword(e.target.value);
-                  }}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute inset-y-0 right-3 pb-3 flex items-center text-gray-500 hover:text-blue-500 transition"
-                >
-                  {showConfirmPassword ? (
-                    <EyeOff size={20} />
-                  ) : (
-                    <Eye size={20} />
-                  )}
-                </button>
-              </div>
-              {confirmPasswordError && (
-                <p className="text-red-500 text-xs -mt-2">
-                  {confirmPasswordError}
-                </p>
-              )}
-            </div>
-
-            <div className="flex space-x-4 mb-4">
-              {/* Phone Number Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="phone">Phone Number</label>
-
-                <div className="flex items-center border-[1px] bg-white border-[#ccc] rounded-md w-full focus-within:ring-1 focus-within:ring-blue-500 transition ease-in-out duration-150">
-                  {/* Country Code Select */}
-                  <select className="bg-transparent text-gray-700 text-[14px] pl-2 py-3 border-r-[1px] border-[#ccc] outline-none focus:ring-0">
-                    <option value="+234">+234</option>
-                    <option value="+1">+1</option>
-                    <option value="+44">+44</option>
-                    <option value="+91">+91</option>
-                    <option value="+27">+27</option>
-                    <option value="+61">+61</option>
-                    <option value="+49">+49</option>
-                  </select>
-
-                  {/* Phone Number Input */}
+                {/* Email Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="email">Email</label>
                   <input
-                    id="phone"
-                    placeholder="Enter Phone Number"
-                    className="text-gray-700 text-[14px] mb-0 p-3 w-full outline-none bg-transparent"
-                    type="text"
+                    id="email"
+                    placeholder="Email"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
+
+                {/* Password Field */}
+                <div className="flex flex-col text-gray-700 w-full text-[13px] mb-2">
+                  <label htmlFor="password">Password</label>
+                  <div className="relative">
+                    <input
+                      id="password"
+                      placeholder="Enter Password"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        validatePassword(e.target.value);
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-3 pb-3 flex items-center text-gray-500 hover:text-blue-500 transition"
+                    >
+                      {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
+                  </div>
+                  {passwordError && (
+                    <p className="text-red-500 text-xs -mt-2 w-[30vw]">
+                      {passwordError}
+                    </p>
+                  )}
+                </div>
+
+                {/* Confirm Password Field */}
+                <div className="flex flex-col text-gray-700 w-full text-[13px] mb-2">
+                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <div className="relative">
+                    <input
+                      id="confirmPassword"
+                      placeholder="Confirm Password"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      type={showConfirmPassword ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => {
+                        setConfirmPassword(e.target.value);
+                        validateConfirmPassword(e.target.value);
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute inset-y-0 right-3 pb-3 flex items-center text-gray-500 hover:text-blue-500 transition"
+                    >
+                      {showConfirmPassword ? (
+                        <EyeOff size={20} />
+                      ) : (
+                        <Eye size={20} />
+                      )}
+                    </button>
+                  </div>
+                  {confirmPasswordError && (
+                    <p className="text-red-500 text-xs -mt-2">
+                      {confirmPasswordError}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex space-x-4 mb-4">
+                  {/* Phone Number Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="phoneNumber">Phone Number</label>
+                    <input
+                      id="phoneNumber"
+                      placeholder="Enter Phone Number"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      type="tel"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
+                  </div>
+
+                  {/* Gender Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="gender">Select a Gender</label>
+                    <select
+                      className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      id="gender"
+                    >
+                      <option value="">Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Date of Birth Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="dateOfBirth">Date of Birth</label>
+                  <input
+                    id="dateOfBirth"
+                    placeholder="mm/dd/yyyy"
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="date"
+                    value={dateOfBirth}
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                  />
+                </div>
+
+                {/* Country Selection Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="country">Country</label>
+                  <select
+                    id="country"
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                  >
+                    <option value="">Select your Country</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Canada">Canada</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="India">India</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States">United States</option>
+                  </select>
+                </div>
+
+                {/* BVN Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="bvn">Bank Verification Number (BVN)</label>
+                  <input
+                    id="bvn"
+                    placeholder="Enter your BVN"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="text"
+                    value={bvn}
+                    onChange={(e) => {
+                      setBVN(e.target.value);
+                      validateBVN(e.target.value);
+                    }}
+                  />
+                  {bvnError && (
+                    <p className="text-red-500 text-xs -mt-4 flex items-center gap-1">
+                      <AlertCircleIcon size={15} className="text-red-500" />
+                      {bvnError}
+                    </p>
+                  )}
+                </div>
+
+                {/* Navigation buttons */}
+                <div className="flex justify-between mt-6">
+                  <button
+                    className="bg-gray-200 text-gray-700 font-bold p-6 rounded-md hover:bg-gray-300 transition ease-in-out duration-150"
+                    type="button"
+                    onClick={prevStep}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    className={`${
+                      isStep2Valid()
+                        ? "bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:bg-indigo-600 hover:to-blue-600"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    } font-bold p-6 rounded-md transition ease-in-out duration-150`}
+                    type="button"
+                    onClick={nextStep}
+                    disabled={!isStep2Valid()}
+                  >
+                    Continue
+                  </button>
+                </div>
               </div>
+            )}
 
-              {/* Gender Field */}
-              <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                <label htmlFor="gender">Select a Gender</label>
-                <select
-                  className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  id="gender"
-                >
-                  <option value="">Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
+            {/* Page THREE */}
+            {currentStep === 3 && (
+              <div className="flex flex-col">
+                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">Business Information</h2>
+                
+                <div className="flex space-x-4 mb-4">
+                  {/* Business Name Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="businessName">Business Name</label>
+                    <input
+                      id="businessName"
+                      placeholder="Enter Business Name"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      type="text"
+                      value={businessName}
+                      onChange={(e) => setBusinessName(e.target.value)}
+                    />
+                  </div>
+
+                  {/* Business Email Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="businessEmail">Business Email</label>
+                    <input
+                      id="businessEmail"
+                      placeholder="Enter Business Email"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
+                      type="email"
+                      value={businessEmail}
+                      onChange={(e) => setBusinessEmail(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                {/* Business Address Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="businessAddress">Business Address</label>
+                  <input
+                    id="businessAddress"
+                    placeholder="Enter Business Address"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="text"
+                    value={businessAddress}
+                    onChange={(e) => setBusinessAddress(e.target.value)}
+                  />
+                </div>
+
+                <div className="flex space-x-4 mb-4">
+                  {/* Business Phone Number Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="businessPhone">Business Phone Number</label>
+
+                    <div className="flex items-center border-[1px] bg-white border-[#ccc] rounded-md w-full focus-within:ring-1 focus-within:ring-blue-500 transition ease-in-out duration-150">
+                      {/* Country Code Select */}
+                      <select className="bg-transparent text-gray-700 text-[14px] pl-2 py-3 border-r-[1px] border-[#ccc] outline-none focus:ring-0">
+                        <option value="+234">+234</option>
+                        <option value="+1">+1</option>
+                        <option value="+44">+44</option>
+                        <option value="+91">+91</option>
+                        <option value="+27">+27</option>
+                        <option value="+61">+61</option>
+                        <option value="+49">+49</option>
+                      </select>
+
+                      {/* Phone Number Input */}
+                      <input
+                        id="businessPhone"
+                        placeholder="Enter Business Phone Number"
+                        className="text-gray-700 text-[14px] mb-0 p-3 w-full outline-none bg-transparent"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Business Type Field */}
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                    <label htmlFor="businessType">Business Type</label>
+                    <select
+                      className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      id="businessType"
+                    >
+                      <option value="">Select Business Type</option>
+                      <option value="sole-proprietorship">Sole Proprietorship</option>
+                      <option value="partnership">Partnership</option>
+                      <option value="corporation">Corporation</option>
+                      <option value="limited-liability">Limited Liability Company</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Business Country Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="businessCountry">Business Country</label>
+                  <select
+                    id="businessCountry"
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  >
+                    <option value="">Select your Business Country</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Canada">Canada</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="India">India</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States">United States</option>
+                  </select>
+                </div>
+
+                {/* Business BVN Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="businessBvn">Business BVN</label>
+                  <input
+                    id="businessBvn"
+                    placeholder="Enter your Business BVN"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="text"
+                    value={businessBVN}
+                    onChange={(e) => {
+                      setBusinessBVN(e.target.value);
+                      validateBVN(e.target.value);
+                    }}
+                  />
+                  {bvnError && (
+                    <p className="text-red-500 text-xs -mt-4 flex items-center gap-1">
+                      <AlertCircleIcon size={15} className="text-red-500" />
+                      {bvnError}
+                    </p>
+                  )}
+                </div>
+
+                {/* Document Upload Fields */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="cacDocument">CAC Document</label>
+                  <input
+                    id="cacDocument"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="file"
+                    onChange={(e) => setCacDocument(e.target.files ? e.target.files[0] : null)}
+                  />
+                </div>
+
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="licenseDocument">CBN or Lending License</label>
+                  <input
+                    id="licenseDocument"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="file"
+                    onChange={(e) => setLicenseDocument(e.target.files ? e.target.files[0] : null)}
+                  />
+                </div>
+
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="form7Document">Form7 or Status Report</label>
+                  <input
+                    id="form7Document"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="file"
+                    onChange={(e) => setForm7Document(e.target.files ? e.target.files[0] : null)}
+                  />
+                </div>
+
+                {/* Navigation buttons */}
+                <div className="flex justify-between mt-6">
+                  <button
+                    className="bg-gray-200 text-gray-700 font-bold p-6 rounded-md hover:bg-gray-300 transition ease-in-out duration-150"
+                    type="button"
+                    onClick={prevStep}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    className={`${
+                      isStep3Valid()
+                        ? "bg-gradient-to-r from-indigo-500 to-blue-500 text-white hover:bg-indigo-600 hover:to-blue-600"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    } font-bold p-6 rounded-md transition ease-in-out duration-150`}
+                    type="submit"
+                    disabled={!isStep3Valid()}
+                  >
+                    Register
+                  </button>
+                </div>
               </div>
-            </div>
-
-            {/* Date of Birth Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="">Date of Birth</label>
-              <input
-                placeholder="mm/dd/yyyy"
-                className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                type="date"
-              />
-            </div>
-
-            {/* Country Selction Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="country">Country</label>
-              <select
-                id="country"
-                className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-              >
-                <option value="">Select your Country</option>
-                <option value="Australia">Australia</option>
-                <option value="Brazil">Brazil</option>
-                <option value="Canada">Canada</option>
-                <option value="France">France</option>
-                <option value="Germany">Germany</option>
-                <option value="India">India</option>
-                <option value="Nigeria">Nigeria</option>
-                <option value="South Africa">South Africa</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="United States">United States</option>
-              </select>
-            </div>
-
-            {/* BVN Field */}
-            <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-              <label htmlFor="bvn">Bank Verification Number (BVN)</label>
-              <input
-                id="bvn"
-                placeholder="Enter your BVN"
-                className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                type="text"
-                value={bvn}
-                onChange={(e) => {
-                  setBVN(e.target.value);
-                  validateBVN(e.target.value);
-                }}
-              />
-              {bvnError && (
-                <p className="text-red-500 text-xs -mt-4 flex items-center gap-1">
-                  <AlertCircleIcon size={15} className="text-red-500" />
-                  {bvnError}
-                </p>
-              )}
-            </div>
-
-            {/* Submit Field */}
-            <button
-              className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-6 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
-              type="submit"
-            >
-              Register
-            </button>
+            )}
           </form>
 
           <p className="text-[10px] fixed bottom-8 left-14 text-white font-light">

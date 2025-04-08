@@ -27,4 +27,8 @@ export const disableHeaderWithFooter = [
   "/dashboard/not-found",
   "/dashboard/profile",
   "/dashboard/lenders",
+  "/auth/register/business",
+  "/auth/register/onlending",
+  "/auth/register/business/prime",
+  "/auth/register/business/onlending",
 ];

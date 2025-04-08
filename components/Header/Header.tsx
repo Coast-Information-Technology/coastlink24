@@ -141,13 +141,13 @@ export const Header = () => {
             {/* CTA buttons for mobile */}
             <span className="gap-2 md:hidden text-[12px] flex flex-col items-center">
               <Link
-                href="/signup"
+                href="/auth/login"
                 className="secondary-cta px-4 py-2 rounded-full cursor-pointer"
               >
-                Sign Up Now
+                Sign In
               </Link>
               <Link
-                href="/get-started"
+                href="/auth/register"
                 className="secondary-cta px-4 py-2 rounded-full cursor-pointer"
               >
                 Get Started Now
@@ -156,15 +156,15 @@ export const Header = () => {
           </nav>
 
           {/* CTA buttons for desktop */}
-          <span className="cta gap-2 hidden lg:flex text-[12px]">
-            <Link
+          <span className="gap-2 hidden lg:flex text-[12px]">
+            {/* <Link
               href="/signup"
               className="tertiary-cta px-3 py-2 rounded-full cursor-pointer"
             >
               Sign Up Now
-            </Link>
+            </Link> */}
             <Link
-              href="/get-started"
+              href="/auth/register"
               className="tertiary-cta px-3 py-2 rounded-full cursor-pointer"
             >
               Get Started Now

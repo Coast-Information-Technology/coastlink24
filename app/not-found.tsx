@@ -11,7 +11,7 @@ const PageNotFound: React.FC = () => {
   return (
     <div className="w-full h-[100vh] flex flex-col justify-center items-center">
       <div className="flex flex-col justify-center items-center">
-        <h2>Oops! Page Not Found 🥲😥</h2>
+        <h2 className="text-2xl font-bold">Oops! Page Not Found 🥲😥</h2>
         <p>
           It looks like the page you{"'"}re looking for doesn{"'"}t exist. But
           don{"'"}t worry, we{"'"}re here to help you get back on track!
@@ -21,13 +21,13 @@ const PageNotFound: React.FC = () => {
             onClick={() => {
               router.back();
             }}
-            className="bg-secondary0 text-white shadow-sm px-7 py-5 rounded-sm tracking-wider text-lg flex items-center dark:bg-secondary-800"
+            className="text-white shadow-sm px-7 py-5 rounded-sm tracking-wider text-lg flex items-center dark:bg-secondary-800 dark:text-white"
           >
             Back
           </Button>
           <Link href="/">
             <p className="no-underline">
-              <Button className="bg-primary0 text-white shadow-sm px-7 py-5 rounded-sm tracking-wider text-lg flex items-center dark:bg-primary-800">
+              <Button className="bg-primary text-white shadow-sm px-7 py-5 rounded-sm tracking-wider text-lg flex items-center dark:bg-primary-800">
                 Home
               </Button>
             </p>
