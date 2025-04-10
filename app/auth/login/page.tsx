@@ -53,7 +53,7 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="flex h-screen">
+    <main className="flex h-screen overflow-hidden">
       {/* Sidebar */}
       <aside
         className="hidden lg:flex flex-col justify-center w-full h-screen gap-8 px-14 bg-primary"
