@@ -53,7 +53,7 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="flex h-full">
+    <main className="flex h-screen">
       {/* Sidebar */}
       <aside
         className="hidden lg:flex flex-col justify-center w-full h-screen gap-8 px-14 bg-primary"
