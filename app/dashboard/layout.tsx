@@ -10,13 +10,13 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <SidebarProvider>
-      <div className="grid min-h-screen w-full lg:grid-cols-[200px_1fr]">
-        <div className="flex-1">
-          <Sidebar />
-        </div>
-        <div>
+      <div className="flex min-h-screen w-full">
+        <Sidebar />
+        <div className="flex-1 flex flex-col">
           <NavbarPage />
-          {children}
+          <main className="flex-1 p-4">
+            {children}
+          </main>
         </div>
       </div>
     </SidebarProvider>

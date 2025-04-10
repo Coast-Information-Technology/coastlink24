@@ -1,6 +1,9 @@
-import React from "react";
+"use client"
+
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { getAllApiRequest } from "@/lib/apiRequest";
 import {
   TableHead,
   TableRow,
@@ -33,8 +36,52 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
+import Image from "next/image";
+import FileSearchAnimation from "@/components/FileSearchAnimation";
+
+interface User {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  designation: string;
+  created_at: string;
+  updated_at: string;
+  gender: string;
+  is_active: boolean;
+  is_deactivated: boolean;
+  img?: string;
+}
 
 const UsersPage: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await getAllApiRequest("/api/users/", "");
+        setUsers(response);
+        setLoading(true);
+      } catch (err) {
+        setError("Failed to fetch users");
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleActivationToggle = async (user: User) => {
+    // Implement activation toggle logic
+  };
+
+  const handleDeactivationToggle = async (user: User) => {
+    // Implement deactivation toggle logic
+  };
+
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
       <div className="flex items-center justify-between">
@@ -116,177 +163,81 @@ const UsersPage: React.FC = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
+              <TableHead>Profile</TableHead>
+              <TableHead>First Name</TableHead>
+              <TableHead>Last Name</TableHead>
               <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead>Phone</TableHead>
+              <TableHead>Designation</TableHead>
+              <TableHead>Created At</TableHead>
+              <TableHead>Updated At</TableHead>
+              <TableHead>Gender</TableHead>
+              <TableHead>Active</TableHead>
+              <TableHead>Deactivated</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell>
-                <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarImage
-                      alt="User Avatar"
-                      src="/placeholder-user.jpg"
-                    />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="font-medium">John Doe</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                      Content Creator
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={11} className="flex justify-center items-center text-center h-screen">
+                  <FileSearchAnimation />
+                </TableCell>
+              </TableRow>
+            ) : error ? (
+              <TableRow>
+                <TableCell colSpan={11} className="text-center text-red-500 py-4">
+                  {error}
+                </TableCell>
+              </TableRow>
+            ) : (
+              users.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>
+                    <Avatar>
+                      <AvatarImage src={user.img || "/noavatar.png"} alt={`${user.first_name} ${user.last_name}`} />
+                      <AvatarFallback className="bg-gray-100 text-gray-600 rounded-full">
+                        {user.first_name.charAt(0).toUpperCase()}{user.last_name.charAt(0).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>{user.first_name}</TableCell>
+                  <TableCell>{user.last_name}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.phone}</TableCell>
+                  <TableCell>{user.designation}</TableCell>
+                  <TableCell>{user.created_at?.slice(0, 10)}</TableCell>
+                  <TableCell>{user.updated_at?.slice(0, 10)}</TableCell>
+                  <TableCell>{user.gender}</TableCell>
+                  <TableCell>
+                    <div className="flex items-center">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={user.is_active}
+                          onChange={() => handleActivationToggle(user)}
+                          disabled={user.is_active || user.is_deactivated}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                      </label>
                     </div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>john.doe@example.com</TableCell>
-              <TableCell>
-                <Badge className="rounded-full px-2 py-1" variant="outline">
-                  Admin
-                </Badge>
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Button size="icon" variant="outline">
-                    <FileEditIcon className="h-4 w-4" />
-                    <span className="sr-only">Edit</span>
-                  </Button>
-                  <Button
-                    className="text-red-500"
-                    size="icon"
-                    variant="outline"
-                  >
-                    <TrashIcon className="h-4 w-4" />
-                    <span className="sr-only">Delete</span>
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarImage
-                      alt="User Avatar"
-                      src="/placeholder-user.jpg"
-                    />
-                    <AvatarFallback>JA</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="font-medium">Jane Appleseed</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                      Editor
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={user.is_deactivated}
+                          onChange={() => handleDeactivationToggle(user)}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"></div>
+                      </label>
                     </div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>jane.appleseed@example.com</TableCell>
-              <TableCell>
-                <Badge className="rounded-full px-2 py-1" variant="outline">
-                  Editor
-                </Badge>
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Button size="icon" variant="outline">
-                    <FileEditIcon className="h-4 w-4" />
-                    <span className="sr-only">Edit</span>
-                  </Button>
-                  <Button
-                    className="text-red-500"
-                    size="icon"
-                    variant="outline"
-                  >
-                    <TrashIcon className="h-4 w-4" />
-                    <span className="sr-only">Delete</span>
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarImage
-                      alt="User Avatar"
-                      src="/placeholder-user.jpg"
-                    />
-                    <AvatarFallback>SM</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="font-medium">Sarah Miller</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                      Moderator
-                    </div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>sarah.miller@example.com</TableCell>
-              <TableCell>
-                <Badge className="rounded-full px-2 py-1" variant="outline">
-                  Moderator
-                </Badge>
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Button size="icon" variant="outline">
-                    <FileEditIcon className="h-4 w-4" />
-                    <span className="sr-only">Edit</span>
-                  </Button>
-                  <Button
-                    className="text-red-500"
-                    size="icon"
-                    variant="outline"
-                  >
-                    <TrashIcon className="h-4 w-4" />
-                    <span className="sr-only">Delete</span>
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarImage
-                      alt="User Avatar"
-                      src="/placeholder-user.jpg"
-                    />
-                    <AvatarFallback>MJ</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="font-medium">Michael Johnson</div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                      Viewer
-                    </div>
-                  </div>
-                </div>
-              </TableCell>
-              <TableCell>michael.johnson@example.com</TableCell>
-              <TableCell>
-                <Badge className="rounded-full px-2 py-1" variant="outline">
-                  Viewer
-                </Badge>
-              </TableCell>
-              <TableCell>
-                <div className="flex items-center gap-2">
-                  <Button size="icon" variant="outline">
-                    <FileEditIcon className="h-4 w-4" />
-                    <span className="sr-only">Edit</span>
-                  </Button>
-                  <Button
-                    className="text-red-500"
-                    size="icon"
-                    variant="outline"
-                  >
-                    <TrashIcon className="h-4 w-4" />
-                    <span className="sr-only">Delete</span>
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>

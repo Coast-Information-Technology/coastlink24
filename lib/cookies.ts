@@ -1,64 +1,67 @@
-import { parse, serialize } from "cookie";
+import { parse, serialize } from "cookie"
 
-// Function to save a token to cookies
+/**
+ * Cookie key for storing the token.
+ */
+const TOKEN_KEY = "token"
+
 /**
  * Saves the provided token to the browser's cookies.
  * This function should only be executed on the client side.
- * @param {string} token - The token to be saved in the cookies.
- * @returns {boolean} - Returns true if the token was successfully saved, false otherwise.
+ * @param token - The token to be saved in the cookies.
+ * @returns True if the token was successfully saved, false otherwise.
  */
 export const saveTokenToCookies = (token: string): boolean => {
   try {
-    if (typeof document === "undefined") return false; // Ensure this only runs on the client side
+    if (typeof document === "undefined") return false // Client-side check
 
-    // Serialize the token and set the cookie
-    const serializedToken = serialize("token", encodeURIComponent(token), {
-      httpOnly: false, // Accessible from JavaScript
-      secure: process.env.NODE_ENV !== "development", // Secure in production
-      sameSite: "strict", // Enforce strict same-site policy
-      maxAge: 60 * 60 * 24 * 7, // 1 week duration
-      path: "/", // Set cookie available site-wide
-    });
+    const cookie = serialize(TOKEN_KEY, encodeURIComponent(token), {
+      httpOnly: false, // JavaScript-accessible
+      secure: process.env.NODE_ENV !== "development", // Use secure flag in production
+      sameSite: "strict", // Protect against CSRF
+      maxAge: 60 * 60 * 24 * 7, // 1 week
+      path: "/", // Accessible throughout the site
+    })
 
-    // Set the cookie on the document
-    document.cookie = serializedToken;
-    return true;
+    document.cookie = cookie
+    return true
   } catch (error) {
-    console.error("Failed to save token to cookies:", error);
-    return false;
+    console.error("Failed to save token to cookies:", error)
+    return false
   }
-};
+}
 
-// Function to get a token from cookies
 /**
- * Retrieves the token from the cookies on the client side.
- * @returns {string|null} The token value if found in cookies, otherwise null.
+ * Retrieves the token from browser cookies.
+ * This function should only be executed on the client side.
+ * @returns The token string if found, otherwise null.
  */
 export const getTokenFromCookies = (): string | null => {
-  if (typeof document === "undefined") return null; // Only run on the client side
+  if (typeof document === "undefined") return null
 
-  const cookies = parse(document.cookie || ""); // Parse cookies
-  return cookies.token ? decodeURIComponent(cookies.token) : null; // Decode token safely
-};
+  const cookies = parse(document.cookie || "")
+  const token = cookies[TOKEN_KEY]
+  return token ? decodeURIComponent(token) : null
+}
 
-// Function to delete a token from cookies
 /**
- * Deletes the token cookie from the client-side document.
- * @returns {boolean} Returns true if the token cookie was successfully deleted, false otherwise.
+ * Deletes the token from browser cookies.
+ * This function should only be executed on the client side.
+ * @returns True if the token was removed successfully, false otherwise.
  */
-
 export const deleteTokenFromCookies = (): boolean => {
-  if (typeof document === "undefined") return false; // Only run on the client side
+  try {
+    if (typeof document === "undefined") return false
 
-  // Set maxAge to -1 to remove the token cookie
-  const serializedToken = serialize("token", "", {
-    httpOnly: false, // Accessible from JavaScript
-    secure: process.env.NODE_ENV !== "development", // Secure in production
-    sameSite: "strict", // Same site strict policy
-    maxAge: -1, // Set maxAge to negative to delete the cookie
-    path: "/", // Ensure deletion applies to the whole site
-  });
+    const expiredCookie = serialize(TOKEN_KEY, "", {
+      maxAge: -1, // Expire immediately
+      path: "/",
+    })
 
-  document.cookie = serializedToken;
-  return true;
-};
+    document.cookie = expiredCookie
+    return true
+  } catch (error) {
+    console.error("Failed to delete token from cookies:", error)
+    return false
+  }
+}

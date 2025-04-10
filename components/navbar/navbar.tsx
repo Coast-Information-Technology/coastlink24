@@ -15,40 +15,24 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { useTheme } from "../Context/ThemeContext"; // Access the theme
+import {
+  SidebarTrigger
+} from "@/components/ui/sidebar"
 
 const NavbarPage: React.FC = () => {
   const { theme } = useTheme(); // Get the theme values
 
   return (
     <header
-      className="flex h-14 lg:h-[60px] items-center gap-4 px-6"
+      className="flex items-center justify-between h-14 lg:h-[60px] gap-4 px-6 shrink-0 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12"
       style={{
         backgroundColor: theme.backgroundColor, // Use theme's background color
         color: theme.textColor, // Use theme's text color
       }}
     >
-      <div className="w-full flex-1">
-        <form>
-          <div className="relative">
-            <SearchIcon
-              className="absolute left-2.5 top-2.5 h-4 w-4"
-              style={{
-                color: theme.secondaryColor, // Use theme's secondary color
-              }}
-            />
-            <Input
-              className="w-full bg-white shadow-none rounded-full appearance-none pl-8 md:w-2/3 lg:w-1/3"
-              placeholder="Search..."
-              type="search"
-              style={{
-                backgroundColor: theme.backgroundColor, // Input background using theme
-                color: theme.textColor, // Input text color using theme
-              }}
-            />
-          </div>
-        </form>
-      </div>
+      <SidebarTrigger className="-ml-1" />
       <DropdownMenu>
+        <div className="flex justify-between items-center gap-2">
         <h2
           className="text-[20px] font-bold"
           style={{ color: theme.textColor }}
@@ -99,6 +83,7 @@ const NavbarPage: React.FC = () => {
             Logout
           </DropdownMenuItem>
         </DropdownMenuContent>
+        </div>
       </DropdownMenu>
     </header>
   );
