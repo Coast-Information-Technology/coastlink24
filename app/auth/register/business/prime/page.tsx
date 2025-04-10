@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import { signUpSchema } from "@/utils/zodDefinition";
-import { emailPasswordResetLink, postApiRequest } from "@/lib/apiRequest";
+import { postApiRequest } from "@/lib/apiRequest";
 import "react-toastify/dist/ReactToastify.min.css";
 import { MdOutlinePersonPin, MdOutlineEmail, MdOutlinePhone, MdOutlineDescription, MdOutlineBusinessCenter, MdOutlineAssignment } from "react-icons/md";
 
@@ -215,7 +215,7 @@ const SignUpPage: React.FC = () => {
   // Handle resend activation link
   const handleResendActivationLink = async () => {
     try {
-      await emailPasswordResetLink(formData.email);
+      await postApiRequest("/api/auth/resend-activation/", { email: formData.email });
       setCountdown(180);
       toast.success("Activation link resent. Please check your email.");
     } catch (error) {

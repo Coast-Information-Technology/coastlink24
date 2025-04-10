@@ -192,7 +192,7 @@ const UsersPage: React.FC = () => {
             ) : (
               users.map((user) => (
                 <TableRow key={user.id}>
-                  <TableCell>
+                  <TableCell>  
                     <Avatar>
                       <AvatarImage src={user.img || "/noavatar.png"} alt={`${user.first_name} ${user.last_name}`} />
                       <AvatarFallback className="bg-gray-100 text-gray-600 rounded-full">
