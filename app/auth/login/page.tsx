@@ -69,7 +69,9 @@ const LoginPage = () => {
         </Link>
         <Image src="/coastlink-brandlogo.png" alt="Coastlink logo" height={200} width={200} />
         <p className="text-white text-sm font-light w-[33vw]">
-          Revolutionizing Lending Services with Cutting-Edge Technology...
+          Revolutionizing Lending Services with Cutting-Edge Technology. Manage
+          loan requests, disbursements, and repayments through our innovative,
+          user-friendly platform for both USSD and web users.
         </p>
       </aside>
 
@@ -113,7 +115,7 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 placeholder="Enter your email"
-                className="w-full p-3 border border-gray-300 rounded-md"
+                className="w-full p-3 border border-gray-300 rounded-md dark:bg-white"
                 required
               />
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
@@ -132,7 +134,7 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
                   placeholder="Enter your password"
-                  className="w-full p-3 border border-gray-300 rounded-md pr-10"
+                  className="w-full p-3 border border-gray-300 rounded-md pr-10 dark:bg-white"
                   required
                 />
                 <button
@@ -156,8 +158,8 @@ const LoginPage = () => {
             </Button>
           </form>
 
-          <p className="text-[10px] text-gray-400 text-center mt-4">
-            © 2024 Coastlink24. All rights reserved.
+          <p className="text-[10px] fixed bottom-8 left-14 text-white font-light">
+            © 2024 Coast link24. All rights reserved.
           </p>
         </div>
       </section>
