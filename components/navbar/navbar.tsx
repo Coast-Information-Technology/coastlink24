@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import {
   DropdownMenuTrigger,
   DropdownMenuLabel,
@@ -14,32 +14,11 @@ import { Button } from "../ui/button";
 import { useTheme } from "../Context/ThemeContext";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getTokenFromCookies } from "@/lib/cookies";
-import { getSingleApiRequest } from "@/lib/apiRequest";
-import { IUser } from "@/lib/types";
+import { UserContext } from "../Context/userContext";
 
 const NavbarPage: React.FC = () => {
   const { theme } = useTheme();
-  const [user, setUser] = useState<IUser | null>(null);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const token = getTokenFromCookies();
-      if (!token) return;
-
-      try {
-        const userData = await getSingleApiRequest<IUser>(
-          "/auth/users/me/",
-          token
-        );
-        setUser(userData);
-      } catch (err) {
-        console.error("Failed to load user info", err);
-      }
-    };
-
-    fetchUser();
-  }, []);
+  const { user, loading } = useContext(UserContext) as any;
 
   return (
     <header
@@ -53,7 +32,7 @@ const NavbarPage: React.FC = () => {
 
       <DropdownMenu>
         <div className="flex justify-between items-center gap-4">
-          {user && (
+          {!loading && user && (
             <h2
               className="text-[20px] font-bold"
               style={{ color: theme.textColor }}

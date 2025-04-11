@@ -118,3 +118,45 @@ export interface IUserDropdownHeaderProps {
 }
 
 // SIDEBAR TYPES ENDS HERE
+
+// lib/types.ts
+
+export interface IBorrower {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  remita_customer_id: string;
+  last_request_id: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  email: string;
+  bank_code: string;
+  wema_account_name: string;
+  account_number: string;
+  bank_name: string;
+  company_name: string;
+  category: string;
+  last_token_issued_at: string;
+  is_email_verified: boolean;
+  last_attempt_at: string;
+  attempt_count: number;
+  deactivate_login: boolean;
+  is_deleted: boolean;
+  bvn?: string; // Only for admins
+}
+
+export interface IBorrowerDataTableProps {
+  data: IBorrower[];
+  pageNo: number;
+  pageSize: number;
+  totalCount: number;
+  setPageNo: React.Dispatch<React.SetStateAction<number>>;
+  setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  startDate: string;
+  setStartDate: React.Dispatch<React.SetStateAction<string>>;
+  endDate: string;
+  setEndDate: React.Dispatch<React.SetStateAction<string>>;
+}
