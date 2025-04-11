@@ -45,10 +45,28 @@ export function BorrowerDataTable({
   setEndDate,
 }: IBorrowerDataTableProps) {
   const { user } = useContext(UserContext);
+  const [sorting, setSorting] = useState([{ id: "created_at", desc: true }]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState({});
+  const [rowSelection, setRowSelection] = useState({});
+  const [loadingNext, setLoadingNext] = useState(false);
+  const [loadingPrevious, setLoadingPrevious] = useState(false);
+  const [tempSearchQuery, setTempSearchQuery] = useState(searchQuery);
+  const defaultPageSize = 100;
 
   const formatDate = (dateString: string | null | undefined) => {
     if (!dateString) return "";
     return dateString.replace("T", " ").slice(0, 19);
+  };
+
+  const formatCurrency = (value: string | number | null) => {
+    const amount = value ? parseFloat(value.toString()) : 0;
+    return !isNaN(amount)
+      ? new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "NGN",
+        }).format(amount)
+      : "N/A";
   };
 
   const columns = useMemo<ColumnDef<IBorrower>[]>(() => {
@@ -56,164 +74,83 @@ export function BorrowerDataTable({
       {
         id: "id",
         accessorKey: "id",
-        header: ({ column }: HeaderContext<IBorrower, unknown>) => (
-          <div className="font-medium text-gray-900">ID</div>
-        ),
-        cell: ({ row }: { row: Row<IBorrower> }) => (
+        header: () => <div className="font-medium text-gray-900">ID</div>,
+        cell: ({ row }) => (
           <div className="lowercase">{row.getValue("id")}</div>
         ),
       },
       {
         id: "created_at",
         accessorKey: "created_at",
-        header: ({ column }: HeaderContext<IBorrower, unknown>) => (
-          <div className="font-medium text-gray-900">Created At</div>
-        ),
-        cell: ({ row }: { row: Row<IBorrower> }) => {
+        header: () => <div className="font-medium text-gray-900">Created At</div>,
+        cell: ({ row }) => {
           const date = row.getValue("created_at") as string;
           return <div>{formatDate(date)}</div>;
         },
       },
       {
-        id: "updated_at",
-        accessorKey: "updated_at",
-        header: () => <div className="font-medium text-gray-900">Updated At</div>,
-        cell: ({ row }: { row: Row<IBorrower> }) => {
-          const date = row.getValue("updated_at") as string;
-          return <div>{formatDate(date)}</div>;
-        },
-      },
-      {
-        id: "remita_customer_id",
-        accessorKey: "remita_customer_id",
-        header: () => <div className="font-medium text-gray-900">Remita Customer ID</div>,
-      },
-      {
-        id: "last_request_id",
-        accessorKey: "last_request_id",
-        header: () => <div className="font-medium text-gray-900">Last Request ID</div>,
-      },
-      { 
         id: "first_name",
-        accessorKey: "first_name", 
-        header: () => <div className="font-medium text-gray-900">First Name</div> 
-      },
-      { 
-        id: "last_name",
-        accessorKey: "last_name", 
-        header: () => <div className="font-medium text-gray-900">Last Name</div> 
-      },
-      { 
-        id: "phone_number",
-        accessorKey: "phone_number", 
-        header: () => <div className="font-medium text-gray-900">Phone Number</div> 
-      },
-      { 
-        id: "email",
-        accessorKey: "email", 
-        header: () => <div className="font-medium text-gray-900">Email</div> 
-      },
-      { 
-        id: "bank_code",
-        accessorKey: "bank_code", 
-        header: () => <div className="font-medium text-gray-900">Bank Code</div> 
+        accessorKey: "first_name",
+        header: () => <div className="font-medium text-gray-900">First Name</div>,
       },
       {
-        id: "wema_account_name",
-        accessorKey: "wema_account_name",
-        header: () => <div className="font-medium text-gray-900">Account Name</div>,
+        id: "last_name",
+        accessorKey: "last_name",
+        header: () => <div className="font-medium text-gray-900">Last Name</div>,
+      },
+      {
+        id: "email",
+        accessorKey: "email",
+        header: () => <div className="font-medium text-gray-900">Email</div>,
+      },
+      {
+        id: "phone_number",
+        accessorKey: "phone_number",
+        header: () => <div className="font-medium text-gray-900">Phone Number</div>,
+      },
+      {
+        id: "bank_name",
+        accessorKey: "bank_name",
+        header: () => <div className="font-medium text-gray-900">Bank Name</div>,
       },
       {
         id: "account_number",
         accessorKey: "account_number",
         header: () => <div className="font-medium text-gray-900">Account Number</div>,
       },
-      { 
-        id: "bank_name",
-        accessorKey: "bank_name", 
-        header: () => <div className="font-medium text-gray-900">Bank Name</div> 
-      },
-      { 
+      {
         id: "company_name",
-        accessorKey: "company_name", 
-        header: () => <div className="font-medium text-gray-900">Company Name</div> 
-      },
-      { 
-        id: "category",
-        accessorKey: "category", 
-        header: () => <div className="font-medium text-gray-900">Category</div> 
+        accessorKey: "company_name",
+        header: () => <div className="font-medium text-gray-900">Company Name</div>,
       },
       {
-        id: "last_token_issued_at",
-        accessorKey: "last_token_issued_at",
-        header: () => <div className="font-medium text-gray-900">Last Token Issued</div>,
-        cell: ({ row }: { row: Row<IBorrower> }) => {
-          const date = row.getValue("last_token_issued_at") as string;
-          return <div>{formatDate(date)}</div>;
-        },
+        id: "category",
+        accessorKey: "category",
+        header: () => <div className="font-medium text-gray-900">Category</div>,
       },
       {
         id: "is_email_verified",
         accessorKey: "is_email_verified",
         header: () => <div className="font-medium text-gray-900">Email Verified</div>,
-        cell: ({ row }: { row: Row<IBorrower> }) => {
+        cell: ({ row }) => {
           const isEmailVerified = row.getValue("is_email_verified");
           return (
-            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-              isEmailVerified 
-                ? "bg-green-100 text-green-800" 
-                : "bg-red-100 text-red-800"
-            }`}>
-              {isEmailVerified ? "✓" : "✗"}
-            </div>
+            <Badge variant={isEmailVerified ? "default" : "destructive"}>
+              {isEmailVerified ? "Yes" : "No"}
+            </Badge>
           );
         },
-      },
-      {
-        id: "last_attempt_at",
-        accessorKey: "last_attempt_at",
-        header: () => <div className="font-medium text-gray-900">Last Attempt At</div>,
-        cell: ({ row }: { row: Row<IBorrower> }) => {
-          const date = row.getValue("last_attempt_at") as string;
-          return <div>{formatDate(date)}</div>;
-        },
-      },
-      {
-        id: "attempt_count",
-        accessorKey: "attempt_count",
-        header: () => <div className="font-medium text-gray-900">Number of Attempts</div>,
       },
       {
         id: "deactivate_login",
         accessorKey: "deactivate_login",
-        header: () => <div className="font-medium text-gray-900">Deactivate Login</div>,
-        cell: ({ row }: { row: Row<IBorrower> }) => {
+        header: () => <div className="font-medium text-gray-900">Login Status</div>,
+        cell: ({ row }) => {
           const deactivateLogin = row.getValue("deactivate_login");
           return (
-            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-              deactivateLogin 
-                ? "bg-green-100 text-green-800" 
-                : "bg-red-100 text-red-800"
-            }`}>
-              {deactivateLogin ? "✓" : "✗"}
-            </div>
-          );
-        },
-      },
-      {
-        id: "is_deleted",
-        accessorKey: "is_deleted",
-        header: () => <div className="font-medium text-gray-900">Deleted</div>,
-        cell: ({ row }: { row: Row<IBorrower> }) => {
-          const isDeleted = row.getValue("is_deleted");
-          return (
-            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-              isDeleted 
-                ? "bg-green-100 text-green-800" 
-                : "bg-red-100 text-red-800"
-            }`}>
-              {isDeleted ? "✓" : "✗"}
-            </div>
+            <Badge variant={deactivateLogin ? "destructive" : "default"}>
+              {deactivateLogin ? "Deactivated" : "Active"}
+            </Badge>
           );
         },
       },
@@ -224,21 +161,11 @@ export function BorrowerDataTable({
         id: "bvn",
         accessorKey: "bvn",
         header: () => <div className="font-medium text-gray-900">BVN</div>,
-        cell: ({ row }: { row: Row<IBorrower> }) => <div>{row.getValue("bvn")}</div>,
       });
     }
 
     return baseColumns;
   }, [user]);
-
-  const [sorting, setSorting] = useState([{ id: "created_at", desc: true }]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState({});
-  const [rowSelection, setRowSelection] = useState({});
-  const [loadingNext, setLoadingNext] = useState(false);
-  const [loadingPrevious, setLoadingPrevious] = useState(false);
-  const [tempSearchQuery, setTempSearchQuery] = useState(searchQuery);
-  const defaultPageSize = 100;
 
   const table = useReactTable({
     data,
@@ -310,7 +237,7 @@ export function BorrowerDataTable({
 
   const handleSearchClick = () => {
     setSearchQuery(tempSearchQuery);
-    setPageNo(1); // Reset to the first page on new search
+    setPageNo(1);
   };
 
   useEffect(() => {
@@ -341,12 +268,12 @@ export function BorrowerDataTable({
             
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-              <DateRangePicker
-                startDate={startDate}
-                setStartDate={setStartDate}
-                endDate={endDate}
-                setEndDate={setEndDate}
-              />
+                <DateRangePicker
+                  startDate={startDate}
+                  setStartDate={setStartDate}
+                  endDate={endDate}
+                  setEndDate={setEndDate}
+                />
               </div>
               <Button
                 variant="outline"

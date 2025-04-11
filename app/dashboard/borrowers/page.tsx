@@ -8,15 +8,9 @@ import {
 } from "@/lib/apiRequest";
 import { SpiralLoader } from "@/components/LoaderSpiral";
 import { BorrowerDataTable } from "./BorrowData";
-import { IBorrower } from "@/lib/types";
+import { IBorrower, IBorrowersPageProps } from "@/lib/types";
 
-interface BorrowersPageProps {
-  searchParams: {
-    q?: string;
-  };
-}
-
-const BorrowersPage: React.FC<BorrowersPageProps> = ({ searchParams }) => {
+const BorrowersPage: React.FC<IBorrowersPageProps> = ({ searchParams }) => {
   const [borrowers, setBorrowers] = useState<IBorrower[]>([]);
   const [loading, setLoading] = useState(true);
   const [pageNo, setPageNo] = useState(1);
@@ -99,7 +93,7 @@ const BorrowersPage: React.FC<BorrowersPageProps> = ({ searchParams }) => {
           pageSize={pageSize}
           totalCount={totalCount}
           setPageNo={setPageNo}
-          // setPageSize={setPageSize}
+          setPageSize={setPageSize}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           startDate={startDate}

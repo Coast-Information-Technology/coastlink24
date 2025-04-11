@@ -121,6 +121,12 @@ export interface IUserDropdownHeaderProps {
 
 // lib/types.ts
 
+export interface IBorrowersPageProps {
+  searchParams: {
+    q?: string;
+  };
+}
+
 export interface IBorrower {
   id: string;
   first_name: string;
@@ -161,4 +167,36 @@ export interface IBorrowerDataTableProps {
   setStartDate: React.Dispatch<React.SetStateAction<string>>;
   endDate: string;
   setEndDate: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface IBorrowerData {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  request_id: string;
+  phone_number: string;
+  max_eligible_offer: string | number;
+  first_loan_offer: string | number;
+  second_loan_offer: string | number;
+  principal_amount: string | number;
+  tenure: string;
+  interest_amount: string | number;
+  processing_fee: string | number;
+  monthly_repayment: string | number;
+  confirmation_status: string;
+}
+
+export interface IBorrowerLoanChoiceDataTableProps {
+  downloadData: IBorrowerData[];
+  data: IBorrowerData[];
+  pageNo: number;
+  pageSize: number;
+  totalCount: number;
+  setPageNo: (page: number) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  startDate: string;
+  setStartDate: (date: string) => void;
+  endDate: string;
+  setEndDate: (date: string) => void;
 }
