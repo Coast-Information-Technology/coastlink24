@@ -30,7 +30,9 @@ export const Header = () => {
 
   return (
     <div>
-      {!disableHeaderWithFooter.includes(pathname) && (
+      {!disableHeaderWithFooter.some((path) =>
+        pathname.startsWith(path.replace(/\[.*\]/, ""))
+      ) && (
         <header className="bg-transparent absolute w-full z-30 top-0 px-6 flex justify-between items-center h-[15vh]">
           {/* Logo */}
           <Link href="/">

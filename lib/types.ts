@@ -122,28 +122,30 @@ export interface IUserDropdownHeaderProps {
 // lib/types.ts
 
 export interface IBorrower {
-  id: number;
-  created_at: string;
-  updated_at: string;
-  remita_customer_id: string;
-  last_request_id: string;
+  id: string;
   first_name: string;
   last_name: string;
-  phone_number: string;
   email: string;
-  bank_code: string;
-  wema_account_name: string;
-  account_number: string;
+  phone_number: string;
+  is_email_verified: boolean;
   bank_name: string;
+  account_number: string;
+  bank_code: string;
+  bvn?: string;
   company_name: string;
   category: string;
-  last_token_issued_at: string;
-  is_email_verified: boolean;
-  last_attempt_at: string;
-  attempt_count: number;
   deactivate_login: boolean;
   is_deleted: boolean;
-  bvn?: string; // Only for admins
+  attempt_count: number;
+  created_at: string | null;
+  updated_at: string | null;
+  last_token_issued_at: string | null;
+  last_attempt_at: string | null;
+  remita_customer_id: string;
+  last_request_id: string;
+  img?: string;
+  wema_bank_code?: string;
+  paystack_recipient_code?: string;
 }
 
 export interface IBorrowerDataTableProps {
