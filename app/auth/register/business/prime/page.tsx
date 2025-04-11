@@ -9,7 +9,14 @@ import { ToastContainer, toast } from "react-toastify";
 import { signUpSchema } from "@/utils/zodDefinition";
 import { postApiRequest } from "@/lib/apiRequest";
 import "react-toastify/dist/ReactToastify.min.css";
-import { MdOutlinePersonPin, MdOutlineEmail, MdOutlinePhone, MdOutlineDescription, MdOutlineBusinessCenter, MdOutlineAssignment } from "react-icons/md";
+import {
+  MdOutlinePersonPin,
+  MdOutlineEmail,
+  MdOutlinePhone,
+  MdOutlineDescription,
+  MdOutlineBusinessCenter,
+  MdOutlineAssignment,
+} from "react-icons/md";
 
 const INITIAL_FORM_DATA = {
   email: "",
@@ -33,7 +40,7 @@ const SignUpPage: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [pending, setPending] = useState(false);
   const [countdown, setCountdown] = useState(0);
-  
+
   // Add state for personal information fields
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -41,7 +48,7 @@ const SignUpPage: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [country, setCountry] = useState("");
-  
+
   // Add state for business information fields
   const [businessName, setBusinessName] = useState("");
   const [businessEmail, setBusinessEmail] = useState("");
@@ -82,35 +89,35 @@ const SignUpPage: React.FC = () => {
     } else {
       setHasMinLength(false);
     }
-    
+
     // Check for uppercase
     if (/[A-Z]/.test(value)) {
       setHasUppercase(true);
     } else {
       setHasUppercase(false);
     }
-    
+
     // Check for lowercase
     if (/[a-z]/.test(value)) {
       setHasLowercase(true);
     } else {
       setHasLowercase(false);
     }
-    
+
     // Check for number
     if (/[0-9]/.test(value)) {
       setHasNumber(true);
     } else {
       setHasNumber(false);
     }
-    
+
     // Check for special character
     if (/[!@#$%^&*?\\/]/.test(value)) {
       setHasSpecialChar(true);
     } else {
       setHasSpecialChar(false);
     }
-    
+
     // Overall validation
     if (value.length < 6) {
       setPasswordError("Password must be at least 6 characters long");
@@ -215,7 +222,9 @@ const SignUpPage: React.FC = () => {
   // Handle resend activation link
   const handleResendActivationLink = async () => {
     try {
-      await postApiRequest("/api/auth/resend-activation/", { email: formData.email });
+      await postApiRequest("/api/auth/resend-activation/", {
+        email: formData.email,
+      });
       setCountdown(180);
       toast.success("Activation link resent. Please check your email.");
     } catch (error) {
@@ -233,7 +242,7 @@ const SignUpPage: React.FC = () => {
     // Step 1 is just information, no validation needed
     return true;
   };
-  
+
   // Validate step 2 (Personal Info)
   const isStep2Valid = () => {
     return (
@@ -251,7 +260,7 @@ const SignUpPage: React.FC = () => {
       !bvnError
     );
   };
-  
+
   // Validate step 3 (Business Info)
   const isStep3Valid = () => {
     return (
@@ -268,7 +277,7 @@ const SignUpPage: React.FC = () => {
       form7Document !== null
     );
   };
-  
+
   // Check if current step is valid
   const isCurrentStepValid = () => {
     switch (currentStep) {
@@ -319,7 +328,7 @@ const SignUpPage: React.FC = () => {
       {/* Main section */}
       <section className="h-screen w-full flex justify-center items-center bg-white overflow-auto form-custom-scrollbar">
         <ToastContainer />
-        <div className="space-y-2 p-6 md:p-8 rounded-md shadow-lg lg:shadow-none m-auto md:w-[40vw]">
+        <div className="space-y-2 p-4 md:p-8 m-auto sm:w-[60vw] lg:w-[40vw]">
           <Link
             href="/"
             className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500"
@@ -332,44 +341,85 @@ const SignUpPage: React.FC = () => {
             />
             {/* <p>Coastlink 24</p> */}
           </Link>
-            <p className="text-gray-600 text-[12px] text-right">
-              Already have an account?{" "}
-              <Link
-                href="/auth/login"
-                className="text-primary  font-bold underline"
-              >
-                Login
-              </Link>
-            </p>
+          <p className="text-gray-600 text-[12px] text-right">
+            Already have an account?{" "}
+            <Link
+              href="/auth/login"
+              className="text-primary  font-bold underline"
+            >
+              Login
+            </Link>
+          </p>
 
           <form>
             {/* Step indicator */}
             <div className="flex justify-between py-6">
-              <div className={`step flex flex-col items-center ${currentStep >= 1 ? 'active' : ''}`}>
-                <div className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>1</div>
-                <div className={`step-title text-xs mt-1 ${currentStep >= 1 ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>Requirements</div>
+              <div
+                className={`step flex flex-col items-center ${currentStep >= 1 ? "active" : ""}`}
+              >
+                <div
+                  className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 1 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-500"}`}
+                >
+                  1
+                </div>
+                <div
+                  className={`step-title text-xs mt-1 ${currentStep >= 1 ? "text-blue-600 font-medium" : "text-gray-500"}`}
+                >
+                  Requirements
+                </div>
               </div>
-              <div className={`step flex flex-col items-center ${currentStep >= 2 ? 'active' : ''}`}>
-                <div className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>2</div>
-                <div className={`step-title text-xs mt-1 ${currentStep >= 2 ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>Personal Info</div>
+              <div
+                className={`step flex flex-col items-center ${currentStep >= 2 ? "active" : ""}`}
+              >
+                <div
+                  className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 2 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-500"}`}
+                >
+                  2
+                </div>
+                <div
+                  className={`step-title text-xs mt-1 ${currentStep >= 2 ? "text-blue-600 font-medium" : "text-gray-500"}`}
+                >
+                  Personal Info
+                </div>
               </div>
-              <div className={`step flex flex-col items-center ${currentStep >= 3 ? 'active' : ''}`}>
-                <div className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
-                <div className={`step-title text-xs mt-1 ${currentStep >= 3 ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>Business Info</div>
+              <div
+                className={`step flex flex-col items-center ${currentStep >= 3 ? "active" : ""}`}
+              >
+                <div
+                  className={`step-number w-8 h-8 rounded-full flex items-center justify-center ${currentStep >= 3 ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-500"}`}
+                >
+                  3
+                </div>
+                <div
+                  className={`step-title text-xs mt-1 ${currentStep >= 3 ? "text-blue-600 font-medium" : "text-gray-500"}`}
+                >
+                  Business Info
+                </div>
               </div>
             </div>
 
             {/* Page ONE */}
             {currentStep === 1 && (
               <div>
-                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6">Things to note before you <br/>commence</h2>
-                <p className="text-gray-600 text-[14px] w-[24vw] pt-2 pb-4">To complete the KYC process for your business , the following are a few things you need to have...</p>
-                
+                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6">
+                  Things to note before you <br />
+                  commence
+                </h2>
+                <p className="text-gray-600 text-[14px] w-[20vw] pt-2 pb-4">
+                  To complete the KYC process for your business, the following
+                  are a few things you need to have...
+                </p>
+
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlinePersonPin size={30} />
                   <div className="">
-                    <h3 className="text-black">You and Your Director{"'"}s BVN</h3>
-                    <p>We need this information as this is in accordance with the CBN regulations for compliance and account creation.</p>
+                    <h3 className="text-black">
+                      You and Your Director{"'"}s BVN
+                    </h3>
+                    <p>
+                      We need this information as this is in accordance with the
+                      CBN regulations for compliance and account creation.
+                    </p>
                   </div>
                 </div>
 
@@ -377,7 +427,10 @@ const SignUpPage: React.FC = () => {
                   <MdOutlineEmail size={30} />
                   <div className="">
                     <h3 className="text-black">Valid Email Address</h3>
-                    <p>To successfully create your account, you need to enter a valid email address for yourself and the business.</p>
+                    <p>
+                      To successfully create your account, you need to enter a
+                      valid email address for yourself and the business.
+                    </p>
                   </div>
                 </div>
 
@@ -385,7 +438,10 @@ const SignUpPage: React.FC = () => {
                   <MdOutlinePhone size={30} />
                   <div className="">
                     <h3 className="text-black">Valid Phone Number</h3>
-                    <p>Kindly provide a valid phone number for yourself and the business.</p>
+                    <p>
+                      Kindly provide a valid phone number for yourself and the
+                      business.
+                    </p>
                   </div>
                 </div>
 
@@ -409,7 +465,10 @@ const SignUpPage: React.FC = () => {
                   <MdOutlineAssignment size={30} />
                   <div className="">
                     <h3 className="text-black">Form7 or Status Report</h3>
-                    <p>You will be required to upload your Form7 or Status report document.</p>
+                    <p>
+                      You will be required to upload your Form7 or Status report
+                      document.
+                    </p>
                   </div>
                 </div>
 
@@ -429,8 +488,10 @@ const SignUpPage: React.FC = () => {
             {/* Page TWO */}
             {currentStep === 2 && (
               <div className="flex flex-col">
-                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">Personal Information</h2>
-                
+                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">
+                  Personal Information
+                </h2>
+
                 <div className="flex space-x-4 mb-4">
                   {/* First Name Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
@@ -502,19 +563,29 @@ const SignUpPage: React.FC = () => {
                   )}
 
                   <div className="flex flex-wrap gap-2 mt-2">
-                    <span className={`text-white ${password.length >= 6 ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                    <span
+                      className={`text-white ${password.length >= 6 ? "bg-green-500" : "bg-gray-500"} text-[10px] p-1 rounded-md transition-colors duration-300`}
+                    >
                       Password must be at least 6 characters
-                    </span> 
-                    <span className={`text-white ${/[A-Z]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                    </span>
+                    <span
+                      className={`text-white ${/[A-Z]/.test(password) ? "bg-green-500" : "bg-gray-500"} text-[10px] p-1 rounded-md transition-colors duration-300`}
+                    >
                       Uppercase
-                    </span> 
-                    <span className={`text-white ${/[a-z]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                    </span>
+                    <span
+                      className={`text-white ${/[a-z]/.test(password) ? "bg-green-500" : "bg-gray-500"} text-[10px] p-1 rounded-md transition-colors duration-300`}
+                    >
                       Lowercase
-                    </span> 
-                    <span className={`text-white ${/[0-9]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                    </span>
+                    <span
+                      className={`text-white ${/[0-9]/.test(password) ? "bg-green-500" : "bg-gray-500"} text-[10px] p-1 rounded-md transition-colors duration-300`}
+                    >
                       Number
-                    </span> 
-                    <span className={`text-white ${/[!@#$%^&*?\\/]/.test(password) ? 'bg-green-500' : 'bg-gray-500'} text-[10px] p-1 rounded-md transition-colors duration-300`}>
+                    </span>
+                    <span
+                      className={`text-white ${/[!@#$%^&*?\\/]/.test(password) ? "bg-green-500" : "bg-gray-500"} text-[10px] p-1 rounded-md transition-colors duration-300`}
+                    >
                       Special Character . $ % _ ! & * @ #
                     </span>
                   </div>
@@ -537,7 +608,9 @@ const SignUpPage: React.FC = () => {
                     />
                     <button
                       type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                       className="absolute inset-y-0 right-3 pb-3 flex items-center text-gray-500 hover:text-blue-500 transition"
                     >
                       {showConfirmPassword ? (
@@ -668,8 +741,10 @@ const SignUpPage: React.FC = () => {
             {/* Page THREE */}
             {currentStep === 3 && (
               <div className="flex flex-col">
-                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">Business Information</h2>
-                
+                <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">
+                  Business Information
+                </h2>
+
                 <div className="flex space-x-4 mb-4">
                   {/* Business Name Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
@@ -746,10 +821,14 @@ const SignUpPage: React.FC = () => {
                       id="businessType"
                     >
                       <option value="">Select Business Type</option>
-                      <option value="sole-proprietorship">Sole Proprietorship</option>
+                      <option value="sole-proprietorship">
+                        Sole Proprietorship
+                      </option>
                       <option value="partnership">Partnership</option>
                       <option value="corporation">Corporation</option>
-                      <option value="limited-liability">Limited Liability Company</option>
+                      <option value="limited-liability">
+                        Limited Liability Company
+                      </option>
                     </select>
                   </div>
                 </div>
@@ -805,17 +884,48 @@ const SignUpPage: React.FC = () => {
                       id="cacDocument"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
-                      onChange={(e) => setCacDocument(e.target.files ? e.target.files[0] : null)}
+                      onChange={(e) =>
+                        setCacDocument(
+                          e.target.files ? e.target.files[0] : null
+                        )
+                      }
                     />
                     <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-8 w-8 text-gray-400 mb-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        />
                       </svg>
-                      <p className="text-sm text-gray-500">Drag and drop your file here or <span className="text-blue-500 font-medium">browse</span></p>
+                      <p className="text-sm text-gray-500">
+                        Drag and drop your file here or{" "}
+                        <span className="text-blue-500 font-medium">
+                          browse
+                        </span>
+                      </p>
                       {cacDocument && (
                         <p className="text-xs text-green-600 mt-2 flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mr-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
                           </svg>
                           {cacDocument.name}
                         </p>
@@ -825,23 +935,56 @@ const SignUpPage: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-                  <label htmlFor="licenseDocument">CBN or Lending License</label>
+                  <label htmlFor="licenseDocument">
+                    CBN or Lending License
+                  </label>
                   <div className="relative">
                     <input
                       id="licenseDocument"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
-                      onChange={(e) => setLicenseDocument(e.target.files ? e.target.files[0] : null)}
+                      onChange={(e) =>
+                        setLicenseDocument(
+                          e.target.files ? e.target.files[0] : null
+                        )
+                      }
                     />
                     <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-8 w-8 text-gray-400 mb-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        />
                       </svg>
-                      <p className="text-sm text-gray-500">Drag and drop your file here or <span className="text-blue-500 font-medium">browse</span></p>
+                      <p className="text-sm text-gray-500">
+                        Drag and drop your file here or{" "}
+                        <span className="text-blue-500 font-medium">
+                          browse
+                        </span>
+                      </p>
                       {licenseDocument && (
                         <p className="text-xs text-green-600 mt-2 flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mr-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
                           </svg>
                           {licenseDocument.name}
                         </p>
@@ -857,17 +1000,48 @@ const SignUpPage: React.FC = () => {
                       id="form7Document"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
-                      onChange={(e) => setForm7Document(e.target.files ? e.target.files[0] : null)}
+                      onChange={(e) =>
+                        setForm7Document(
+                          e.target.files ? e.target.files[0] : null
+                        )
+                      }
                     />
                     <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-8 w-8 text-gray-400 mb-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                        />
                       </svg>
-                      <p className="text-sm text-gray-500">Drag and drop your file here or <span className="text-blue-500 font-medium">browse</span></p>
+                      <p className="text-sm text-gray-500">
+                        Drag and drop your file here or{" "}
+                        <span className="text-blue-500 font-medium">
+                          browse
+                        </span>
+                      </p>
                       {form7Document && (
                         <p className="text-xs text-green-600 mt-2 flex items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mr-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 13l4 4L19 7"
+                            />
                           </svg>
                           {form7Document.name}
                         </p>

@@ -8,7 +8,6 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { IoBusinessSharp } from "react-icons/io5";
 
 const page = () => {
-
   return (
     <main className="flex m-0">
       {/* Sidebar */}
@@ -44,8 +43,7 @@ const page = () => {
 
       {/* Main section */}
       <section className="h-screen w-full flex justify-center items-center bg-white px-10">
-
-        <div className="space-y-2 p-6 md:p-8 rounded-md shadow-lg lg:shadow-none m-auto md:w-[40vw]">
+        <div className="space-y-2 p-4 md:p-8 m-auto sm:w-[60vw] lg:w-[40vw]">
           <Link
             href="/"
             className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-orange-300 to-red-600 dark:from-indigo-500 dark:via-sky-500 dark:to-emerald-500"
@@ -72,22 +70,34 @@ const page = () => {
             What do you want to use Coastlink24 for?
           </p>
 
-          <Link href="/auth/register/business/prime" 
-            className="flex items-center gap-4 p-8 border-2 border-gray-300 rounded-md hover:border-l-blue-500 hover:border-t-blue-500 hover:border-r-blue-700 hover:border-b-blue-700 transition duration-200 ease-in-out group">
+          <Link
+            href="/auth/register/business/prime"
+            className="flex items-center gap-4 p-8 border-2 border-gray-300 rounded-md hover:border-l-blue-500 hover:border-t-blue-500 hover:border-r-blue-700 hover:border-b-blue-700 transition duration-200 ease-in-out group"
+          >
             {/* <HiOutlineUser size={60} className="text-black transition duration-200 group-hover:text-blue-500" /> */}
 
             <div>
-              <h3 className="text-black transition duration-200 group-hover:text-blue-500 text-[1.2rem] font-bold">Prime Lending</h3>
-              <p className="text-gray-500 text-[12px] pt-2">I have a lending licese and I want to lend.</p>
+              <h3 className="text-black transition duration-200 group-hover:text-blue-500 text-[1.2rem] font-bold">
+                Prime Lending
+              </h3>
+              <p className="text-gray-500 text-[12px] pt-2">
+                I have a lending licese and I want to lend.
+              </p>
             </div>
           </Link>
 
-
-          <Link href="/auth/register/business/onlending" className="flex items-center gap-4 p-8 mt-6 border-2 border-gray-300 rounded-md hover:border-l-blue-500 hover:border-t-blue-500 hover:border-r-blue-700 hover:border-b-blue-700 transition duration-200 ease-in-out group">
-          {/* <IoBusinessSharp size={60} className="text-black transition duration-200 group-hover:text-blue-500" /> */}
+          <Link
+            href="/auth/register/business/onlending"
+            className="flex items-center gap-4 p-8 mt-6 border-2 border-gray-300 rounded-md hover:border-l-blue-500 hover:border-t-blue-500 hover:border-r-blue-700 hover:border-b-blue-700 transition duration-200 ease-in-out group"
+          >
+            {/* <IoBusinessSharp size={60} className="text-black transition duration-200 group-hover:text-blue-500" /> */}
             <div>
-              <h3 className="text-black transition duration-200 group-hover:text-blue-500 text-[1.2rem] font-bold">Onlending</h3>
-              <p className="text-gray-500 text-[12px] pt-2">I want to pledge my funds on Coastlink24 and earn.</p>
+              <h3 className="text-black transition duration-200 group-hover:text-blue-500 text-[1.2rem] font-bold">
+                Onlending
+              </h3>
+              <p className="text-gray-500 text-[12px] pt-2">
+                I want to pledge my funds on Coastlink24 and earn.
+              </p>
             </div>
           </Link>
 

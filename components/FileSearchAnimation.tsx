@@ -15,15 +15,15 @@ const FileSearchAnimation = () => {
       {/* Magnifying glass */}
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ 
+        animate={{
           scale: 1,
           opacity: 1,
           x: [-20, 0, -10, 0, -5, 0], // Slight wobble effect
-          y: [-10, 0, -5, 0, -2, 0],   // Slight wobble effect
+          y: [-10, 0, -5, 0, -2, 0], // Slight wobble effect
         }}
-        transition={{ 
+        transition={{
           duration: 1.5,
-          ease: "easeOut"
+          ease: "easeOut",
         }}
         className="absolute top-4 left-4 text-blue-500 text-3xl"
       >
@@ -37,7 +37,7 @@ const FileSearchAnimation = () => {
         transition={{
           delay: 0.5,
           duration: 0.8,
-          ease: "easeInOut"
+          ease: "easeInOut",
         }}
         className="absolute top-8 left-12 h-1 bg-blue-200 rounded-full origin-left"
       />
@@ -48,14 +48,14 @@ const FileSearchAnimation = () => {
           <motion.div
             key={file.id}
             initial={{ opacity: 0, x: -20 }}
-            animate={{ 
+            animate={{
               opacity: 1,
               x: 0,
               transition: {
                 delay: 0.8 + index * 0.15,
                 type: "spring",
-                stiffness: 300
-              }
+                stiffness: 300,
+              },
             }}
             whileHover={{ scale: 1.05 }}
             className="flex items-center p-2 bg-white rounded shadow-sm"
@@ -72,10 +72,10 @@ const FileSearchAnimation = () => {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ 
+        transition={{
           delay: 0.3,
           type: "spring",
-          damping: 10
+          damping: 10,
         }}
         className="absolute -z-10 top-0 left-0 w-64 h-64 rounded-full bg-blue-50 opacity-70"
       />

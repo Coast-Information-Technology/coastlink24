@@ -3,9 +3,18 @@ import { LucideIcon } from "lucide-react";
 
 // User interface
 export interface IUser {
-  name: string;
-  email: string;
-  avatar: string;
+  id: string;
+  first_name: string;
+  last_name: string;
+  email?: string;
+  phone?: string;
+  designation?: string;
+  created_at?: string;
+  updated_at?: string;
+  gender?: string;
+  is_active?: boolean;
+  is_deactivated?: boolean;
+  img?: string;
 }
 
 // Navigation item interface

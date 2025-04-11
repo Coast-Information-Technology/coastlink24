@@ -109,14 +109,14 @@ const UsersPage: React.FC = () => {
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:px-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold">Users</h1>
+            <h1 className="text-2xl font-bold">Lenders</h1>
             <div className="w-full flex-1">
               <form>
                 <div className="relative w-[60vw]">
                   <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
                   <Input
                     className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950"
-                    placeholder="Search users..."
+                    placeholder="Search lender..."
                     type="search"
                   />
                 </div>

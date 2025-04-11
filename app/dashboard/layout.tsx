@@ -12,11 +12,9 @@ const Layout = ({ children }: LayoutProps) => {
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
         <Sidebar />
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col overflow-hidden">
           <NavbarPage />
-          <main className="flex-1 p-4">
-            {children}
-          </main>
+          <main className="flex-1 p-4">{children}</main>
         </div>
       </div>
     </SidebarProvider>

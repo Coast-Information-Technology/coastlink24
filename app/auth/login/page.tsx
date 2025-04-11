@@ -19,7 +19,11 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [pending, setPending] = useState(false);
-  const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
+  const [errors, setErrors] = useState<{
+    email?: string;
+    password?: string;
+    general?: string;
+  }>({});
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +31,10 @@ const LoginPage = () => {
     setErrors({});
 
     try {
-      const data = await postApiRequest("/auth/jwt/create/", { email, password });
+      const data = await postApiRequest("/auth/jwt/create/", {
+        email,
+        password,
+      });
 
       if (saveTokenToCookies(data.user.access_token)) {
         toast.success("Logged in successfully!");
@@ -53,7 +60,7 @@ const LoginPage = () => {
   };
 
   return (
-    <main className="flex h-screen overflow-hidden">
+    <main className="flex m-0">
       {/* Sidebar */}
       <aside
         className="hidden lg:flex flex-col justify-center w-full h-screen gap-8 px-14 bg-primary"
@@ -67,7 +74,12 @@ const LoginPage = () => {
         <Link href="/" className="flex gap-2 items-center text-white">
           <FaArrowCircleLeft /> <span>Go to Home</span>
         </Link>
-        <Image src="/coastlink-brandlogo.png" alt="Coastlink logo" height={200} width={200} />
+        <Image
+          src="/coastlink-brandlogo.png"
+          alt="Coastlink logo"
+          height={200}
+          width={200}
+        />
         <p className="text-white text-sm font-light w-[33vw]">
           Revolutionizing Lending Services with Cutting-Edge Technology. Manage
           loan requests, disbursements, and repayments through our innovative,
@@ -78,19 +90,30 @@ const LoginPage = () => {
       {/* Main Login Form */}
       <section className="h-screen w-full flex justify-center items-center bg-white">
         <ToastContainer />
-        <div className="space-y-6 md:p-10 w-full p-6 sm:w-[50vw] lg:w-[35vw]">
+        <div className="space-y-2 p-4 md:p-8 m-auto sm:w-[60vw] lg:w-[40vw]">
           <Link
             href="/"
             className="lg:hidden flex justify-center mb-6 p-4 bg-gradient-to-r from-indigo-500 to-blue-500 rounded"
           >
-            <Image src="/coastlink-brandlogo.png" alt="Coastlink logo" height={100} width={100} />
+            <Image
+              src="/coastlink-brandlogo.png"
+              alt="Coastlink logo"
+              height={100}
+              width={100}
+            />
           </Link>
 
           <div>
-            <h1 className="text-2xl font-bold text-black">Login to Your Account</h1>
-            <p className="text-sm text-gray-600">
+            <h2 className="text-lg text-black pb-3">Welcome back!</h2>
+            <h1 className="text-2xl font-bold text-black">
+              Login to Your Account
+            </h1>
+            <p className="text-[12px] text-gray-600 pt-1">
               Don’t have an account?{" "}
-              <Link href="/auth/register" className="text-indigo-600 underline font-medium">
+              <Link
+                href="/auth/register"
+                className="text-primary underline font-bold"
+              >
                 Sign Up
               </Link>
             </p>
@@ -102,10 +125,13 @@ const LoginPage = () => {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4 pt-10">
             {/* Email Input */}
             <div>
-              <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="email"
+                className="block text-xs font-medium text-gray-700 mb-1"
+              >
                 Email Address
               </label>
               <Input
@@ -115,15 +141,20 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 placeholder="Enter your email"
-                className="w-full p-3 border border-gray-300 rounded-md dark:bg-white"
+                className="w-full px-3 py-5 border border-gray-300 rounded-md dark:bg-white"
                 required
               />
-              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+              {errors.email && (
+                <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+              )}
             </div>
 
             {/* Password Input */}
             <div>
-              <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="password"
+                className="block text-xs font-medium text-gray-700 mb-1"
+              >
                 Password
               </label>
               <div className="relative">
@@ -134,7 +165,7 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
                   placeholder="Enter your password"
-                  className="w-full p-3 border border-gray-300 rounded-md pr-10 dark:bg-white"
+                  className="w-full px-3 py-5 border border-gray-300 rounded-md pr-10 dark:bg-white"
                   required
                 />
                 <button
@@ -146,7 +177,9 @@ const LoginPage = () => {
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
-              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+              {errors.password && (
+                <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+              )}
             </div>
 
             <Button
