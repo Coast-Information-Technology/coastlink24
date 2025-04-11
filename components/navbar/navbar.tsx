@@ -58,11 +58,7 @@ const NavbarPage: React.FC = () => {
               className="text-[20px] font-bold"
               style={{ color: theme.textColor }}
             >
-              Welcome,{" "}
-              <span className="font-medium text-[15px]">
-                {user.first_name} {user.last_name}
-              </span>{" "}
-              <span className="text-[12px]">{user.designation}</span>
+              Welcome, <span className="text-[12px]">{user.designation}</span>
             </h2>
           )}
           <DropdownMenuTrigger asChild>
