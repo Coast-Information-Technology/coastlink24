@@ -33,7 +33,7 @@ export function OtherMenus({ projects }: IProjectsMenuProps) {
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Projects</SidebarGroupLabel>
+      <SidebarGroupLabel>Settings</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((project) => (
           <ProjectItem 

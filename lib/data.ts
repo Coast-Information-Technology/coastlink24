@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   Users2,
 } from "lucide-react";
+import { MdOutlineDisplaySettings } from "react-icons/md"
 import { ISidebarData } from "@/lib/types";
 
 export const sidebarData: ISidebarData = {
@@ -102,7 +103,7 @@ export const sidebarData: ISidebarData = {
     },
   ],
   projects: [
-    { name: "Design Engineering", url: "/tracking", icon: Frame },
+    { name: "Loan Product Settings", url: "/dashboard/loan-product-settings", icon: MdOutlineDisplaySettings },
     { name: "Sales & Marketing", url: "/tracking", icon: PieChart },
     { name: "Travel", url: "/tracking", icon: Map },
   ],

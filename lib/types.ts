@@ -1,5 +1,6 @@
 // types/sidebar.ts
 import { LucideIcon } from "lucide-react";
+import { ElementType } from "react";
 
 // User interface
 export interface IUser {
@@ -30,7 +31,7 @@ export interface INavItem {
 export interface IProject {
   name: string;
   url: string;
-  icon: LucideIcon;
+  icon: ElementType;
 }
 
 // Sidebar data interface

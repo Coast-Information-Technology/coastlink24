@@ -42,4 +42,6 @@ export const disableHeaderWithFooter = [
   "/auth/register/onlending",
   "/auth/register/business/prime",
   "/auth/register/business/onlending",
+  "/dashboard/loan-product-settings",
+  "/dashboard/loan-product-settings/edit",
 ];
