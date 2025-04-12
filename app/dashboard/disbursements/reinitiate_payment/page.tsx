@@ -146,7 +146,7 @@ const ManualDisbursementPage = () => {
                 rows={6}
                 value={mandateReferences}
                 onChange={(e) => setMandateReferences(e.target.value)}
-                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-6"
                 placeholder="Enter up to 3 mandate references, separated by commas&#10;Example: 141136937738, 291136930680, 271136871552"
                 required
               />
