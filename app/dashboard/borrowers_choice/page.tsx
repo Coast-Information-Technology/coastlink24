@@ -6,8 +6,11 @@ import { getAllApiRequest, getAllApiRequestWithPagination } from "@/lib/apiReque
 import { IBorrowersPageProps } from "@/lib/types";
 import { getTokenFromCookies } from "@/lib/cookies";
 import BorrowerLoanChoiceDataTable from "./BorrowerChoiceData";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const BorrowerChoicePage: React.FC<IBorrowersPageProps> = ({ searchParams }) => {
+  const router = useRouter();
+  const searchParamsObj = useSearchParams();
   const [borrowerLoanChoice, setBorrowerLoanChoice] = useState([]);
   const [borrowerLoanChoiceDownloadData, setBorrowerLoanChoiceDownloadData] =
     useState([]);
@@ -17,9 +20,22 @@ const BorrowerChoicePage: React.FC<IBorrowersPageProps> = ({ searchParams }) => 
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(100);
   const [totalCount, setTotalCount] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(searchParams.q || "");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchParamsObj.get("q") || "");
+  const [startDate, setStartDate] = useState(searchParamsObj.get("startDate") || "");
+  const [endDate, setEndDate] = useState(searchParamsObj.get("endDate") || "");
+
+  // Update URL when search parameters change
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("q", searchQuery);
+    if (startDate) params.set("startDate", startDate);
+    if (endDate) params.set("endDate", endDate);
+    
+    const queryString = params.toString();
+    const newUrl = queryString ? `/dashboard/borrowers_choice?${queryString}` : "/dashboard/borrowers_choice";
+    
+    router.push(newUrl, { scroll: false });
+  }, [searchQuery, startDate, endDate, router]);
 
   useEffect(() => {
     if (!token) {
@@ -108,7 +124,9 @@ const BorrowerChoicePage: React.FC<IBorrowersPageProps> = ({ searchParams }) => 
   return (
     <div>
       {loading ? (
-        <SpiralLoader size={120} speed={1.5} />
+        <div className="flex justify-center items-center h-screen">
+        <SpiralLoader size={80} speed={1.5} />
+      </div>
       ) : (
         <>
           <BorrowerLoanChoiceDataTable

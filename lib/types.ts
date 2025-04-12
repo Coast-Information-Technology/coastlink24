@@ -119,6 +119,12 @@ export interface IUserDropdownHeaderProps {
 
 // SIDEBAR TYPES ENDS HERE
 
+export interface ISearchParams {
+  q?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
 // lib/types.ts
 
 export interface IBorrowersPageProps {
@@ -189,6 +195,169 @@ export interface IBorrowerData {
 export interface IBorrowerLoanChoiceDataTableProps {
   downloadData: IBorrowerData[];
   data: IBorrowerData[];
+  pageNo: number;
+  pageSize: number;
+  totalCount: number;
+  setPageNo: (page: number) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  startDate: string;
+  setStartDate: (date: string) => void;
+  endDate: string;
+  setEndDate: (date: string) => void;
+}
+
+
+export interface IBorrowerChoice {
+  id: string;
+  request_id: string;
+  phone_number: string;
+  max_eligible_offer: number;
+  first_loan_offer: number;
+  second_loan_offer: number;
+  principal_amount: number;
+  tenure: string;
+  interest_amount: number;
+  processing_fee: number;
+  monthly_repayment: number;
+  confirmation_status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IPayment {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  phone_number: string;
+  payment_method: string;
+  paystack_recipient_code: string;
+  amount: string;
+  transfer_reference: string;
+  transfer_code: string;
+  bank_charges: string;
+  transfer_status: string;
+  mandate_reference: string;
+  borrower_bank_name: string;
+  borrower_account_number: string;
+  borrower_account_name: string;
+  transaction_message: string;
+  transaction_code: string;
+  request_data: string;
+  request_time: string;
+  response_data: string;
+  response_time: string;
+}
+
+export interface IDisbursementsPageProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export interface IDisbursement {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  phone_number: string;
+  payment_method: string;
+  paystack_recipient_code: string;
+  amount: string;
+  transfer_reference: string;
+  transfer_code: string;
+  bank_charges: string;
+  transfer_status: string;
+  mandate_reference: string;
+  borrower_bank_name: string;
+  borrower_account_number: string;
+  borrower_account_name: string;
+  transaction_message: string;
+  transaction_code: string;
+  request_data: string;
+  request_time: string;
+  response_data: string;
+  response_time: string;
+}
+
+export interface DisbursementsDataTableProps {
+  downloadData: IDisbursement[];
+  data: IDisbursement[];
+  pageNo: number;
+  pageSize: number;
+  totalCount: number;
+  setPageNo: (page: number) => void;
+  setPageSize: (size: number) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  startDate: string;
+  setStartDate: (date: string) => void;
+  endDate: string;
+  setEndDate: (date: string) => void;
+}
+
+export interface IApiError {
+  message: string;
+  status?: number;
+}
+
+export interface ILoan {
+  id: string;
+  mandate_reference: string;
+  phone_number: string;
+  channel: string;
+  principal_amount: string;
+  interest_amount: string;
+  processing_fee: string;
+  repayment_amount: string;
+  total_repayment_amount: string;
+  total_outstanding_amount: string;
+  tenure: string;
+  repayment_frequency: string;
+  disbursement_status: string;
+  disbursement_date: string;
+  repayment_date: string;
+  last_installment_date: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  remita_total_outstanding_balance?: string;
+  repayment_count?: string;
+  remita_collection_id?: string;
+  manual_repayment_id?: string;
+}
+
+export interface ILoansDataTableProps {
+  downloadData: ILoan[];
+  data: ILoan[];
+  pageNo: number;
+  pageSize: number;
+  totalCount: number;
+  setPageNo: (pageNo: number) => void;
+  setPageSize: (pageSize: number) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  startDate: string;
+  setStartDate: (date: string) => void;
+  endDate: string;
+  setEndDate: (date: string) => void;
+}
+
+export interface ILoanReqTrackingDataTableProps {
+  downloadData: any[];
+  data: any[];
+  pageNo: number;
+  pageSize: number;
+  totalCount: number;
+  setPageNo: (page: number) => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  startDate: string;
+  setStartDate: (date: string) => void;
+  endDate: string;
+  setEndDate: (date: string) => void;
+}
+
+export interface IMandateRefDataTableProps {
+  downloadData: any[];
+  data: any[];
   pageNo: number;
   pageSize: number;
   totalCount: number;

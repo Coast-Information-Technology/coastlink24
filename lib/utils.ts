@@ -147,42 +147,28 @@ export const extractMandateReference = (
  * @param format - The format to use (default: 'long')
  * @returns Formatted date string
  */
-export const formatDate = (
-  date: Date | string,
-  format: 'short' | 'medium' | 'long' = 'long'
-): string => {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  
-  if (isNaN(dateObj.getTime())) {
-    return 'Invalid date';
-  }
-  
-  const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: format === 'short' ? '2-digit' : format === 'medium' ? 'short' : 'long',
-    day: '2-digit',
-  };
-  
-  return new Intl.DateTimeFormat('en-US', options).format(dateObj);
+export const formatDate = (dateString: string | undefined): string => {
+  if (!dateString) return "";
+  return dateString.replace("T", " ").slice(0, 19);
 };
 
 /**
  * Formats a currency amount
- * @param amount - The amount to format
- * @param currency - The currency code (default: 'NGN')
+ * @param value - The amount to format
  * @returns Formatted currency string
  */
-export const formatCurrency = (
-  amount: number,
-  currency: string = 'NGN'
-): string => {
-  return new Intl.NumberFormat('en-NG', {
-    style: 'currency',
-    currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount);
+// Utility functions
+export const formatCurrency = (value: string | number | undefined): string => {
+  if (!value) return "N/A";
+  const amount = typeof value === 'string' ? parseFloat(value) : value;
+  return !isNaN(amount)
+    ? new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "NGN",
+      }).format(amount)
+    : "N/A";
 };
+
 
 /**
  * Truncates a string to a specified length
@@ -212,4 +198,26 @@ export const generateId = (length: number = 8): string => {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return result;
+};
+
+export const getTime = (date: string | Date | null | undefined): string => {
+  if (!date) return 'Invalid date';
+  
+  try {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    
+    // Check if dateObj is a valid Date object
+    if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) {
+      return 'Invalid date';
+    }
+
+    return dateObj.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  } catch (error) {
+    console.error('Error formatting time:', error);
+    return 'Invalid date';
+  }
 };
