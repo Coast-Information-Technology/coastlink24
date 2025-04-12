@@ -53,7 +53,7 @@ export const sidebarData: ISidebarData = {
         { title: "All Payments", url: "/dashboard/disbursements" },
         {
           title: "ReInitiate Failed Payment",
-          url: "/dashboard/repay_failed_payments",
+          url: "/dashboard/disbursements/reinitiate_payment",
         },
         {
           title: "Payment Verification",
@@ -86,7 +86,7 @@ export const sidebarData: ISidebarData = {
       icon: BookOpen,
       items: [
         { title: "All Mandate Ref", url: "/dashboard/mandate_references" },
-        { title: "Borrower Choices", url: "/dashboard/borrowers_choice" },
+        { title: "Mandate Ref Verification", url: "/dashboard/mandate_references/verification" },
       ],
     },
     {
