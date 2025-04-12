@@ -4,6 +4,7 @@ import React, { ReactNode } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { UserProvider } from "@/components/Context/userContext";
 import { LoanProvider } from "@/app/component/loanContext/loanContext";
+import { DashboardProvider } from "@/components/Context/DashboardContext";
 
 interface LayoutProps {
   children: ReactNode;
@@ -11,6 +12,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
+    <DashboardProvider>
     <LoanProvider>
       <UserProvider>
         <SidebarProvider>
@@ -24,6 +26,7 @@ const Layout = ({ children }: LayoutProps) => {
         </SidebarProvider>
       </UserProvider>
     </LoanProvider>
+    </DashboardProvider>
   );
 };
 

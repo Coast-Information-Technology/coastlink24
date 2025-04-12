@@ -17,6 +17,7 @@ import {
   SidebarInset, 
   SidebarProvider} from "@/components/ui/sidebar"
   import CardRenderer from "@/components/dashboard/CardRenderer";
+import { DashboardCharts } from "@/components/DashboardChart/DashboardChart"
 
 const dashboardCards = [
   "Wallet",
@@ -45,6 +46,7 @@ export default function Page() {
           <CardRenderer key={index} type={cardType} />
         ))}
       </div>
+      <DashboardCharts/>
     </SidebarInset>
     </SidebarProvider>
   )
