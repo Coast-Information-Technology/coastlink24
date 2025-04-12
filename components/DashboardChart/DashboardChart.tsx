@@ -2,8 +2,8 @@
 
 import React from "react";
 import {
-  LineChart,
-  Line,
+  AreaChart,
+  Area,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -48,28 +48,34 @@ export const DashboardCharts = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
-      {/* Gross Loan Disbursement Line Chart */}
-      <Card>
-        <CardContent className="p-4 grid-cols-2">
+    <div className="flex flex-col lg:flex-row gap-6 mt-10">
+      {/* Area Chart - Gross Loans Disbursed by Month */}
+      <Card className="flex-1">
+        <CardContent className="p-4">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
-            Gross Loans Disbursed
+            Gross Loans Disbursed by Month
           </h2>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={grossLoanData}>
+            <AreaChart data={grossLoanData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="period" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="amount" stroke="#4F46E5" />
-            </LineChart>
+              <Area
+                type="monotone"
+                dataKey="amount"
+                stroke="#6366F1"
+                fill="#6366F1"
+                fillOpacity={0.3}
+              />
+            </AreaChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
 
-      {/* App User Count Pie Chart */}
-      <Card>
-        <CardContent className="p-4 grid-col-1">
+      {/* Pie Chart - App User Growth */}
+      <Card className="w-full sm:w-[300px]">
+        <CardContent className="p-4">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
             App User Growth
           </h2>
@@ -83,7 +89,7 @@ export const DashboardCharts = () => {
                 label={({ name, percent }) =>
                   `${name}: ${(percent * 100).toFixed(0)}%`
                 }
-                outerRadius={100}
+                outerRadius={70}
                 fill="#8884d8"
                 dataKey="value"
               >
