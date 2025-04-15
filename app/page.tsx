@@ -22,7 +22,7 @@ export default function Home() {
         </p>
 
         <div className="flex items-center justify-center pt-4 gap-4">
-          <Link href="/" className="cta primary-cta rounded-md">
+          <Link href="/auth/register" className="cta primary-cta rounded-md">
             Sign Up Now
           </Link>
           <Link
