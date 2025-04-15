@@ -19,6 +19,7 @@ function isDropdownLink(item: INavLink): item is INavLink & {
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  
   const [hasToken, setHasToken] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
@@ -59,7 +60,7 @@ export const Header = () => {
     if (token) setHasToken(true);
   }, []);
 
-  const toggleMenu = () => setIsOpen(true);
+  const toggleMenu = () => setIsOpen(!isOpen);
   
   const toggleDropdown = (label: string) =>
     setOpenDropdown(openDropdown === label ? null : label);
@@ -100,18 +101,11 @@ export const Header = () => {
       </div>
 
       {/* Full-Screen Hamburger Navigation */}
-      <nav className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-blue-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]" }`}
+      <nav className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-gray-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]" }`}
       ref={navRef} >
-        {/* <div className="flex justify-between items-center px-6 py-4">
-          <Image src="/Coastlink-brandlogo.png" width={150} height={50} alt="Logo" />
-          <button onClick={closeMenu} aria-label="Close menu">
-            <X size={30} className="text-white" />
-          </button>
-        </div> */}
-
-          <button onClick={closeMenu} aria-label="Close menu" className="absolute top-6 right-6">
-            <X size={30} className="text-white" />
-          </button>
+        <button onClick={closeMenu} aria-label="Close menu" className="absolute top-6 right-6">
+          <X size={30} className="text-white" />
+        </button>
 
         <ul className="uppercase text-[16px] text-white flex flex-col px-6 my-4">
           {INavLinks.map((item, index) => {
