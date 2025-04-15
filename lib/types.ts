@@ -370,3 +370,27 @@ export interface IMandateRefDataTableProps {
   endDate: string;
   setEndDate: (date: string) => void;
 }
+
+
+export interface IProduct {
+  product_1_interest: string;
+  product_1_tenure: string;
+  product_1_minimum_loan: string;
+  product_1_maximum_loan: string;
+  product_1_dti: string;
+  product_1_management_fee: string;
+  product_2_interest: string;
+  product_2_tenure: string;
+  product_2_minimum_loan: string;
+  product_2_maximum_loan: string;
+  product_2_dti: string;
+  product_2_management_fee: string;
+  product_3_interest: string;
+  product_3_tenure: string;
+  product_3_minimum_loan: string;
+  product_3_maximum_loan: string;
+  product_3_dti: string;
+  product_3_management_fee: string;
+  remita_fee: string;
+  loan_request_cache_duration: string;
+}

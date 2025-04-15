@@ -116,23 +116,23 @@ export function DisbursementsDataTable({
         id: "transfer_status",
         header: () => <div>Transfer Status</div>,
         cell: ({ row }) => {
-          const status = row.original.transfer_status;
+          const rawStatus = row.original.transfer_status;
+          const status = rawStatus?.toLowerCase().trim();
+      
+          const statusColor =
+            status === "success"
+              ? "bg-green-500 text-white"
+              : status === "failed"
+              ? "bg-red-500 text-white"
+              : "bg-orange-500 text-white";
+      
           return (
-            <Badge
-              variant={
-                status === "success"
-                  ? "default"
-                  : status === "failed"
-                  ? "destructive"
-                  : "secondary"
-              }
-              className="capitalize"
-            >
-              {status}
+            <Badge className={`capitalize ${statusColor}`}>
+              {rawStatus}
             </Badge>
           );
         },
-      },
+      },      
       {
         id: "mandate_reference",
         header: () => <div>Mandate Reference</div>,

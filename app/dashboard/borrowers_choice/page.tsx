@@ -1,9 +1,9 @@
-// /app/dashboard/borrowers/page.tsx
+// /app/dashboard/borrowers_choice/page.tsx
 import { Suspense } from "react";
 import BorrowerChoicePage from "./BorrowersChoicePage";
 
 const Page = () => (
-  <Suspense fallback={<div>Loading borrowers...</div>}>
+  <Suspense fallback={<div>Loading borrowers choice...</div>}>
     <BorrowerChoicePage />
   </Suspense>
 );
