@@ -2,6 +2,15 @@
 import { LucideIcon } from "lucide-react";
 import { ElementType } from "react";
 
+export interface INavLink {
+  label: string;
+  href?: string;
+  subLinks?: Array<{
+    label: string;
+    href: string;
+  }>;
+}
+
 // User interface
 export interface IUser {
   id: string;

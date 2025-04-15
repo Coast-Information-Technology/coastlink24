@@ -11,7 +11,32 @@ import {
   Users2,
 } from "lucide-react";
 import { MdOutlineDisplaySettings } from "react-icons/md"
-import { ISidebarData } from "@/lib/types";
+import { INavLink, ISidebarData } from "@/lib/types";
+
+// lib/data.ts
+
+export const INavLinks: INavLink[] = [
+  { href: "/", label: "Home" },
+  { href: "/lenders", label: "For Lenders" },
+  { href: "/investors", label: "For Investors" },
+  { href: "/borrowers", label: "Borrower Access" },
+  { href: "/marketplace", label: "Marketplace" },
+  { href: "/features", label: "Features" },
+  { href: "/pricing", label: "Pricing / Partnership Tiers" },
+  {
+    label: "Resources",
+    subLinks: [
+      { href: "/blog", label: "Blog / Insights" },
+      { href: "/help-center", label: "Help Center / FAQ" },
+      { href: "/testimonials", label: "Testimonials" },
+    ],
+  },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact" },
+  { href: "/login", label: "Login" },
+];
+
+
 
 export const sidebarData: ISidebarData = {
   user: {

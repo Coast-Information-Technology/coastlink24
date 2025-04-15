@@ -331,14 +331,12 @@ export function BorrowerLoanChoiceDataTable({
                 />
               </div>
               {user?.designation && ["ADMIN"].includes(user.designation) && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={downloadCSV}
-                >
-                  <Download className="mr-2 h-4 w-4" />
-                  Export
+                <div className="primary-cta flex items-center gap-2">
+                <Button variant="outline" size="sm" onClick={downloadCSV}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Download CSV
                 </Button>
+              </div>
               )}
             </div>
           </div>

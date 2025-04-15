@@ -28,21 +28,30 @@ export function Sidebar(props: React.ComponentProps<typeof BaseSidebar>) {
   const [isLoggingOut, setIsLoggingOut] = React.useState(false)
 
   const handleLogout = async (): Promise<void> => {
-    if (isLoggingOut) return
-    setIsLoggingOut(true)
-
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+  
     try {
-      await postApiRequest("/auth/token/logout/", {})
-      deleteTokenFromCookies()
-      toast.success("Logged out successfully")
-      router.push("/auth/login")
+      // Attempt server-side logout
+      await postApiRequest("/auth/token/logout/", {});
+      toast.success("Logged out successfully");
     } catch (error) {
-      console.error("Logout error:", error)
-      toast.error("Logout failed. Please try again.")
+      // Log server-side failure, fallback to client-side logout
+      console.error("Server-side logout failed:", error);
+      toast.warn("Could not reach server. Logging out locally.");
     } finally {
-      setIsLoggingOut(false)
+      // Always perform client-side cleanup
+      deleteTokenFromCookies();
+  
+      // Optional: Clear any other auth state if stored
+      // localStorage.removeItem("userInfo"); // if used
+  
+      // Redirect to login
+      router.push("/auth/login");
+      setIsLoggingOut(false);
     }
-  }
+  };  
+  
 
   return (
     <BaseSidebar collapsible="icon" {...props}>

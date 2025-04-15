@@ -278,7 +278,7 @@ export function DisbursementsDataTable({
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <span>Disbursements</span>
-          <div className="flex items-center gap-2">
+          <div className="primary-cta flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={downloadCSV}>
               <Download className="h-4 w-4 mr-2" />
               Download CSV

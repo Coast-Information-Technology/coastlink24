@@ -141,7 +141,7 @@ const LoginPage = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 placeholder="Enter your email"
-                className="w-full px-3 py-5 border border-gray-300 rounded-md dark:bg-white"
+                className="w-full px-3 py-5 border border-gray-300 rounded-md dark:bg-white text-black dark:text-white"
                 required
               />
               {errors.email && (
@@ -165,7 +165,7 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
                   placeholder="Enter your password"
-                  className="w-full px-3 py-5 border border-gray-300 rounded-md pr-10 dark:bg-white"
+                  className="w-full px-3 py-5 border border-gray-300 rounded-md pr-10 dark:bg-white text-black dark:text-white"
                   required
                 />
                 <button
