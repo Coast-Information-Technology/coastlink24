@@ -56,7 +56,7 @@ const page = () => {
             />
             {/* <p>Coastlink 24</p> */}
           </Link>
-          <p className="text-gray-500 dark:text-gray-400 text-[12px] text-right pb-6">
+          <p className="text-gray-500 dark:text-gray-400 text-[14px] text-right pb-6">
             Already have an account?{" "}
             <Link
               href="/auth/login"

@@ -108,7 +108,7 @@ const LoginPage = () => {
             <h1 className="text-2xl font-bold text-black">
               Login to Your Account
             </h1>
-            <p className="text-[12px] text-gray-600 pt-1">
+            <p className="text-[14px] text-gray-600 pt-1">
               Don’t have an account?{" "}
               <Link
                 href="/auth/register"

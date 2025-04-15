@@ -341,7 +341,7 @@ const SignUpPage: React.FC = () => {
             />
             {/* <p>Coastlink 24</p> */}
           </Link>
-          <p className="text-gray-600 text-[12px] text-right">
+          <p className="text-gray-600 text-[14px] text-right">
             Already have an account?{" "}
             <Link
               href="/auth/login"
