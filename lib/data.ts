@@ -23,14 +23,15 @@ export const INavLinks: INavLink[] = [
   { href: "/marketplace", label: "Marketplace" },
   { href: "/features", label: "Features" },
   { href: "/pricing", label: "Pricing / Partnership Tiers" },
-  {
-    label: "Resources",
-    subLinks: [
-      { href: "/blog", label: "Blog / Insights" },
-      { href: "/help-center", label: "Help Center / FAQ" },
-      { href: "/testimonials", label: "Testimonials" },
-    ],
-  },
+  { href: "/faq", label: "FAQs" },
+  // {
+  //   label: "Resources",
+  //   subLinks: [
+  //     { href: "/blog", label: "Blog / Insights" },
+  //     { href: "/help-center", label: "Help Center / FAQ" },
+  //     { href: "/testimonials", label: "Testimonials" },
+  //   ],
+  // },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
   { href: "/login", label: "Login" },

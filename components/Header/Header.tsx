@@ -75,12 +75,7 @@ export const Header = () => {
       </div>
 
       {/* Full-Screen Hamburger Navigation */}
-      <nav
-  className={`fixed top-0 left-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-opacity-80 backdrop-blur-sm z-40 transition-all duration-500 ease-in-out overflow-y-auto ${
-    isOpen ? "left-0" : "-left-[75vw] md:-left-[35vw]"
-  }`}
->
-
+      <nav className={`fixed top-0 left-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-opacity-80 backdrop-blur-sm z-40 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "left-0" : "-left-[75vw] md:-left-[35vw]" }`}>
         <div className="flex justify-between items-center px-6 py-4">
           <Image src="/Coastlink-brandlogo.png" width={150} height={50} alt="Logo" />
           <button onClick={toggleMenu} aria-label="Close menu">
@@ -140,9 +135,9 @@ export const Header = () => {
                     setIsOpen(false);
                     setOpenDropdown(null);
                   }}
-                  className={`block uppercase hover:text-blue-500 ${
-                    isActive(item.href!) ? "text-blue-500 font-medium" : ""
-                  }`}
+                  className={`block uppercase ${
+                    isLastItem ? "text-blue-500 font-bold" : "hover:text-blue-500"
+                  } ${isActive(item.href!) ? "text-blue-500 font-medium" : ""}`}                  
                 >
                   {item.label}
                 </Link>
