@@ -59,7 +59,7 @@ export const Header = () => {
     if (token) setHasToken(true);
   }, []);
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const toggleMenu = () => setIsOpen(true);
   
   const toggleDropdown = (label: string) =>
     setOpenDropdown(openDropdown === label ? null : label);
