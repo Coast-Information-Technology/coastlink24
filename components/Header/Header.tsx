@@ -100,7 +100,7 @@ export const Header = () => {
       </div>
 
       {/* Full-Screen Hamburger Navigation */}
-      <nav className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-opacity-80 backdrop-blur-sm z-40 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]" }`}
+      <nav className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-blue-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]" }`}
       ref={navRef} >
         {/* <div className="flex justify-between items-center px-6 py-4">
           <Image src="/Coastlink-brandlogo.png" width={150} height={50} alt="Logo" />
@@ -120,7 +120,7 @@ export const Header = () => {
             return isDropdownLink(item) ? (
               <li
                 key={`mobile-dropdown-${index}`}
-                className={`py-3 ${!isLastItem ? "border-b border-gray-700" : ""}`}
+                className={`py-3 ${!isLastItem ? "border-b border-gray-300" : ""}`}
               >
                 <button
                   className="uppercase flex items-center gap-2 w-full justify-between text-left"
@@ -140,8 +140,8 @@ export const Header = () => {
                         <Link
                           href={sub.href}
                           onClick={closeMenu}
-                          className={`block hover:text-blue-500 ${
-                            isActive(sub.href) ? "text-blue-500 font-medium" : ""
+                          className={`block hover:text-blue-400 ${
+                            isActive(sub.href) ? "text-blue-400 font-medium" : ""
                           }`}
                         >
                           {sub.label}
@@ -154,14 +154,14 @@ export const Header = () => {
             ) : (
               <li
                 key={item.href}
-                className={`py-3 ${!isLastItem ? "border-b border-gray-700" : ""}`}
+                className={`py-3 ${!isLastItem ? "border-b border-gray-300" : ""}`}
               >
                 <Link
                   href={item.href!}
                   onClick={closeMenu}
                   className={`block uppercase ${
-                    isLastItem ? "text-blue-500 font-bold" : "hover:text-blue-500"
-                  } ${isActive(item.href!) ? "text-blue-500 font-medium" : ""}`}
+                    isLastItem ? "text-blue-400 font-bold" : "hover:text-blue-400"
+                  } ${isActive(item.href!) ? "text-blue-400 font-medium" : ""}`}
                 >
                   {item.label}
                 </Link>
