@@ -31,6 +31,11 @@ export const Header = () => {
       document.body.style.overflow = "unset";
     };
   }, [isOpen]);
+  
+  const closeMenu = () => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -40,9 +45,8 @@ export const Header = () => {
         navRef.current &&
         !navRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
-        setOpenDropdown(null);
-      }
+        closeMenu();
+      }      
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -100,7 +104,7 @@ export const Header = () => {
       ref={navRef} >
         <div className="flex justify-between items-center px-6 py-4">
           <Image src="/Coastlink-brandlogo.png" width={150} height={50} alt="Logo" />
-          <button onClick={toggleMenu} aria-label="Close menu">
+          <button onClick={closeMenu} aria-label="Close menu">
             <X size={30} className="text-white" />
           </button>
         </div>
@@ -131,10 +135,7 @@ export const Header = () => {
                       <li key={sub.href}>
                         <Link
                           href={sub.href}
-                          onClick={() => {
-                            setIsOpen(false);
-                            setOpenDropdown(null);
-                          }}
+                          onClick={closeMenu}
                           className={`block hover:text-blue-500 ${
                             isActive(sub.href) ? "text-blue-500 font-medium" : ""
                           }`}
@@ -153,16 +154,14 @@ export const Header = () => {
               >
                 <Link
                   href={item.href!}
-                  onClick={() => {
-                    setIsOpen(false);
-                    setOpenDropdown(null);
-                  }}
+                  onClick={closeMenu}
                   className={`block uppercase ${
                     isLastItem ? "text-blue-500 font-bold" : "hover:text-blue-500"
-                  } ${isActive(item.href!) ? "text-blue-500 font-medium" : ""}`}                  
+                  } ${isActive(item.href!) ? "text-blue-500 font-medium" : ""}`}
                 >
                   {item.label}
                 </Link>
+
               </li>
             );
           })}
