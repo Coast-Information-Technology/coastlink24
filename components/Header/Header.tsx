@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -22,6 +22,8 @@ export const Header = () => {
   const [hasToken, setHasToken] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const navRef = useRef<HTMLDivElement>(null);
+  
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
@@ -31,11 +33,30 @@ export const Header = () => {
   }, [isOpen]);
 
   useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        navRef.current &&
+        !navRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+
+  useEffect(() => {
     const token = getTokenFromCookies();
     if (token) setHasToken(true);
   }, []);
 
   const toggleMenu = () => setIsOpen((prev) => !prev);
+  
   const toggleDropdown = (label: string) =>
     setOpenDropdown(openDropdown === label ? null : label);
   const isActive = (href: string) => pathname === href;
@@ -75,7 +96,8 @@ export const Header = () => {
       </div>
 
       {/* Full-Screen Hamburger Navigation */}
-      <nav className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-opacity-80 backdrop-blur-sm z-40 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]" }`}>
+      <nav className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-opacity-80 backdrop-blur-sm z-40 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]" }`}
+      ref={navRef} >
         <div className="flex justify-between items-center px-6 py-4">
           <Image src="/Coastlink-brandlogo.png" width={150} height={50} alt="Logo" />
           <button onClick={toggleMenu} aria-label="Close menu">
