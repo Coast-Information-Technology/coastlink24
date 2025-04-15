@@ -76,8 +76,8 @@ export const Header = () => {
 
       {/* Full-Screen Hamburger Navigation */}
       <nav
-  className={`fixed top-0 left-0 h-screen w-[35vw] bg-black bg-opacity-80 backdrop-blur-sm z-40 transition-all duration-500 ease-in-out overflow-y-auto ${
-    isOpen ? "left-0" : "-left-[35vw]"
+  className={`fixed top-0 left-0 h-screen w-[75vw] md:w-[35vw] bg-black bg-opacity-80 backdrop-blur-sm z-40 transition-all duration-500 ease-in-out overflow-y-auto ${
+    isOpen ? "left-0" : "-left-[75vw] md:-left-[35vw]"
   }`}
 >
 
@@ -88,10 +88,15 @@ export const Header = () => {
           </button>
         </div>
 
-        <ul className="uppercase text-[16px] text-white flex flex-col gap-6 px-6 mt-2 mb-8">
-          {INavLinks.map((item, index) =>
-            isDropdownLink(item) ? (
-              <li key={`mobile-dropdown-${index}`}>
+        <ul className="uppercase text-[16px] text-white flex flex-col px-6 my-4">
+          {INavLinks.map((item, index) => {
+            const isLastItem = index === INavLinks.length - 1;
+
+            return isDropdownLink(item) ? (
+              <li
+                key={`mobile-dropdown-${index}`}
+                className={`py-3 ${!isLastItem ? "border-b border-gray-700" : ""}`}
+              >
                 <button
                   className="uppercase flex items-center gap-2 w-full justify-between text-left"
                   onClick={() => toggleDropdown(item.label)}
@@ -104,7 +109,7 @@ export const Header = () => {
                   )}
                 </button>
                 {openDropdown === item.label && (
-                  <ul className="uppercase mt-2 ml-4 space-y-2 border-l border-gray-600 pl-4 text-[14px] text-gray-300">
+                  <ul className="uppercase mt-2 ml-4 space-y-2 pl-4 text-[14px] text-gray-300">
                     {item.subLinks.map((sub) => (
                       <li key={sub.href}>
                         <Link
@@ -125,7 +130,10 @@ export const Header = () => {
                 )}
               </li>
             ) : (
-              <li key={item.href}>
+              <li
+                key={item.href}
+                className={`py-3 ${!isLastItem ? "border-b border-gray-700" : ""}`}
+              >
                 <Link
                   href={item.href!}
                   onClick={() => {
@@ -139,19 +147,10 @@ export const Header = () => {
                   {item.label}
                 </Link>
               </li>
-            )
-          )}
+            );
+          })}
         </ul>
 
-        {/* <div className="absolute bottom-10 left-0 w-full flex justify-center">
-          <Link
-            href="/auth/login"
-            className="secondary-cta px-6 py-3 rounded-full text-[14px]"
-            onClick={() => setIsOpen(false)}
-          >
-            Sign In
-          </Link>
-        </div> */}
       </nav>
     </header>
   );
