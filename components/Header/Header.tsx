@@ -12,56 +12,61 @@ import { INavLink } from "@/lib/types";
 
 // Type guard for dropdown items
 function isDropdownLink(item: INavLink): item is INavLink & {
-  subLinks: Array<{ label: string; href: string }>
+  subLinks: Array<{ label: string; href: string }>;
 } {
   return !!item.subLinks && item.subLinks.length > 0;
 }
 
 export const Header = () => {
+  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  
   const [hasToken, setHasToken] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
-  
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     document.body.style.overflow = isOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isOpen]);
-  
+  }, [isOpen, mounted]);
+
+  useEffect(() => {
+    if (!mounted || !isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen, mounted]);
+
+  useEffect(() => {
+    if (!mounted) return;
+
+    const token = getTokenFromCookies();
+    if (token) setHasToken(true);
+  }, [mounted]);
+
+  if (!mounted) return null;
+
   const closeMenu = () => {
     setIsOpen(false);
     setOpenDropdown(null);
   };
 
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        navRef.current &&
-        !navRef.current.contains(event.target as Node)
-      ) {
-        closeMenu();
-      }      
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isOpen]);
-
-
-  useEffect(() => {
-    const token = getTokenFromCookies();
-    if (token) setHasToken(true);
-  }, []);
-
   const toggleMenu = () => setIsOpen(!isOpen);
-  
+
   const toggleDropdown = (label: string) =>
     setOpenDropdown(openDropdown === label ? null : label);
   const isActive = (href: string) => pathname === href;
@@ -101,9 +106,15 @@ export const Header = () => {
       </div>
 
       {/* Full-Screen Hamburger Navigation */}
-      <nav className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-gray-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${ isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]" }`}
-      ref={navRef} >
-        <button onClick={closeMenu} aria-label="Close menu" className="absolute top-6 right-6">
+      <nav
+        className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-gray-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]"}`}
+        ref={navRef}
+      >
+        <button
+          onClick={closeMenu}
+          aria-label="Close menu"
+          className="absolute top-6 right-6"
+        >
           <X size={30} className="text-white" />
         </button>
 
@@ -135,7 +146,9 @@ export const Header = () => {
                           href={sub.href}
                           onClick={closeMenu}
                           className={`block hover:text-blue-400 ${
-                            isActive(sub.href) ? "text-blue-400 font-medium" : ""
+                            isActive(sub.href)
+                              ? "text-blue-400 font-medium"
+                              : ""
                           }`}
                         >
                           {sub.label}
@@ -154,17 +167,17 @@ export const Header = () => {
                   href={item.href!}
                   onClick={closeMenu}
                   className={`block uppercase ${
-                    isLastItem ? "text-blue-400 font-bold" : "hover:text-blue-400"
+                    isLastItem
+                      ? "text-blue-400 font-bold"
+                      : "hover:text-blue-400"
                   } ${isActive(item.href!) ? "text-blue-400 font-medium" : ""}`}
                 >
                   {item.label}
                 </Link>
-
               </li>
             );
           })}
         </ul>
-
       </nav>
     </header>
   );
