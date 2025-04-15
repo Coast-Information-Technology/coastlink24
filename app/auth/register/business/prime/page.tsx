@@ -405,7 +405,7 @@ const SignUpPage: React.FC = () => {
                   Things to note before you <br />
                   commence
                 </h2>
-                <p className="text-gray-600 text-[14px] w-[20vw] pt-2 pb-4">
+                <p className="text-gray-600 text-[14px] lg:w-[20vw] pt-2 pb-4">
                   To complete the KYC process for your business, the following
                   are a few things you need to have...
                 </p>
