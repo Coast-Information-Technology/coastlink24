@@ -46,7 +46,7 @@ export default function LendersPage() {
       </section>
 
       {/* Choose Your Lender Type */}
-      <section className="py-20 bg-white px-24 space-y-24">
+      <section className="py-20 bg-white px-4 md:px-24 space-y-24">
         {/* Institutional Lenders */}
         <div className="md:flex items-center gap-10">
           <div className="md:w-1/2 space-y-4">
