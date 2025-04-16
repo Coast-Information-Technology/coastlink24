@@ -100,11 +100,11 @@ export const Footer = () => {
             <Input
               type="email"
               placeholder="Your email"
-              className="p-2 rounded text-white w-full sm:w-auto"
+              className="p-4 rounded text-white w-full sm:w-auto"
             />
             <Button
               type="submit"
-              className="primary-cta hover:bg-blue-700 px-4 py-2 rounded"
+              className="primary-cta hover:bg-blue-700 p-4 rounded"
             >
               Subscribe
             </Button>
