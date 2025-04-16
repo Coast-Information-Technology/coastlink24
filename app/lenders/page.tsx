@@ -71,7 +71,7 @@ export default function LendersPage() {
               Ideal for: MFBs, commercial lenders, BNPL startups, etc.
             </p>
           </div>
-          <div className="md:w-1/2">
+          <div className="md:w-1/2 pt-3 md:pt-0">
             <Image
               src="/lenders-dashboard.png"
               alt="Institutional Lenders"
@@ -102,7 +102,7 @@ export default function LendersPage() {
               Ideal for: Family offices, private investors, DeFi credit pools.
             </p>
           </div>
-          <div className="md:w-1/2">
+          <div className="md:w-1/2 pt-3 md:pt-0">
             <Image
               src="/investor-portfolio.png"
               alt="Capital-Backed Investors"
