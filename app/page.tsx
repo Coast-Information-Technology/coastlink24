@@ -239,7 +239,7 @@ export default function Home() {
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-white text-gray-700 py-4 px-8 rounded-md shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              className="bg-white text-gray-700 p-10 font-bold uppercase rounded-md shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
               <div className="text-xl mb-2">{item.icon}</div>
               {item.label}
