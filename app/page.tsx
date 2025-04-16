@@ -5,15 +5,15 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main>
+    <main className="">
       {/* Hero Section */}
       <section
-        className={`${styles.heroSection} | section-padding-block section-padding-block-start relative even-columns text-center items-center justify-center`}
+        className={`section-padding-block section-padding-block-start relative even-columns text-center items-center justify-center`}
       >
         <div
-          className={`${styles.heroTextBox} relative z-20 flex flex-col lg:items-start items-center lg:text-left text-center`}
+          className={`relative z-20 flex flex-col lg:items-start items-center lg:text-left text-center`}
         >
-          <h1 className={`${styles.mainText} primary-heading text-white`}>
+          <h1 className={`primary-heading text-white`}>
             Welcome to Coastlink24 – Your Trusted{" "}
             <span className="text-grey">Fintech Solution for Lenders</span>
           </h1>

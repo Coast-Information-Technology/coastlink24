@@ -674,9 +674,9 @@ p {
 
 /* 4.   General styling ends */
 
-main {
+/* main {
   margin-block-start: var(--xs-padding);
-}
+} */
 
 section li {
   --flow-spacer: 1rem;
