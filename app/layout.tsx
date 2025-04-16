@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/lib/theme-provider";
 import { Themes } from "@/components/Context/ThemeContext";
 import InternetCheck from "@/utils/internetCheck";
 import { Header } from "@/components/Header/Header";
-import Footer from "@/components/Footer/page";
+import { Footer } from "@/components/Footer/page";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({

@@ -5,7 +5,7 @@ import { INavLinks } from "@/lib/data";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-export default function Footer() {
+export const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-6 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -19,12 +19,17 @@ export default function Footer() {
             className="mr-2"
           />
           <p className="text-[12px] mb-4">
-            Let’s Power Africa’s Credit <br />
+            Let{"'"}s Power Africa{"'"}s Credit <br />
             Revolution — Together.
           </p>
           <div className="space-y-1 text-sm">
-            <p>
-              Email:{" "}
+            <p className="flex items-center gap-1">
+              <Image
+                src="/icons/gmail.png"
+                alt="gmail icon"
+                width={30}
+                height={30}
+              />
               <Link
                 href="mailto:hello@coastlink24.com"
                 className="hover:underline"
@@ -32,7 +37,15 @@ export default function Footer() {
                 hello@coastlink24.com
               </Link>
             </p>
-            <p>WhatsApp: +234 xxx xxx xxxx</p>
+            <p className="flex items-center gap-1">
+              <Image
+                src="/icons/whatsapp.png"
+                alt="Whatsapp icon"
+                width={30}
+                height={30}
+              />{" "}
+              +234 xxx xxx xxxx
+            </p>
           </div>
         </div>
 
@@ -98,4 +111,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+};

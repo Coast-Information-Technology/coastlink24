@@ -116,32 +116,64 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center mb-12 text-black">
           How It Works
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-6">
+        <div className="relative px-6 max-w-6xl mx-auto space-y-16">
+          {/* Vertical connecting line */}
+          <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gray-200 transform -translate-x-1/2 z-0" />
+
           {[
             [
               "FOR BORROWERS",
               "Access loans from anywhere — even without internet. Use our shortcode or mobile/web app to apply, get scored, and receive disbursement instantly.",
               "Dial. Apply. Receive. Repay. Done.",
+              "/happy-borrower.jpg",
             ],
             [
               "FOR LENDERS",
               "Launch a loan product with zero tech overhead. Manage your borrowers, repayments, and scoring from a smart dashboard or mobile app. Need custom UI or API-only integration? You’re covered.",
               "Plug in and lend. Coast Link24 handles the rest.",
+              "/partners.jpg",
             ],
             [
               "FOR INVESTORS",
               "Invest in vetted lenders and portfolios. Track your money, returns, and performance from a clean dashboard. We offer transparency, risk tagging, and insights.",
               "Don’t build a loan app — fund the one that powers them all.",
+              "/investors.jpg",
             ],
-          ].map(([title, desc, quote], i) => (
-            <div key={i} className="p-6 border rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold mb-2 text-black">{title}</h3>
-              <p className="mb-4">{desc}</p>
-              <blockquote className="italic text-gray-600">
-                “{quote}”
-              </blockquote>
-            </div>
-          ))}
+          ].map(([title, desc, quote, img], i) => {
+            const isEven = i % 2 !== 0;
+
+            return (
+              <div
+                key={i}
+                className={`relative z-10 flex flex-col md:flex-row items-center ${
+                  isEven ? "md:flex-row-reverse" : ""
+                } gap-8`}
+              >
+                {/* Connector dot */}
+                <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-600 rounded-full z-20" />
+
+                {/* Text */}
+                <div className="md:w-1/2">
+                  <h3 className="text-xl font-bold mb-2 text-black">{title}</h3>
+                  <p className="mb-4">{desc}</p>
+                  <blockquote className="italic text-gray-600">
+                    “{quote}”
+                  </blockquote>
+                </div>
+
+                {/* Image */}
+                <div className="md:w-1/2">
+                  <Image
+                    src={img}
+                    alt={title}
+                    width={600}
+                    height={400}
+                    className="w-full rounded-xl object-cover"
+                  />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
