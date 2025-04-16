@@ -58,6 +58,10 @@ export const Header = () => {
     if (token) setHasToken(true);
   }, [mounted]);
 
+  useEffect(() => {
+    console.log("isOpen:", isOpen);
+  }, [isOpen]);
+
   if (!mounted) return null;
 
   const closeMenu = () => {
