@@ -8,9 +8,9 @@ import { motion } from "framer-motion";
 
 const BorrowersPage = () => {
   return (
-    <section className="space-y-28 py-16 px-6 md:px-20">
+    <main className="space-y-28 py-16 px-6 md:px-20">
       {/* Hero Section */}
-      <motion.div
+      <motion.section
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -33,10 +33,10 @@ const BorrowersPage = () => {
           height={500}
           className="mx-auto"
         />
-      </motion.div>
+      </motion.section>
 
       {/* Loan Methods */}
-      <div className="space-y-16">
+      <section className="space-y-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900">
           Multiple Ways to Apply for a Loan
         </h2>
@@ -104,7 +104,7 @@ const BorrowersPage = () => {
             </motion.div>
           ))}
         </div>
-      </div>
+      </section>
 
       {/* Automation Explanation */}
       <div className="grid md:grid-cols-2 items-center gap-12">
@@ -185,7 +185,7 @@ const BorrowersPage = () => {
           <Link href="/download">Download the App</Link>
         </Button>
       </div>
-    </section>
+    </main>
   );
 };
 

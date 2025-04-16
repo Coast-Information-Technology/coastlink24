@@ -47,7 +47,7 @@ export default function Home() {
           alt="coastlink24 dashboard ui"
           width={900}
           height={800}
-          className="max-w-full h-auto rounded-lg heroSectImage flex self-center justify-center relative z-20 pt-6"
+          className="max-w-full h-auto rounded-[10px] heroSectImage flex self-center justify-center relative z-20 pt-6"
         />
 
         <Image
