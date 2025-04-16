@@ -181,17 +181,42 @@ export default function Home() {
         <h2 className="text-3xl font-bold mb-10 text-black">Key Features</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
           {[
-            "Automated KYC + Credit Scoring",
-            "Real-time Disbursement & Repayment Tracking",
-            "USSD-as-a-Service (Lenders create & launch menus via app)",
-            "Mobile Admin App + Web Dashboard",
-            "Loan History Check Across Multiple Lenders",
-            "Multi-tenant Segregation with API Keys & Rate Limiting",
-            "Role-based Data Downloads",
-            "Fully Embedded White-label UI or API Access",
-          ].map((feature, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg shadow">
-              <p className="text-gray-700">{feature}</p>
+            ["Automated KYC + Credit Scoring", "/icons/kyc.png"],
+            [
+              "Real-time Disbursement & Repayment Tracking",
+              "/icons/payment-tracking.png",
+            ],
+            [
+              "USSD-as-a-Service (Lenders create & launch menus via app)",
+              "/icons/phone-service.png",
+            ],
+            ["Mobile Admin App + Web Dashboard", "/icons/dashboard.png"],
+            [
+              "Loan History Check Across Multiple Lenders",
+              "/icons/records.png",
+            ],
+            [
+              "Multi-tenant Segregation with API Keys & Rate Limiting",
+              "/icons/api.png",
+            ],
+            ["Role-based Data Downloads", "/icons/role.png"],
+            [
+              "Fully Embedded White-label UI or API Access",
+              "/icons/api-access.png",
+            ], // fixed path typo
+          ].map(([title, icon], index) => (
+            <div
+              key={index}
+              className="bg-white p-6 rounded-lg shadow text-center"
+            >
+              <Image
+                src={icon}
+                alt={title}
+                width={80}
+                height={80}
+                className="mx-auto mb-4"
+              />
+              <p className="text-gray-700 text-sm">{title}</p>
             </div>
           ))}
         </div>
