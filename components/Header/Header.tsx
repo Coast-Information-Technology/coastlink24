@@ -106,85 +106,83 @@ export const Header = () => {
       </div>
 
       {/* Full-Screen Hamburger Navigation */}
-      <nav
-        ref={navRef}
-        className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-gray-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${
-          !mounted
-            ? "hidden"
-            : isOpen
-              ? "right-0"
-              : "-right-[75vw] md:-right-[35vw]"
-        }`}
-      >
-        <button
-          onClick={closeMenu}
-          aria-label="Close menu"
-          className="absolute top-6 right-6"
+      {mounted && (
+        <nav
+          ref={navRef}
+          className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-gray-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${
+            isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]"
+          }`}
         >
-          <X size={30} className="text-white" />
-        </button>
+          <button
+            onClick={closeMenu}
+            aria-label="Close menu"
+            className="absolute top-6 right-6"
+          >
+            <X size={30} className="text-white" />
+          </button>
 
-        <ul className="uppercase text-[16px] text-white flex flex-col px-6 my-4">
-          {INavLinks.map((item, index) => {
-            const isLastItem = index === INavLinks.length - 1;
+          <ul className="uppercase text-[16px] text-white flex flex-col px-6 my-4">
+            {INavLinks.map((item, index) => {
+              const isLastItem = index === INavLinks.length - 1;
 
-            return isDropdownLink(item) ? (
-              <li
-                key={`mobile-dropdown-${index}`}
-                className={`py-3 ${!isLastItem ? "border-b border-gray-300" : ""}`}
-              >
-                <button
-                  className="uppercase flex items-center gap-2 w-full justify-between text-left"
-                  onClick={() => toggleDropdown(item.label)}
+              return isDropdownLink(item) ? (
+                <li
+                  key={`mobile-dropdown-${index}`}
+                  className={`py-3 ${!isLastItem ? "border-b border-gray-300" : ""}`}
                 >
-                  {item.label}
-                  {openDropdown === item.label ? (
-                    <ChevronUp size={18} />
-                  ) : (
-                    <ChevronDown size={18} />
+                  <button
+                    className="uppercase flex items-center gap-2 w-full justify-between text-left"
+                    onClick={() => toggleDropdown(item.label)}
+                  >
+                    {item.label}
+                    {openDropdown === item.label ? (
+                      <ChevronUp size={18} />
+                    ) : (
+                      <ChevronDown size={18} />
+                    )}
+                  </button>
+                  {openDropdown === item.label && (
+                    <ul className="uppercase mt-2 ml-4 space-y-2 pl-4 text-[14px] text-gray-300">
+                      {item.subLinks.map((sub) => (
+                        <li key={sub.href}>
+                          <Link
+                            href={sub.href}
+                            onClick={closeMenu}
+                            className={`block hover:text-blue-400 ${
+                              isActive(sub.href)
+                                ? "text-blue-400 font-medium"
+                                : ""
+                            }`}
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   )}
-                </button>
-                {openDropdown === item.label && (
-                  <ul className="uppercase mt-2 ml-4 space-y-2 pl-4 text-[14px] text-gray-300">
-                    {item.subLinks.map((sub) => (
-                      <li key={sub.href}>
-                        <Link
-                          href={sub.href}
-                          onClick={closeMenu}
-                          className={`block hover:text-blue-400 ${
-                            isActive(sub.href)
-                              ? "text-blue-400 font-medium"
-                              : ""
-                          }`}
-                        >
-                          {sub.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ) : (
-              <li
-                key={item.href}
-                className={`py-3 ${!isLastItem ? "border-b border-gray-300" : ""}`}
-              >
-                <Link
-                  href={item.href!}
-                  onClick={closeMenu}
-                  className={`block uppercase ${
-                    isLastItem
-                      ? "text-blue-400 font-bold"
-                      : "hover:text-blue-400"
-                  } ${isActive(item.href!) ? "text-blue-400 font-medium" : ""}`}
+                </li>
+              ) : (
+                <li
+                  key={item.href}
+                  className={`py-3 ${!isLastItem ? "border-b border-gray-300" : ""}`}
                 >
-                  {item.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+                  <Link
+                    href={item.href!}
+                    onClick={closeMenu}
+                    className={`block uppercase ${
+                      isLastItem
+                        ? "text-blue-400 font-bold"
+                        : "hover:text-blue-400"
+                    } ${isActive(item.href!) ? "text-blue-400 font-medium" : ""}`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 };

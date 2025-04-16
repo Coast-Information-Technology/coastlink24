@@ -10,7 +10,7 @@ import {
   LayoutDashboard,
   Users2,
 } from "lucide-react";
-import { MdOutlineDisplaySettings } from "react-icons/md"
+import { MdOutlineDisplaySettings } from "react-icons/md";
 import { INavLink, ISidebarData } from "@/lib/types";
 
 // lib/data.ts
@@ -34,10 +34,8 @@ export const INavLinks: INavLink[] = [
   // },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
-  { href: "/login", label: "Login" },
+  { href: "/auth/login", label: "Login" },
 ];
-
-
 
 export const sidebarData: ISidebarData = {
   user: {
@@ -113,7 +111,10 @@ export const sidebarData: ISidebarData = {
       icon: BookOpen,
       items: [
         { title: "All Mandate Ref", url: "/dashboard/mandate_references" },
-        { title: "Mandate Ref Verification", url: "/dashboard/mandate_references/verification" },
+        {
+          title: "Mandate Ref Verification",
+          url: "/dashboard/mandate_references/verification",
+        },
       ],
     },
     {
@@ -129,7 +130,11 @@ export const sidebarData: ISidebarData = {
     },
   ],
   projects: [
-    { name: "Loan Product Settings", url: "/dashboard/loan-product-settings", icon: MdOutlineDisplaySettings },
+    {
+      name: "Loan Product Settings",
+      url: "/dashboard/loan-product-settings",
+      icon: MdOutlineDisplaySettings,
+    },
     { name: "Sales & Marketing", url: "/tracking", icon: PieChart },
     { name: "Travel", url: "/tracking", icon: Map },
   ],
