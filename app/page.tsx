@@ -152,7 +152,7 @@ export default function Home() {
                 } gap-8`}
               >
                 {/* Connector dot */}
-                <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-600 rounded-full z-20" />
+                {/* <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-600 rounded-full z-20" /> */}
 
                 {/* Text */}
                 <div className="md:w-1/2">
