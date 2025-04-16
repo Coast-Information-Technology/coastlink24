@@ -74,7 +74,7 @@ export default function Home() {
       <section
         className="py-20 bg-gray-50 text-center text-gray-600"
         style={{
-          backgroundImage: "url('/ecosystems.jpg')",
+          backgroundImage: "url('/ecosystems.webp')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center center",
