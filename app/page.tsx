@@ -133,7 +133,7 @@ export default function Home() {
               "FOR LENDERS",
               "Launch a loan product with zero tech overhead. Manage your borrowers, repayments, and scoring from a smart dashboard or mobile app. Need custom UI or API-only integration? You’re covered.",
               "Plug in and lend. Coast Link24 handles the rest.",
-              "/partners.jpg",
+              "/lenders.avif",
             ],
             [
               "FOR INVESTORS",
