@@ -80,13 +80,13 @@ export const Header = () => {
   if (shouldHideHeader) return null;
 
   return (
-    <header className="bg-transparent absolute w-full z-30 top-0 px-6 h-[15vh] flex justify-between items-center">
+    <header className="bg-transparent absolute w-full z-30 top-0 px-2 md:px-6 h-[10vh] md:h-[15vh] flex justify-between items-center">
       {/* Logo */}
       <Link href="/">
         <Image
           src="/Coastlink-brandlogo.png"
           alt="CoastLink24"
-          width={180}
+          width={150}
           height={130}
         />
       </Link>

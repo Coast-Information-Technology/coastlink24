@@ -4,22 +4,25 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       {/* Hero Section */}
       <section
-        className={`section-padding-block section-padding-block-start relative even-columns text-center items-center justify-center`}
+        className={`section-padding-block section-padding-block-start relative even-columns text-center items-center justify-center pt-6`}
       >
         <div
           className={`relative z-20 flex flex-col lg:items-start items-center lg:text-left text-center`}
         >
           <h1 className={`primary-heading text-white`}>
-            Welcome to Coastlink24 – Your Trusted{" "}
-            <span className="text-grey">Fintech Solution for Lenders</span>
+            {/* Welcome to Coastlink24 – Your Trusted{" "}
+            <span className="text-grey">Fintech Solution for Lenders</span> */}
+            Africa{"'"}s Unified Loan Infrastructure Engine
           </h1>
-          <p className="p-3 text-white max-w-full">
-            Revolutionizing Lending Services with Cutting-Edge Technology.
-            Manage loan requests, disbursements, and repayments through our
-            innovative, user-friendly platform for both USSD and web users.
+          <p className="text-white max-w-full text-[1.2rem] italic pt-2">
+            - Borrow Smarter. Lend Faster. Invest Confidently.
+          </p>
+          <p className="text-white max-w-full pt-6">
+            We{"'"}re building the future of credit — accessible via USSD, Web,
+            and Mobile, powered by automation and Backend-as-a-Service (BaaS).
           </p>
 
           <div className="flex items-center justify-center pt-4 gap-4">
@@ -44,7 +47,7 @@ export default function Home() {
           alt="coastlink24 dashboard ui"
           width={900}
           height={800}
-          className="max-w-full h-auto rounded-lg heroSectImage flex self-center justify-center relative z-20 pt-8 lg:pt-0"
+          className="max-w-full h-auto rounded-lg heroSectImage flex self-center justify-center relative z-20 pt-6"
         />
 
         <Image
@@ -57,18 +60,18 @@ export default function Home() {
       </section>
 
       {/* Intro Section */}
-      <section className="text-center py-16 px-6 bg-white text-gray-600">
+      {/* <section className="text-center py-16 px-6 bg-white text-gray-600">
         <h2 className="text-3xl font-bold mb-4 text-black">
-          Africa’s Unified Loan Infrastructure Engine
+          Africa{"'"}s Unified Loan Infrastructure Engine
         </h2>
         <p className="text-xl max-w-3xl mx-auto mb-6">
           Borrow Smarter. Lend Faster. Invest Confidently.
         </p>
         <p className="text-md max-w-2xl mx-auto">
-          We’re building the future of credit — accessible via USSD, Web, and
-          Mobile, powered by automation and Backend-as-a-Service (BaaS).
+          We{"'"}re building the future of credit — accessible via USSD, Web,
+          and Mobile, powered by automation and Backend-as-a-Service (BaaS).
         </p>
-      </section>
+      </section> */}
 
       {/* Why Coast Link24 */}
       <section
