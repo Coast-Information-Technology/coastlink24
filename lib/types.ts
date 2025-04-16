@@ -4,7 +4,7 @@ import { ElementType } from "react";
 
 export interface INavLink {
   label: string;
-  href?: string;
+  href: string;
   subLinks?: Array<{
     label: string;
     href: string;
@@ -217,7 +217,6 @@ export interface IBorrowerLoanChoiceDataTableProps {
   setEndDate: (date: string) => void;
 }
 
-
 export interface IBorrowerChoice {
   id: string;
   request_id: string;
@@ -379,7 +378,6 @@ export interface IMandateRefDataTableProps {
   endDate: string;
   setEndDate: (date: string) => void;
 }
-
 
 export interface IProduct {
   product_1_interest: string;

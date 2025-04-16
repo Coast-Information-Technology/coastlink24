@@ -88,11 +88,10 @@ export const Header = () => {
       {/* Logo */}
       <Link href="/">
         <Image
-          className="w-[150px] md:w-[210px] mt-3"
           src="/Coastlink-brandlogo.png"
           alt="CoastLink24"
-          width={210}
-          height={180}
+          width={180}
+          height={130}
         />
       </Link>
 

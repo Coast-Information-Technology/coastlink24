@@ -24,12 +24,16 @@ export default function Home() {
           </p>
 
           <div className="flex items-center justify-center pt-4 gap-4">
-            <Link href="/auth/register" className="cta primary-cta rounded-md">
+            <Link
+              href="/auth/register"
+              className="cta primary-cta rounded-md transition transform hover:scale-105 hover:shadow-lg"
+            >
               Sign Up Now
             </Link>
+
             <Link
               href="/"
-              className="cta secondary-cta hover:shadow-xl rounded-md"
+              className="cta secondary-cta transition transform hover:scale-105 hover:shadow-lg rounded-md"
             >
               Learn More
             </Link>
@@ -55,7 +59,7 @@ export default function Home() {
 
       {/* Intro Section */}
       <section className="text-center py-16 px-6 bg-white text-gray-600">
-        <h2 className="text-3xl font-bold mb-4">
+        <h2 className="text-3xl font-bold mb-4 text-black">
           Africa’s Unified Loan Infrastructure Engine
         </h2>
         <p className="text-xl max-w-3xl mx-auto mb-6">
@@ -68,8 +72,18 @@ export default function Home() {
       </section>
 
       {/* Why Coast Link24 */}
-      <section className="py-20 bg-gray-50 text-center">
-        <h2 className="text-3xl font-bold mb-10">Why Coast Link24?</h2>
+      <section
+        className="py-20 bg-gray-50 text-center text-gray-600"
+        style={{
+          backgroundImage: "url('/ecosystems.jpg')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+        }}
+      >
+        <h2 className="text-3xl font-bold mb-10 text-white">
+          Why Coast Link24?
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
           {[
             [
@@ -90,16 +104,18 @@ export default function Home() {
             ],
           ].map(([title, desc], index) => (
             <div key={index} className="bg-white p-6 rounded-lg shadow">
-              <h3 className="text-xl font-semibold mb-2">{title}</h3>
-              <p>{desc}</p>
+              <h3 className="text-xl font-semibold mb-2 text-black">{title}</h3>
+              <p className="text-gray-700">{desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-white">
-        <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
+      <section className="py-20 bg-white text-gray-600">
+        <h2 className="text-3xl font-bold text-center mb-12 text-black">
+          How It Works
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-6">
           {[
             [
@@ -119,7 +135,7 @@ export default function Home() {
             ],
           ].map(([title, desc, quote], i) => (
             <div key={i} className="p-6 border rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold mb-2">{title}</h3>
+              <h3 className="text-xl font-bold mb-2 text-black">{title}</h3>
               <p className="mb-4">{desc}</p>
               <blockquote className="italic text-gray-600">
                 “{quote}”
@@ -130,8 +146,8 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gray-50 text-center">
-        <h2 className="text-3xl font-bold mb-10">Key Features</h2>
+      <section className="py-20 bg-gray-50 text-center text-gray-600">
+        <h2 className="text-3xl font-bold mb-10 text-black">Key Features</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
           {[
             "Automated KYC + Credit Scoring",
@@ -144,27 +160,28 @@ export default function Home() {
             "Fully Embedded White-label UI or API Access",
           ].map((feature, index) => (
             <div key={index} className="bg-white p-4 rounded-lg shadow">
-              <p>{feature}</p>
+              <p className="text-gray-700">{feature}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Built For Section */}
-      <section className="py-20 bg-white text-center">
-        <h2 className="text-3xl font-bold mb-6">Built For:</h2>
-        <div className="flex flex-wrap justify-center gap-4 px-6">
+      <section className="py-20 bg-gradient-to-r from-blue-500 to-indigo-600 text-center text-white">
+        <h2 className="text-4xl font-extrabold mb-6 text-white">Built For:</h2>
+        <div className="flex flex-wrap justify-center gap-8 px-6">
           {[
-            "Microfinance Lenders & Digital Banks",
-            "Fintech Startups & Cooperatives",
-            "Employers with Large Workforces",
-            "Angel Investors & Impact Funds",
+            { label: "Microfinance Lenders & Digital Banks", icon: "🏦" },
+            { label: "Fintech Startups & Cooperatives", icon: "💡" },
+            { label: "Employers with Large Workforces", icon: "👥" },
+            { label: "Angel Investors & Impact Funds", icon: "💼" },
           ].map((item, index) => (
             <div
               key={index}
-              className="bg-gray-100 py-3 px-6 rounded-full shadow"
+              className="bg-white text-gray-700 py-4 px-8 rounded-full shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              {item}
+              <div className="text-xl mb-2">{item.icon}</div>
+              {item.label}
             </div>
           ))}
         </div>
@@ -172,7 +189,7 @@ export default function Home() {
 
       {/* Call to Action */}
       <section className="py-20 bg-indigo-600 text-white text-center">
-        <h2 className="text-3xl font-bold mb-6">
+        <h2 className="text-3xl font-bold mb-6 text-white">
           Ready to Join the Future of Lending?
         </h2>
         <div className="flex flex-wrap justify-center gap-4 px-6">
@@ -192,13 +209,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 bg-gray-900 text-white text-center">
-        <p>Email: hello@coastlink24.com</p>
-        <p>Website: www.coastlink24.com</p>
-        <p>WhatsApp: +234 xxx xxx xxxx</p>
-      </footer>
     </main>
   );
 }
