@@ -10,13 +10,13 @@ const PageNotFound: React.FC = () => {
 
   return (
     <div className="w-full h-[100vh] flex flex-col justify-center items-center">
-      <div className="flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold">Oops! Page Not Found 🥲😥</h2>
-        <p>
+      <div className="flex flex-col justify-center items-center text-center">
+        <h2 className="text-4xl font-bold pb-6">Oops! Page Not Found 🥲😥</h2>
+        <p className="text-xl md:w-[50vw]">
           It looks like the page you{"'"}re looking for doesn{"'"}t exist. But
           don{"'"}t worry, we{"'"}re here to help you get back on track!
         </p>
-        <div className="btn-container flex justify-center items-center gap-2 pt-2">
+        <div className="btn-container flex justify-center items-center gap-2 pt-6">
           <Button
             onClick={() => {
               router.back();

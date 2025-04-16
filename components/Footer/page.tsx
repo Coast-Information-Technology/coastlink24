@@ -1,11 +1,25 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { INavLinks } from "@/lib/data";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { disableHeaderWithFooter } from "@/utils/disableHeaderWithFooter";
+import { usePathname } from "next/navigation";
 
 export const Footer = () => {
+  const pathname = usePathname();
+
+  const shouldHideHeader = disableHeaderWithFooter.some((path) => {
+    const pattern = path.replace(/\[.*\]/g, "[^/]+");
+    const regex = new RegExp(`^${pattern}$`);
+    return regex.test(pathname);
+  });
+
+  if (shouldHideHeader) return null;
+
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-6 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
