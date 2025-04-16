@@ -113,7 +113,7 @@ export const Header = () => {
       {mounted && (
         <nav
           ref={navRef}
-          className={`fixed top-0 right-0 h-screen w-[75vw] md:w-[35vw] bg-gray-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${
+          className={`fixed top-0 h-screen w-[75vw] md:w-[35vw] bg-opacity-95 backdrop:blur-lg bg-gray-700 z-20 transition-all duration-500 ease-in-out overflow-y-auto ${
             isOpen ? "right-0" : "-right-[75vw] md:-right-[35vw]"
           }`}
         >
