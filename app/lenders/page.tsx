@@ -7,11 +7,11 @@ export default function LendersPage() {
       {/* Hero Section */}
       <section
         className="relative bg-cover bg-center bg-no-repeat text-white py-32 px-6 h-screen flex justify-center items-center"
-        style={{ backgroundImage: `url('/partners.jpg')` }}
+        style={{ backgroundImage: `url('/lenders.avif')` }}
       >
-        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-80"></div>
         <div className="relative max-w-4xl mx-auto text-center z-10 lg:pt-16">
-          <h1 className="text-4xl font-bold mb-4 text-primary">
+          <h1 className="text-[2.5rem] font-bold mb-4 text-primary">
             Launch, Scale, and Automate Your Lending Operations — Without
             Writing a Single Line of Code.
           </h1>
