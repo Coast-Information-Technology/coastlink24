@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 const BorrowersPage = () => {
   return (
-    <main className="space-y-28 py-16 px-6 md:px-20">
+    <main className="space-y-28 py-16 px-6 md:px-20 bg-white text-gray-800">
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: 50 }}

@@ -7,7 +7,7 @@ export default function Home() {
     <main>
       {/* Hero Section */}
       <section
-        className={`section-padding-block section-padding-block-start relative even-columns text-center items-center justify-center pt-6`}
+        className={`section-padding-block section-padding-block-start relative even-columns text-center items-center justify-center pt-2`}
       >
         <div
           className={`relative z-20 flex flex-col lg:items-start items-center lg:text-left text-center`}
