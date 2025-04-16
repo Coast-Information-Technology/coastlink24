@@ -19,7 +19,7 @@ export const INavLinks: INavLink[] = [
   { href: "/", label: "Home" },
   { href: "/lenders", label: "For Lenders" },
   { href: "/investors", label: "For Investors" },
-  { href: "/borrowers", label: "Borrower Access" },
+  { href: "/borrowers", label: "Borrowers" },
   { href: "/marketplace", label: "Market place" },
   { href: "/features", label: "Features" },
   { href: "/pricing", label: "Pricing / Partnership Tiers" },

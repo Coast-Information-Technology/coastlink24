@@ -68,7 +68,7 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-3">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              {INavLinks.slice(0, 5).map((link, i) => (
+              {INavLinks.slice(0, 4).map((link, i) => (
                 <li key={i}>
                   <Link href={link.href} className="hover:text-gray-300">
                     {link.label}
@@ -81,13 +81,15 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold mb-3">Explore</h4>
             <ul className="space-y-2 text-sm">
-              {INavLinks.slice(5).map((link, i) => (
-                <li key={i}>
-                  <Link href={link.href} className="hover:text-gray-300">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {INavLinks.slice(4)
+                .filter((_, i, arr) => i !== 1 && i !== arr.length - 1)
+                .map((link, i) => (
+                  <li key={i}>
+                    <Link href={link.href} className="hover:text-gray-300">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
@@ -112,7 +114,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="text-center text-sm text-gray-400 mt-10">
+      <div className="flex items-center justify-between text-center text-sm text-gray-400 mt-10">
         &copy; {new Date().getFullYear()} Coast Link24. All rights reserved.
         <div className="mt-4 space-x-4">
           <Link href="/privacy" className="text-xs hover:underline">
