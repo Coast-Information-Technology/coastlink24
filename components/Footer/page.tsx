@@ -58,7 +58,7 @@ export const Footer = () => {
                 width={30}
                 height={30}
               />{" "}
-              +234 807 299 1328
+              +234 913 686 0226
             </p>
           </div>
         </div>

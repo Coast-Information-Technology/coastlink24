@@ -24,6 +24,7 @@ export const Header = () => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -58,12 +59,19 @@ export const Header = () => {
     if (token) setHasToken(true);
   }, [mounted]);
 
-  if (!mounted) return null;
-
   const closeMenu = () => {
     setIsOpen(false);
     setOpenDropdown(null);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10); // Adjust threshold if needed
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -80,7 +88,13 @@ export const Header = () => {
   if (shouldHideHeader) return null;
 
   return (
-    <header className="bg-transparent absolute w-full z-30 top-0 px-2 md:px-6 h-[10vh] md:h-[15vh] flex justify-between items-center">
+    <header
+      className={`fixed top-0 w-full z-30 px-2 md:px-6 h-[10vh] flex justify-between items-center transition-all duration-300 ${
+        isScrolled
+          ? "bg-blue-600 shadow-md backdrop-blur bg-opacity-90"
+          : "bg-transparent"
+      }`}
+    >
       {/* Logo */}
       <Link href="/">
         <Image

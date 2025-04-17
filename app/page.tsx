@@ -1,62 +1,88 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+const items = [
+  {
+    title: "FOR BORROWERS",
+    desc: "Access loans from anywhere — even without internet. Use our shortcode or mobile/web app to apply, get scored, and receive disbursement instantly.",
+    quote: "Dial. Apply. Receive. Repay. Done.",
+    img: "/happy-borrower.jpg",
+  },
+  {
+    title: "FOR LENDERS",
+    desc: "Launch a loan product with zero tech overhead. Manage your borrowers, repayments, and scoring from a smart dashboard or mobile app. Need custom UI or API-only integration? You’re covered.",
+    quote: "Plug in and lend. Coast Link24 handles the rest.",
+    img: "/lenders.avif",
+  },
+  {
+    title: "FOR INVESTORS",
+    desc: "Invest in vetted lenders and portfolios. Track your money, returns, and performance from a clean dashboard. We offer transparency, risk tagging, and insights.",
+    quote: "Don’t build a loan app — fund the one that powers them all.",
+    img: "/investors.jpg",
+  },
+];
 
 export default function Home() {
   return (
     <main>
       {/* Hero Section */}
       <section
-        className={`section-padding-block section-padding-block-start relative even-columns text-center items-center justify-center pt-2`}
+        className="relative section-padding-block section-padding-block-start pt-2 overflow-hidden bg-cover bg-no-repeat bg-bottom"
+        style={{
+          backgroundImage: "url('/hero-bg.png')",
+          backgroundPosition: "bottom center",
+          height: "100vh",
+        }}
       >
-        <div
-          className={`relative z-20 flex flex-col lg:items-start items-center lg:text-left text-center`}
-        >
-          <h1 className={`primary-heading text-white`}>
-            {/* Welcome to Coastlink24 – Your Trusted{" "}
-            <span className="text-grey">Fintech Solution for Lenders</span> */}
-            Africa{"'"}s Unified Loan Infrastructure Engine
-          </h1>
-          <p className="text-white max-w-full text-[1.2rem] italic pt-2">
-            - Borrow Smarter. Lend Faster. Invest Confidently.
-          </p>
-          <p className="text-white max-w-full pt-6">
-            We{"'"}re building the future of credit — accessible via USSD, Web,
-            and Mobile, powered by automation and Backend-as-a-Service (BaaS).
-          </p>
+        {/* Overlay for better text visibility */}
+        <div className="absolute inset-0 bg-blue-500/70 z-10" />
 
-          <div className="flex items-center justify-center pt-4 gap-4">
-            <Link
-              href="/auth/register"
-              className="cta primary-cta rounded-md transition transform hover:scale-105 hover:shadow-lg"
-            >
-              Sign Up Now
-            </Link>
+        {/* Hero Content */}
+        <div className="relative z-20 grid lg:grid-cols-2 items-center text-white text-center lg:text-left gap-8 px-4">
+          <div>
+            <h1 className="primary-heading text-white">
+              Africa{"'"}s Unified Loan Infrastructure Engine
+            </h1>
+            <p className="text-[1.2rem] italic pt-2">
+              - Borrow Smarter. Lend Faster. Invest Confidently.
+            </p>
+            <p className="pt-6">
+              We{"'"}re building the future of credit — accessible via USSD,
+              Web, and Mobile, powered by automation and Backend-as-a-Service
+              (BaaS).
+            </p>
 
-            <Link
-              href="/"
-              className="cta secondary-cta transition transform hover:scale-105 hover:shadow-lg rounded-md"
-            >
-              Learn More
-            </Link>
+            <div className="flex flex-wrap items-center justify-center lg:justify-start pt-6 gap-4">
+              <Link
+                href="/auth/register"
+                className="cta primary-cta rounded-md transition transform hover:scale-105 hover:shadow-lg"
+              >
+                Sign Up Now
+              </Link>
+              <Link
+                href="/"
+                className="cta secondary-cta rounded-md transition transform hover:scale-105 hover:shadow-lg"
+              >
+                Learn More
+              </Link>
+            </div>
+          </div>
+
+          {/* Optional Image or illustration */}
+          <div className="relative z-20 pt-6">
+            <Image
+              src="/africa-unified-image.png"
+              alt="Fintech Illustration"
+              width={700}
+              height={600}
+              className="rounded-2xl shadow-xl mx-auto"
+            />
           </div>
         </div>
-
-        <Image
-          src="/hero.jpg"
-          alt="coastlink24 dashboard ui"
-          width={900}
-          height={800}
-          className="max-w-full h-auto rounded-[10px] heroSectImage flex self-center justify-center relative z-20 pt-6"
-        />
-
-        <Image
-          src="/shape-2.png"
-          alt="clip art illustration"
-          width={1000}
-          height={1000}
-          className="absolute top-0 right-0"
-        />
       </section>
 
       {/* Intro Section */}
@@ -76,17 +102,17 @@ export default function Home() {
       {/* Why Coast Link24 */}
       <section
         className="py-20 bg-gray-50 text-center text-gray-600"
-        style={{
-          backgroundImage: "url('/ecosystems.webp')",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center center",
-        }}
+        // style={{
+        //   backgroundImage: "url('/ecosystems.webp')",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundSize: "cover",
+        //   backgroundPosition: "center center",
+        // }}
       >
-        <h2 className="text-3xl font-bold mb-10 text-white">
+        <h2 className="text-3xl font-bold mb-10 text-black">
           Why Coast Link24?
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-28">
           {[
             [
               "Multi-Lender Marketplace",
@@ -118,66 +144,69 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center mb-12 text-black">
           How It Works
         </h2>
-        <div className="relative px-6 max-w-6xl mx-auto space-y-16">
-          {/* Vertical connecting line */}
-          <div className="hidden md:block absolute left-1/2 top-0 h-full w-1 bg-gray-200 transform -translate-x-1/2 z-0" />
 
-          {[
-            [
-              "FOR BORROWERS",
-              "Access loans from anywhere — even without internet. Use our shortcode or mobile/web app to apply, get scored, and receive disbursement instantly.",
-              "Dial. Apply. Receive. Repay. Done.",
-              "/happy-borrower.jpg",
-            ],
-            [
-              "FOR LENDERS",
-              "Launch a loan product with zero tech overhead. Manage your borrowers, repayments, and scoring from a smart dashboard or mobile app. Need custom UI or API-only integration? You’re covered.",
-              "Plug in and lend. Coast Link24 handles the rest.",
-              "/lenders.avif",
-            ],
-            [
-              "FOR INVESTORS",
-              "Invest in vetted lenders and portfolios. Track your money, returns, and performance from a clean dashboard. We offer transparency, risk tagging, and insights.",
-              "Don’t build a loan app — fund the one that powers them all.",
-              "/investors.jpg",
-            ],
-          ].map(([title, desc, quote, img], i) => {
-            const isEven = i % 2 !== 0;
-
-            return (
-              <div
-                key={i}
-                className={`relative z-10 flex flex-col md:flex-row items-center ${
-                  isEven ? "md:flex-row-reverse" : ""
-                } gap-8`}
-              >
-                {/* Connector dot */}
-                {/* <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-5 h-5 bg-blue-600 rounded-full z-20" /> */}
-
-                {/* Text */}
-                <div className="md:w-1/2">
-                  <h3 className="text-2xl md:text-4xl font-bold mb-2 text-black">
-                    {title}
-                  </h3>
-                  <p className="mb-4">{desc}</p>
-                  <blockquote className="italic text-gray-600">
-                    “{quote}”
-                  </blockquote>
-                </div>
-
-                {/* Image */}
-                <div className="md:w-1/2">
-                  <Image
-                    src={img}
-                    alt={title}
-                    width={600}
-                    height={400}
-                    className="w-full rounded-xl object-cover"
-                  />
-                </div>
+        <div className="grid md:grid-cols-3 gap-10 px-6 max-w-7xl mx-auto">
+          {items.map(({ title, desc, quote, img }, i) => (
+            <motion.div
+              key={i}
+              whileHover="hover"
+              initial="rest"
+              animate="rest"
+              className="relative rounded-xl overflow-hidden shadow-md transition-transform duration-300 hover:scale-[1.02]"
+            >
+              {/* Image */}
+              <div className="h-80 w-full">
+                <Image
+                  src={img}
+                  alt={title}
+                  width={600}
+                  height={400}
+                  className="w-full h-full object-cover"
+                />
               </div>
-            );
-          })}
+
+              {/* Overlay content */}
+              <motion.div
+                variants={{
+                  rest: { height: "5rem", opacity: 0.9 },
+                  hover: {
+                    height: "auto",
+                    opacity: 1,
+                    transition: { duration: 0.4, ease: "easeInOut" },
+                  },
+                }}
+                className="absolute bottom-0 w-full bg-white backdrop-blur-md p-5"
+              >
+                <motion.h3
+                  variants={{
+                    rest: { opacity: 0.4, y: 10 },
+                    hover: { opacity: 1, y: 0, transition: { delay: 0.1 } },
+                  }}
+                  className="text-xl font-bold text-black mb-2"
+                >
+                  {title}
+                </motion.h3>
+                <motion.p
+                  variants={{
+                    rest: { opacity: 0.4, y: 10 },
+                    hover: { opacity: 1, y: 0, transition: { delay: 0.15 } },
+                  }}
+                  className="text-sm mb-2"
+                >
+                  {desc}
+                </motion.p>
+                <motion.blockquote
+                  variants={{
+                    rest: { opacity: 0.3, y: 10 },
+                    hover: { opacity: 1, y: 0, transition: { delay: 0.2 } },
+                  }}
+                  className="italic text-gray-500 text-sm"
+                >
+                  “{quote}”
+                </motion.blockquote>
+              </motion.div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -249,7 +278,7 @@ export default function Home() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-indigo-600 text-white text-center">
+      <section className="py-20 bg-blue-800 text-white text-center">
         <h2 className="text-3xl font-bold mb-6 text-white">
           Ready to Join the Future of Lending?
         </h2>
