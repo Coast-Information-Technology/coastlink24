@@ -1,9 +1,11 @@
-import React from 'react'
+// /app/dashboard/collections/page.tsx
+import { Suspense } from "react";
+import CollectionsPage from "./CollectionPage";
 
-const page = () => {
-  return (
-    <div><h1>All Collections</h1></div>
-  )
-}
+const Page = () => (
+  <Suspense fallback={<div>Loading All Loans...</div>}>
+    <CollectionsPage />
+  </Suspense>
+);
 
-export default page
+export default Page;

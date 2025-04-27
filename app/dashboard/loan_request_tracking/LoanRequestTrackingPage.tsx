@@ -3,14 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { SpiralLoader } from "@/components/LoaderSpiral";
 import { getTokenFromCookies } from "@/lib/cookies";
-import { getAllApiRequest, getAllApiRequestWithPagination } from "@/lib/apiRequest";
+import {
+  getAllApiRequest,
+  getAllApiRequestWithPagination,
+} from "@/lib/apiRequest";
 import LoanReqTrackingDataTable from "./LoanRequestTrackingData";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ISearchParams } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoanReqTrackingPage() {    
+export default function LoanReqTrackingPage() {
   const router = useRouter();
   const searchParamsObj = useSearchParams();
   const [loans, setLoans] = useState([]);
@@ -22,8 +25,12 @@ export default function LoanReqTrackingPage() {
   const [pageNo, setPageNo] = useState(1);
   const [pageSize, setPageSize] = useState(100);
   const [totalCount, setTotalCount] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(searchParamsObj.get("q") || "");
-  const [startDate, setStartDate] = useState(searchParamsObj.get("startDate") || "");
+  const [searchQuery, setSearchQuery] = useState(
+    searchParamsObj.get("q") || ""
+  );
+  const [startDate, setStartDate] = useState(
+    searchParamsObj.get("startDate") || ""
+  );
   const [endDate, setEndDate] = useState(searchParamsObj.get("endDate") || "");
 
   // Update URL when search parameters change
@@ -32,10 +39,12 @@ export default function LoanReqTrackingPage() {
     if (searchQuery) params.set("q", searchQuery);
     if (startDate) params.set("startDate", startDate);
     if (endDate) params.set("endDate", endDate);
-    
+
     const queryString = params.toString();
-    const newUrl = queryString ? `/dashboard/loan_request_tracking?${queryString}` : "/dashboard/loan_request_tracking";
-    
+    const newUrl = queryString
+      ? `/dashboard/loan_request_tracking?${queryString}`
+      : "/dashboard/loan_request_tracking";
+
     router.push(newUrl, { scroll: false });
   }, [searchQuery, startDate, endDate, router]);
 
@@ -81,7 +90,9 @@ export default function LoanReqTrackingPage() {
         }
       } catch (error) {
         console.error("Error fetching loans:", error);
-        setError(error instanceof Error ? error.message : "Failed to fetch loans");
+        setError(
+          error instanceof Error ? error.message : "Failed to fetch loans"
+        );
         toast.error("Failed to fetch loan requests");
       } finally {
         setLoading(false);
@@ -118,9 +129,10 @@ export default function LoanReqTrackingPage() {
           throw new Error("Invalid response format");
         }
 
-        const data = startDate && endDate
-          ? response["Session Tracking"] || []
-          : response.results || response || [];
+        const data =
+          startDate && endDate
+            ? response["Session Tracking"] || []
+            : response.results || response || [];
 
         setLoanTrackingDownload(data);
       } catch (error) {
@@ -151,7 +163,7 @@ export default function LoanReqTrackingPage() {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="border-0 shadow-none">
       <LoanReqTrackingDataTable
         downloadData={LoanTrackingDownload}
         data={loans}

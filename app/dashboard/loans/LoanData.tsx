@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useContext, useEffect, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -38,14 +44,21 @@ import { useRouter } from "next/navigation";
 import { ILoan, ILoansDataTableProps } from "@/lib/types";
 import { formatCurrency, formatDate } from "@/lib/utils";
 import { formatDateTime } from "@/utils/dateTimeUtils";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // Define a type for the column header
-type ColumnHeader = string | React.ReactNode | ((props: { column: any }) => React.ReactNode);
+type ColumnHeader =
+  | string
+  | React.ReactNode
+  | ((props: { column: any }) => React.ReactNode);
 
 // Define a type for the column definition
 type CustomColumnDef<TData> = ColumnDef<TData> & {
   accessorKey?: keyof TData;
-  header: string | React.ReactNode | ((props: { column: any }) => React.ReactNode);
+  header:
+    | string
+    | React.ReactNode
+    | ((props: { column: any }) => React.ReactNode);
   cell?: (props: { row: Row<TData> }) => React.ReactNode;
 };
 
@@ -66,7 +79,9 @@ export function LoansDataTable({
   const router = useRouter();
   const { user } = useContext(UserContext);
   const { updateLoanStatus } = useLoan();
-  const [sorting, setSorting] = useState<SortingState>([{ id: "created_at", desc: true }]);
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: "created_at", desc: true },
+  ]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -77,240 +92,269 @@ export function LoansDataTable({
   const [loanToStop, setLoanToStop] = useState<string | null>(null);
   const defaultPageSize = 100;
 
-  const columns = useMemo<CustomColumnDef<ILoan>[]>(() => [
-    {
-      accessorKey: "id",
-      header: () => <div className="font-medium">ID</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => (
-        <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-          <div className="lowercase">{row.getValue("id")}</div>
-        </Link>
-      ),
-    },
-    {
-      accessorKey: "created_at",
-      header: () => <div>Created At</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const date = row.getValue("created_at") as string;
-        return (
+  const columns = useMemo<CustomColumnDef<ILoan>[]>(
+    () => [
+      {
+        accessorKey: "id",
+        header: () => <div className="font-medium">ID</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => (
           <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div>{formatDateTime(date)}</div>
+            <div className="lowercase">{row.getValue("id")}</div>
           </Link>
-        );
+        ),
       },
-    },
-    {
-      accessorKey: "updated_at",
-      header: () => <div>Updated At</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const date = row.getValue("updated_at") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div>{formatDateTime(date)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "created_at",
+        header: () => <div>Created At</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const date = row.getValue("created_at") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div>{formatDateTime(date)}</div>
+            </Link>
+          );
+        },
       },
-    },
-    {
-      accessorKey: "mandate_reference",
-      header: () => <div>Mandate Reference</div>,
-    },
-    {
-      accessorKey: "phone_number",
-      header: () => <div>Phone Number</div>,
-    },
-    {
-      accessorKey: "channel",
-      header: "Channel",
-    },
-    {
-      accessorKey: "principal_amount",
-      header: () => <div className="text-right">Principal Amount</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const value = row.getValue("principal_amount") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div className="text-right font-medium">{formatCurrency(value)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "updated_at",
+        header: () => <div>Updated At</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const date = row.getValue("updated_at") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div>{formatDateTime(date)}</div>
+            </Link>
+          );
+        },
       },
-    },
-    {
-      accessorKey: "tenure",
-      header: () => <div className="text-right font-medium">Tenure</div>,
-    },
-    {
-      accessorKey: "interest_amount",
-      header: () => <div className="text-right">Interest Amount</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const value = row.getValue("interest_amount") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div className="text-right font-medium">{formatCurrency(value)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "mandate_reference",
+        header: () => <div>Mandate Reference</div>,
       },
-    },
-    {
-      accessorKey: "processing_fee",
-      header: () => <div className="text-right">Processing Fee</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const value = row.getValue("processing_fee") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div className="text-right font-medium">{formatCurrency(value)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "phone_number",
+        header: () => <div>Phone Number</div>,
       },
-    },
-    {
-      accessorKey: "disbursement_status",
-      header: () => <div>Disbursement Status</div>,
-    },
-    {
-      accessorKey: "disbursement_date",
-      header: () => <div>Disbursement Date</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const date = row.getValue("disbursement_date") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div>{formatDate(date)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "channel",
+        header: "Channel",
       },
-    },
-    {
-      accessorKey: "status",
-      header: () => <div>Status</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const status = row.getValue("status") as string;
-        return (
-          <div className={`text-[12px] px-2 rounded-full text-white text-center ${
-            status === "Active"
-              ? "bg-green-500"
-              : status === "Closed"
-              ? "bg-red-500"
-              : "bg-gray-500"
-          }`}>
-            {status}
-          </div>
-        );
+      {
+        accessorKey: "principal_amount",
+        header: () => <div className="text-right">Principal Amount</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const value = row.getValue("principal_amount") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div className="text-right font-medium">
+                {formatCurrency(value)}
+              </div>
+            </Link>
+          );
+        },
       },
-    },
-    {
-      accessorKey: "repayment_amount",
-      header: () => <div className="text-right">Repayment Amount</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const value = row.getValue("repayment_amount") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div className="text-right font-medium">{formatCurrency(value)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "tenure",
+        header: () => <div className="text-right font-medium">Tenure</div>,
       },
-    },
-    {
-      accessorKey: "total_repayment_amount",
-      header: () => <div className="text-right">Total Repayment Amount</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const value = row.getValue("total_repayment_amount") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div className="text-right font-medium">{formatCurrency(value)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "interest_amount",
+        header: () => <div className="text-right">Interest Amount</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const value = row.getValue("interest_amount") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div className="text-right font-medium">
+                {formatCurrency(value)}
+              </div>
+            </Link>
+          );
+        },
       },
-    },
-    {
-      accessorKey: "repayment_frequency",
-      header: () => <div>Repayment Frequency</div>,
-    },
-    {
-      accessorKey: "repayment_date",
-      header: () => <div>Repayment Date</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const date = row.getValue("repayment_date") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div>{formatDate(date)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "processing_fee",
+        header: () => <div className="text-right">Processing Fee</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const value = row.getValue("processing_fee") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div className="text-right font-medium">
+                {formatCurrency(value)}
+              </div>
+            </Link>
+          );
+        },
       },
-    },
-    {
-      accessorKey: "total_outstanding_amount",
-      header: () => <div className="text-right">Total Outstanding Amount</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const value = row.getValue("total_outstanding_amount") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div className="text-right font-medium">{formatCurrency(value)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "disbursement_status",
+        header: () => <div>Disbursement Status</div>,
       },
-    },
-    {
-      accessorKey: "remita_total_outstanding_balance",
-      header: () => <div className="text-right">Remita Total Outstanding Balance</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const value = row.getValue("remita_total_outstanding_balance") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div className="text-right font-medium">{formatCurrency(value)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "disbursement_date",
+        header: () => <div>Disbursement Date</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const date = row.getValue("disbursement_date") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div>{formatDate(date)}</div>
+            </Link>
+          );
+        },
       },
-    },
-    {
-      accessorKey: "last_installment_date",
-      header: () => <div>Last Installment Date</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const date = row.getValue("last_installment_date") as string;
-        return (
-          <Link href={`/dashboard/loans/${row.getValue("id")}`}>
-            <div>{formatDate(date)}</div>
-          </Link>
-        );
+      {
+        accessorKey: "status",
+        header: () => <div>Status</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const status = row.getValue("status") as string;
+          return (
+            <div
+              className={`text-[12px] px-2 rounded-full text-white text-center ${
+                status === "Active"
+                  ? "bg-green-500"
+                  : status === "Closed"
+                    ? "bg-red-500"
+                    : "bg-gray-500"
+              }`}
+            >
+              {status}
+            </div>
+          );
+        },
       },
-    },
-    {
-      accessorKey: "repayment_count",
-      header: () => <div className="text-right font-medium">Repayment Count</div>,
-    },
-    {
-      accessorKey: "remita_collection_id",
-      header: () => <div>Remita Collection ID</div>,
-    },
-    {
-      accessorKey: "manual_repayment_id",
-      header: () => <div>Manual Repayment ID</div>,
-    },
-    {
-      id: "stop_loan",
-      header: () => <div>Action</div>,
-      cell: ({ row }: { row: Row<ILoan> }) => {
-        const handleStopLoan = () => {
-          setLoanToStop(row.getValue("id") as string);
-          setModalVisible(true);
-        };
+      {
+        accessorKey: "repayment_amount",
+        header: () => <div className="text-right">Repayment Amount</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const value = row.getValue("repayment_amount") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div className="text-right font-medium">
+                {formatCurrency(value)}
+              </div>
+            </Link>
+          );
+        },
+      },
+      {
+        accessorKey: "total_repayment_amount",
+        header: () => <div className="text-right">Total Repayment Amount</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const value = row.getValue("total_repayment_amount") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div className="text-right font-medium">
+                {formatCurrency(value)}
+              </div>
+            </Link>
+          );
+        },
+      },
+      {
+        accessorKey: "repayment_frequency",
+        header: () => <div>Repayment Frequency</div>,
+      },
+      {
+        accessorKey: "repayment_date",
+        header: () => <div>Repayment Date</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const date = row.getValue("repayment_date") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div>{formatDate(date)}</div>
+            </Link>
+          );
+        },
+      },
+      {
+        accessorKey: "total_outstanding_amount",
+        header: () => (
+          <div className="text-right">Total Outstanding Amount</div>
+        ),
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const value = row.getValue("total_outstanding_amount") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div className="text-right font-medium">
+                {formatCurrency(value)}
+              </div>
+            </Link>
+          );
+        },
+      },
+      {
+        accessorKey: "remita_total_outstanding_balance",
+        header: () => (
+          <div className="text-right">Remita Total Outstanding Balance</div>
+        ),
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const value = row.getValue(
+            "remita_total_outstanding_balance"
+          ) as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div className="text-right font-medium">
+                {formatCurrency(value)}
+              </div>
+            </Link>
+          );
+        },
+      },
+      {
+        accessorKey: "last_installment_date",
+        header: () => <div>Last Installment Date</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const date = row.getValue("last_installment_date") as string;
+          return (
+            <Link href={`/dashboard/loans/${row.getValue("id")}`}>
+              <div>{formatDate(date)}</div>
+            </Link>
+          );
+        },
+      },
+      {
+        accessorKey: "repayment_count",
+        header: () => (
+          <div className="text-right font-medium">Repayment Count</div>
+        ),
+      },
+      {
+        accessorKey: "remita_collection_id",
+        header: () => <div>Remita Collection ID</div>,
+      },
+      {
+        accessorKey: "manual_repayment_id",
+        header: () => <div>Manual Repayment ID</div>,
+      },
+      {
+        id: "stop_loan",
+        header: () => <div>Action</div>,
+        cell: ({ row }: { row: Row<ILoan> }) => {
+          const status = row.getValue("status");
 
-        return (
-          <Button
-            variant="outline"
-            size="sm"
-            className={`whitespace-nowrap text-white ${
-              row.getValue("status") === "Active" 
-                ? "bg-green-500 hover:bg-green-600" 
-                : "bg-red-500 hover:bg-red-600"
-            }`}
-            onClick={handleStopLoan}
-          >
-            {row.getValue("status") === "Active" ? "Stop Loan" : "Loan Closed"}
-          </Button>
-        );
+          const handleStopLoan = () => {
+            setLoanToStop(row.getValue("id") as string);
+            setModalVisible(true);
+          };
+
+          if (status !== "Active") {
+            return null; // No button if not active
+          }
+
+          return (
+            <Button
+              variant="outline"
+              size="sm"
+              className="whitespace-nowrap text-white bg-green-500 hover:bg-green-600"
+              onClick={handleStopLoan}
+            >
+              Stop Loan
+            </Button>
+          );
+        },
       },
-    },
-  ], []);
+    ],
+    []
+  );
 
   const table = useReactTable({
     data,
@@ -344,27 +388,35 @@ export function LoansDataTable({
       }
 
       // Helper function to safely extract header text
-      const getHeaderText = (header: React.ReactNode | string | ((props: { column: any }) => React.ReactNode)): string => {
-        if (typeof header === 'string') return header;
-        if (typeof header === 'function') {
+      const getHeaderText = (
+        header:
+          | React.ReactNode
+          | string
+          | ((props: { column: any }) => React.ReactNode)
+      ): string => {
+        if (typeof header === "string") return header;
+        if (typeof header === "function") {
           const result = header({ column: {} });
           if (React.isValidElement(result)) {
-            return result.props.children || '';
+            return result.props.children || "";
           }
           return String(result);
         }
         if (React.isValidElement(header)) {
-          return header.props.children || '';
+          return header.props.children || "";
         }
-        return '';
+        return "";
       };
 
       // Helper function to safely extract cell value
-      const getCellValue = (row: ILoan, accessorKey: keyof ILoan | undefined): string => {
-        if (!accessorKey) return '';
+      const getCellValue = (
+        row: ILoan,
+        accessorKey: keyof ILoan | undefined
+      ): string => {
+        if (!accessorKey) return "";
         const value = row[accessorKey];
-        if (value === null || value === undefined) return '';
-        if (typeof value === 'object') {
+        if (value === null || value === undefined) return "";
+        if (typeof value === "object") {
           return JSON.stringify(value, null, 2);
         }
         return String(value);
@@ -372,32 +424,32 @@ export function LoansDataTable({
 
       // Extract headers with proper type handling
       const headers = columns
-        .map(column => getHeaderText(column.header))
+        .map((column) => getHeaderText(column.header))
         .filter(Boolean)
-        .join(',');
+        .join(",");
 
       // Extract rows with proper type handling
       const rows = downloadData
-        .map(row => 
+        .map((row) =>
           columns
-            .map(column => getCellValue(row, column.accessorKey))
-            .join(',')
+            .map((column) => getCellValue(row, column.accessorKey))
+            .join(",")
         )
-        .join('\n');
+        .join("\n");
 
       // Create CSV content with proper encoding
       const csvContent = `data:text/csv;charset=utf-8,${encodeURIComponent(headers)}\n${encodeURIComponent(rows)}`;
-      
+
       // Create and trigger download
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = csvContent;
-      link.download = 'LOANS.csv';
+      link.download = "LOANS.csv";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Error generating CSV:', error);
-      toast.error('Failed to generate CSV file');
+      console.error("Error generating CSV:", error);
+      toast.error("Failed to generate CSV file");
     }
   }, [columns, downloadData]);
 
@@ -411,9 +463,12 @@ export function LoansDataTable({
     setPageNo(pageNo - 1);
   }, [pageNo, setPageNo]);
 
-  const handleSearchChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setTempSearchQuery(event.target.value);
-  }, []);
+  const handleSearchChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setTempSearchQuery(event.target.value);
+    },
+    []
+  );
 
   const handleSearchClick = useCallback(() => {
     setSearchQuery(tempSearchQuery);
@@ -468,9 +523,20 @@ export function LoansDataTable({
   }, [pageNo]);
 
   return (
-    <div className="w-full p-4 space-y-4">
+    <Card className="w-full border-0 shadow-none">
       <ToastContainer />
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <CardHeader>
+        <CardTitle className="flex items-center justify-between">
+          <span className="font-bold text-lg">Loan Request Tracking</span>
+          <div className="primary-cta flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={downloadCSV}>
+              <Download className="h-4 w-4 mr-2" />
+              Download CSV
+            </Button>
+          </div>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-2 w-full md:w-auto">
           <Search size={18} className="text-gray-500" />
           <Input
@@ -520,7 +586,7 @@ export function LoansDataTable({
             </Button>
           )}
         </div>
-      </div>
+      </CardContent>
       <div className="rounded-md border">
         <Table>
           <TableHeader className="bg-gray-50">
@@ -621,7 +687,7 @@ export function LoansDataTable({
           Are you sure you want to stop this Loan?
         </Modal>
       )}
-    </div>
+    </Card>
   );
 }
 

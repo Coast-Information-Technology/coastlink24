@@ -1,16 +1,21 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
   Row,
-  SortingState,
-  ColumnFiltersState,
+  useReactTable,
 } from "@tanstack/react-table";
 import { Download, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,77 +28,62 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
-import { ILoanReqTrackingDataTableProps } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { UserContext } from "@/components/Context/userContext";
 
 const columns = [
   {
     accessorKey: "id",
-    header: () => {
-      return <div className="font-semibold text-gray-900">ID</div>;
-    },
+    header: () => <div className="text-left">ID</div>,
     cell: ({ row }: { row: Row<any> }) => (
-      <div className="text-gray-700 lowercase">{row.getValue("id")}</div>
+      <div className="lowercase">{row.getValue("id")}</div>
     ),
   },
   {
     accessorKey: "created_at",
-    header: () => <div className="font-semibold text-gray-900">Created At</div>,
+    header: () => <div>Created At</div>,
     cell: ({ row }: { row: Row<any> }) => {
       const date = row.getValue("created_at") as string;
       const formattedDate = date ? date.replace("T", " ").slice(0, 19) : "";
-      return <div className="text-gray-700">{formattedDate}</div>;
+      return <div>{formattedDate}</div>;
     },
   },
   {
     accessorKey: "updated_at",
-    header: () => <div className="font-semibold text-gray-900">Updated At</div>,
+    header: () => <div>Updated At</div>,
     cell: ({ row }: { row: Row<any> }) => {
       const date = row.getValue("updated_at") as string;
       const formattedDate = date ? date.replace("T", " ").slice(0, 19) : "";
-      return <div className="text-gray-700">{formattedDate}</div>;
+      return <div>{formattedDate}</div>;
     },
   },
   {
-    accessorKey: "request_id",
-    header: () => {
-      return <div className="font-semibold text-gray-900">Request ID</div>;
-    },
-    cell: ({ row }: { row: Row<any> }) => (
-      <div className="text-gray-700">{row.getValue("request_id")}</div>
-    ),
+    accessorKey: "customer_id",
+    header: () => <div>Customer ID</div>,
   },
   {
-    accessorKey: "mandate_reference",
-    header: () => {
-      return (
-        <div className="font-semibold text-gray-900">Mandate Reference</div>
-      );
-    },
-    cell: ({ row }: { row: Row<any> }) => (
-      <div className="text-gray-700">{row.getValue("mandate_reference")}</div>
-    ),
+    accessorKey: "first_name",
+    header: () => <div>First Name</div>,
+  },
+  {
+    accessorKey: "last_name",
+    header: () => <div>Last Name</div>,
   },
   {
     accessorKey: "phone_number",
-    header: () => {
-      return <div className="font-semibold text-gray-900">Phone Number</div>;
-    },
-    cell: ({ row }: { row: Row<any> }) => (
-      <div className="text-gray-700">{row.getValue("phone_number")}</div>
-    ),
+    header: () => <div>Phone Number</div>,
   },
   {
-    accessorKey: "max_elibility_offer",
-    header: () => (
-      <div className="text-right font-semibold text-gray-900">
-        Maximum Eligibility Offer
-      </div>
-    ),
+    accessorKey: "mandate_reference",
+    header: () => <div>Mandate Reference</div>,
+  },
+  {
+    accessorKey: "total_disbursed",
+    header: () => <div className="text-right">Total Disbursed</div>,
     cell: ({ row }: { row: Row<any> }) => {
-      const value = row.getValue("max_elibility_offer") as string;
+      const value = row.getValue("total_disbursed") as string;
+
       const amount = value ? parseFloat(value) : 0;
 
       const formatted = !isNaN(amount)
@@ -103,20 +93,15 @@ const columns = [
           }).format(amount)
         : "N/A";
 
-      return (
-        <div className="text-right font-medium text-gray-900">{formatted}</div>
-      );
+      return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {
-    accessorKey: "first_loan_offer",
-    header: () => (
-      <div className="text-right font-semibold text-gray-900">
-        First Loan Offer
-      </div>
-    ),
+    accessorKey: "outstanding_balance",
+    header: () => <div className="text-right">Outstanding Balance</div>,
     cell: ({ row }: { row: Row<any> }) => {
-      const value = row.getValue("first_loan_offer") as string;
+      const value = row.getValue("outstanding_balance") as string;
+
       const amount = value ? parseFloat(value) : 0;
 
       const formatted = !isNaN(amount)
@@ -126,156 +111,127 @@ const columns = [
           }).format(amount)
         : "N/A";
 
-      return (
-        <div className="text-right font-medium text-gray-900">{formatted}</div>
-      );
+      return <div className="text-right font-medium">{formatted}</div>;
     },
   },
   {
-    accessorKey: "second_loan_offer",
-    header: () => (
-      <div className="text-right font-semibold text-gray-900">
-        Second Loan Offer
-      </div>
-    ),
+    accessorKey: "loan_repayment_ref",
+    header: () => <div>Loan Repayment Ref</div>,
+  },
+  {
+    accessorKey: "employer_name",
+    header: () => <div>Employer Name</div>,
+  },
+  {
+    accessorKey: "salary_account_number",
+    header: () => <div>Salary Account Number</div>,
+  },
+  {
+    accessorKey: "authorisation_code",
+    header: () => <div>Authorisation Code</div>,
+  },
+  {
+    accessorKey: "salary_bank_name",
+    header: () => <div>Salary Bank Name</div>,
+  },
+  {
+    accessorKey: "disbursement_account_bank",
+    header: () => <div>Disbursement Bank Account</div>,
+  },
+  {
+    accessorKey: "collection_start_date",
+    header: () => <div>Collection Start Date</div>,
     cell: ({ row }: { row: Row<any> }) => {
-      const value = row.getValue("second_loan_offer") as string;
-      const amount = value ? parseFloat(value) : 0;
-
-      const formatted = !isNaN(amount)
-        ? new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "NGN",
-          }).format(amount)
-        : "N/A";
-
-      return (
-        <div className="text-right font-medium text-gray-900">{formatted}</div>
-      );
+      const date = row.getValue("collection_start_date") as string;
+      const formattedDate = date ? date.replace("T", " ").slice(0, 19) : "";
+      return <div>{formattedDate}</div>;
     },
   },
   {
-    accessorKey: "principal_amount",
-    header: () => (
-      <div className="text-right font-semibold text-gray-900">
-        Principal Amount
-      </div>
-    ),
+    accessorKey: "date_of_disbursement",
+    header: () => <div>Date of Disbursement</div>,
     cell: ({ row }: { row: Row<any> }) => {
-      const value = row.getValue("principal_amount") as string;
-      const amount = value ? parseFloat(value) : 0;
-
-      const formatted = !isNaN(amount)
-        ? new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "NGN",
-          }).format(amount)
-        : "N/A";
-
-      return (
-        <div className="text-right font-medium text-gray-900">{formatted}</div>
-      );
+      const date = row.getValue("date_of_disbursement") as string;
+      const formattedDate = date ? date.replace("T", " ").slice(0, 19) : "";
+      return <div>{formattedDate}</div>;
     },
   },
   {
-    accessorKey: "tenure",
-    header: () => {
-      return <div className="font-semibold text-gray-900">Tenure</div>;
-    },
-    cell: ({ row }: { row: Row<any> }) => (
-      <div className="text-gray-700">{row.getValue("tenure")}</div>
-    ),
-  },
-  {
-    accessorKey: "interest_amount",
-    header: () => (
-      <div className="text-right font-semibold text-gray-900">
-        Interest Amount
-      </div>
-    ),
-    cell: ({ row }: { row: Row<any> }) => {
-      const value = row.getValue("interest_amount") as string;
-      const amount = value ? parseFloat(value) : 0;
-
-      const formatted = !isNaN(amount)
-        ? new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "NGN",
-          }).format(amount)
-        : "N/A";
-
-      return (
-        <div className="text-right font-medium text-gray-900">{formatted}</div>
-      );
-    },
-  },
-  {
-    accessorKey: "processing_fee",
-    header: () => (
-      <div className="text-right font-semibold text-gray-900">
-        Processing Fee
-      </div>
-    ),
-    cell: ({ row }: { row: Row<any> }) => {
-      const value = row.getValue("processing_fee") as string;
-      const amount = value ? parseFloat(value) : 0;
-
-      const formatted = !isNaN(amount)
-        ? new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "NGN",
-          }).format(amount)
-        : "N/A";
-
-      return (
-        <div className="text-right font-medium text-gray-900">{formatted}</div>
-      );
-    },
-  },
-  {
-    accessorKey: "monthly_repayment",
-    header: () => (
-      <div className="text-right font-semibold text-gray-900">
-        Monthly Repayment
-      </div>
-    ),
-    cell: ({ row }: { row: Row<any> }) => {
-      const value = row.getValue("monthly_repayment") as string;
-      const amount = value ? parseFloat(value) : 0;
-
-      const formatted = !isNaN(amount)
-        ? new Intl.NumberFormat("en-US", {
-            style: "currency",
-            currency: "NGN",
-          }).format(amount)
-        : "N/A";
-
-      return (
-        <div className="text-right font-medium text-gray-900">{formatted}</div>
-      );
-    },
+    accessorKey: "disbursement_account",
+    header: () => <div>Disbursement Account</div>,
   },
   {
     accessorKey: "status",
-    header: () => {
-      return <div className="font-semibold text-gray-900">Status</div>;
-    },
-    cell: ({ row }: { row: Row<any> }) => (
-      <div className="text-gray-700">{row.getValue("status")}</div>
-    ),
+    header: () => <div>Status</div>,
   },
   {
-    accessorKey: "reason",
-    header: () => {
-      return <div className="font-semibold text-gray-900">Reason</div>;
+    accessorKey: "lender_details",
+    header: () => <div>Lender Details</div>,
+  },
+  {
+    accessorKey: "repayment_count",
+    header: () => <div>Repayment Count</div>,
+  },
+  {
+    accessorKey: "total_repayment_amount",
+    header: () => <div className="text-right">Total Repayment Amount</div>,
+    cell: ({ row }: { row: Row<any> }) => {
+      const value = row.getValue("total_repayment_amount") as string;
+
+      const amount = value ? parseFloat(value) : 0;
+
+      const formatted = !isNaN(amount)
+        ? new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "NGN",
+          }).format(amount)
+        : "N/A";
+
+      return <div className="text-right font-medium">{formatted}</div>;
     },
-    cell: ({ row }: { row: Row<any> }) => (
-      <div className="text-gray-700">{row.getValue("reason")}</div>
-    ),
+  },
+  {
+    accessorKey: "response_data",
+    header: () => {
+      return <div>Response Data</div>;
+    },
+    cell: ({ row }: { row: Row<any> }) => {
+      const responseData = row.getValue("response_data");
+      return (
+        <div
+          style={{
+            maxHeight: "21.5vh",
+            maxWidth: "25vw",
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
+          <pre>{JSON.stringify(responseData, null, 2)}</pre>
+        </div>
+      );
+    },
   },
 ];
 
-export function LoanReqTrackingDataTable({
+interface ManualCollectionsDataTableProps {
+  downloadData: any[];
+  data: any[];
+  pageNo: number;
+  pageSize: number;
+  totalCount: number;
+  setPageNo: Dispatch<SetStateAction<number>>;
+  setPageSize: Dispatch<SetStateAction<number>>; // 👈 Add this
+  searchQuery: string;
+  setSearchQuery: Dispatch<SetStateAction<string>>;
+  startDate: string;
+  setStartDate: Dispatch<SetStateAction<string>>;
+  endDate: string;
+  setEndDate: Dispatch<SetStateAction<string>>;
+  loading: boolean;
+  downloadLoading: boolean;
+}
+
+export function ManualCollectionsDataTable({
   downloadData,
   data,
   pageNo,
@@ -288,8 +244,9 @@ export function LoanReqTrackingDataTable({
   setStartDate,
   endDate,
   setEndDate,
-}: ILoanReqTrackingDataTableProps) {
-  const [sorting, setSorting] = useState<SortingState>([]);
+}: ManualCollectionsDataTableProps) {
+  const { user } = useContext(UserContext);
+  const [sorting, setSorting] = useState([{ id: "created_at", desc: true }]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [rowSelection, setRowSelection] = useState({});
@@ -320,6 +277,8 @@ export function LoanReqTrackingDataTable({
       sorting: [{ id: "created_at", desc: true }],
     },
   });
+  const isDownloadReady = columns.length > 0 && downloadData.length > 0;
+  const [isProcessingDownload, setIsProcessingDownload] = useState(false);
 
   const downloadCSV = () => {
     if (
@@ -332,40 +291,53 @@ export function LoanReqTrackingDataTable({
       return;
     }
 
+    setIsProcessingDownload(true); // start processing
+
     const headers = columns
-      .map((column) =>
-        column.header && typeof column.header === "function"
-          ? column.header()
-          : column.header
-      )
-      .filter((header) => header)
-      .map((header) =>
-        typeof header === "string" ? header : header.props.children
-      )
-      .join(",");
+      .map((column) => column.header && column.header())
+      .filter((header) => header !== null)
+      .map((header) => header.props.children);
 
     const rows = downloadData
-      .map((row) =>
+      .map((row, index) =>
         columns
           .map((column) => {
-            const value = row[column.accessorKey];
-            return typeof value === "object"
-              ? JSON.stringify(value, null, 2)
-              : value;
+            let value = row[column.accessorKey];
+
+            if (column.accessorKey === "id") {
+              value = value || `${index + 1}`;
+            }
+
+            if (column.accessorKey === "response_data") {
+              value = JSON.stringify(value, null, 2);
+            }
+
+            if (
+              typeof value === "string" &&
+              (value.includes(",") || value.includes("\n"))
+            ) {
+              value = `"${value.replace(/"/g, '""')}"`;
+            }
+
+            return value;
           })
           .join(",")
       )
       .join("\n");
 
-    const csvContent = `data:text/csv;charset=utf-8,${headers}\n${rows}`;
-
+    const csvContent = `data:text/csv;charset=utf-8,${headers.join(",")}\n${rows}`;
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "LOAN REQUEST TRACKING.csv");
+    link.setAttribute("download", "MANUAL COLLECTIONS.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Done processing
+    setTimeout(() => {
+      setIsProcessingDownload(false);
+    }, 1500); // Wait a tiny bit to be safe before hiding
   };
 
   const handleNextPage = () => {
@@ -384,7 +356,7 @@ export function LoanReqTrackingDataTable({
 
   const handleSearchClick = () => {
     setSearchQuery(tempSearchQuery);
-    setPageNo(1);
+    setPageNo(1); // Reset to the first page on new search
   };
 
   useEffect(() => {
@@ -396,22 +368,29 @@ export function LoanReqTrackingDataTable({
     <Card className="w-full border-0 shadow-none">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span className="font-bold text-lg">Loan Request Tracking</span>
-          <div className="primary-cta flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={downloadCSV}>
-              <Download className="h-4 w-4 mr-2" />
+          <span className="font-bold text-lg">Manual Collections</span>
+          {["ADMIN"].includes(user?.designation || "") && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={downloadCSV}
+              disabled={!isDownloadReady}
+              className="flex items-center gap-2"
+            >
+              <Download className="h-4 w-4" />
               Download CSV
             </Button>
-          </div>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4">
-            <div className="relative flex-1">
+          {/* Search and Filter */}
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <div className="relative flex-1 w-full">
               <Search className="absolute left-4 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search by Mandate Ref..."
+                placeholder="Search..."
                 value={tempSearchQuery}
                 onChange={handleSearchChange}
                 onKeyPress={(e) => {
@@ -422,6 +401,7 @@ export function LoanReqTrackingDataTable({
                 className="pl-10"
               />
             </div>
+
             <div className="flex items-center gap-2">
               <Input
                 type="date"
@@ -441,9 +421,13 @@ export function LoanReqTrackingDataTable({
                 }}
                 className="w-[180px]"
               />
+              <Button onClick={handleSearchClick} className="px-4">
+                Search
+              </Button>
             </div>
           </div>
 
+          {/* Table */}
           <div className="rounded-md border">
             <Table>
               <TableHeader>
@@ -472,7 +456,9 @@ export function LoanReqTrackingDataTable({
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
                           <Link
-                            href={`/dashboard/loan_request_tracking/${row.getValue("id")}`}
+                            href={`/dashboard/manual-collections/${row.getValue(
+                              "id"
+                            )}`}
                           >
                             {flexRender(
                               cell.column.columnDef.cell,
@@ -489,7 +475,7 @@ export function LoanReqTrackingDataTable({
                       colSpan={columns.length}
                       className="h-24 text-center"
                     >
-                      No results found.
+                      Empty Result.
                     </TableCell>
                   </TableRow>
                 )}
@@ -497,6 +483,7 @@ export function LoanReqTrackingDataTable({
             </Table>
           </div>
 
+          {/* Pagination */}
           <div className="flex items-center justify-between">
             <div className="text-sm text-muted-foreground">
               Page {pageNo} of {Math.ceil(totalCount / pageSize)} ({totalCount}{" "}
@@ -507,7 +494,7 @@ export function LoanReqTrackingDataTable({
                 variant="outline"
                 size="sm"
                 onClick={handlePreviousPage}
-                disabled={loadingPrevious || pageNo === 1}
+                disabled={pageNo <= 1 || loadingPrevious}
               >
                 Previous
               </Button>
@@ -515,9 +502,7 @@ export function LoanReqTrackingDataTable({
                 variant="outline"
                 size="sm"
                 onClick={handleNextPage}
-                disabled={
-                  loadingNext || pageNo === Math.ceil(totalCount / pageSize)
-                }
+                disabled={pageNo * pageSize >= totalCount || loadingNext}
               >
                 Next
               </Button>
@@ -525,8 +510,11 @@ export function LoanReqTrackingDataTable({
           </div>
         </div>
       </CardContent>
+      {isProcessingDownload && (
+        <div className="text-indigo-600 bg-white w-full text-sm mt-2 animate-pulse">
+          All Collections Download is processing...
+        </div>
+      )}
     </Card>
   );
 }
-
-export default LoanReqTrackingDataTable;
