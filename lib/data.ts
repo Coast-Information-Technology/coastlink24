@@ -82,7 +82,7 @@ export const sidebarData: ISidebarData = {
         },
         {
           title: "Payment Verification",
-          url: "/dashboard/payments_verification",
+          url: "/dashboard/disbursements/verify",
         },
         {
           title: "Search Multiple Payments",

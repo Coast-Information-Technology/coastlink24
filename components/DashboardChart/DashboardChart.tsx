@@ -9,51 +9,41 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
+  BarChart,
+  Bar,
   Legend,
 } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
 import { useDashboardContext } from "../Context/DashboardContext";
 
-const COLORS = ["#6366F1", "#10B981", "#F59E0B"]; // For pie chart
+const COLORS = ["#6366F1", "#10B981", "#F59E0B"];
 
 export const DashboardCharts = () => {
   const { data } = useDashboardContext();
 
   const grossLoanData = [
-    {
-      period: "Today",
-      amount: data.totalGrossLoanDisbursedToday,
-    },
-    {
-      period: "Month",
-      amount: data.totalGrossLoanDisbursedMonth,
-    },
-    {
-      period: "Year",
-      amount: data.totalGrossLoanDisbursedYear,
-    },
-    {
-      period: "All Time",
-      amount: data.totalGrossLoanDisbursedAllTime,
-    },
+    { period: "Today", amount: data.totalGrossLoanDisbursedToday },
+    { period: "Month", amount: data.totalGrossLoanDisbursedMonth },
+    { period: "Year", amount: data.totalGrossLoanDisbursedYear },
+    { period: "All Time", amount: data.totalGrossLoanDisbursedAllTime },
   ];
 
   const appUserData = [
-    { name: "Today", value: data.appUserCountToday },
-    { name: "Week", value: data.appUserCountWeek },
-    { name: "Month", value: data.appUserCountMonth },
+    {
+      period: "App Users",
+      Today: data.appUserCountToday ?? 0,
+      Week: data.appUserCountWeek ?? 0,
+      Month: data.appUserCountMonth ?? 0,
+    },
   ];
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 mt-10">
-      {/* Area Chart - Gross Loans Disbursed by Month */}
+      {/* Area Chart */}
       <Card className="flex-1">
         <CardContent className="p-4">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
-            Gross Loans Disbursed by Month
+            Gross Loans Disbursed
           </h2>
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart data={grossLoanData}>
@@ -73,33 +63,23 @@ export const DashboardCharts = () => {
         </CardContent>
       </Card>
 
-      {/* Pie Chart - App User Growth */}
-      <Card className="w-full sm:w-[300px]">
+      {/* Bar Chart */}
+      <Card className="w-full lg:w-[350px]">
         <CardContent className="p-4">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
             App User Growth
           </h2>
           <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={appUserData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percent }) =>
-                  `${name}: ${(percent * 100).toFixed(0)}%`
-                }
-                outerRadius={70}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {appUserData.map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
+            <BarChart data={appUserData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="period" />
+              <YAxis />
               <Tooltip />
               <Legend />
-            </PieChart>
+              <Bar dataKey="Today" fill={COLORS[0]} />
+              <Bar dataKey="Week" fill={COLORS[1]} />
+              <Bar dataKey="Month" fill={COLORS[2]} />
+            </BarChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>

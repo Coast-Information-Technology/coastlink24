@@ -15,6 +15,7 @@ import { useTheme } from "../Context/ThemeContext";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserContext } from "../Context/userContext";
+import { ModeToggle } from "@/lib/mode-toggler";
 
 const NavbarPage: React.FC = () => {
   const { theme } = useTheme();
@@ -37,7 +38,7 @@ const NavbarPage: React.FC = () => {
               className="text-[20px] font-bold"
               style={{ color: theme.textColor }}
             >
-              Welcome, <span className="text-[12px]">{user.designation}</span>
+              <span className="text-[15px]">{user.designation}</span>
             </h2>
           )}
           <DropdownMenuTrigger asChild>
@@ -82,6 +83,7 @@ const NavbarPage: React.FC = () => {
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
+          <ModeToggle />
         </div>
       </DropdownMenu>
     </header>

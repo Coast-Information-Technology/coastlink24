@@ -108,26 +108,27 @@ const ManualDisbursementPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <section className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <ToastContainer position="top-right" autoClose={5000} />
-      
+
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
+        <div className="p-6 sm:p-8">
           <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-200">
               Manual Disbursement for Failed Payments
             </h1>
-            <p className="mt-2 text-sm text-gray-600">
-              Process up to 3 failed payments by entering their mandate references
+            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+              Process up to 3 failed payments by entering their mandate
+              references
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label 
+                <label
                   htmlFor="mandateReference"
-                  className="block text-sm font-medium text-gray-700"
+                  className="block text-lg font-medium text-gray-700 dark:text-gray-200"
                 >
                   Mandate References
                 </label>
@@ -140,17 +141,17 @@ const ManualDisbursementPage = () => {
                   {isCleaning ? "Cleaning..." : "Clean Up Content"}
                 </Button>
               </div>
-              
+
               <textarea
                 id="mandateReference"
                 rows={6}
                 value={mandateReferences}
                 onChange={(e) => setMandateReferences(e.target.value)}
-                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-6"
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-2 border-gray-300 rounded-md p-4 dark:text-gray-200"
                 placeholder="Enter up to 3 mandate references, separated by commas&#10;Example: 141136937738, 291136930680, 271136871552"
                 required
               />
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-200">
                 Separate multiple references with commas
               </p>
             </div>
@@ -190,7 +191,7 @@ const ManualDisbursementPage = () => {
           </TableModal>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

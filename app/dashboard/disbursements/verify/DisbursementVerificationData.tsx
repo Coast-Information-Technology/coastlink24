@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -18,43 +18,60 @@ import {
 } from "@/components/ui/table";
 import { Spinner } from "@/components/ui/spinner";
 
-const columns = [
-  {
-    accessorKey: "mandate_reference",
-    header: "Mandate Reference",
-  },
-  {
-    accessorKey: "payment_reference",
-    header: "Payment Reference",
-  },
-  {
-    accessorKey: "transaction_code",
-    header: "Transaction ID",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-  },
-];
+interface DisbursementData {
+  id: string;
+  mandate_reference: string;
+  transaction_id: string;
+  is_success: string;
+  message: string;
+}
 
 interface DisbursementResponseDataTablePageProps {
-  data: any[];
+  data: DisbursementData[];
   pageNo: number;
   pageSize: number;
   setPageNo: (page: number) => void;
 }
 
-export function DisbursementResponseDataTablePage({
+export function DisbursementVerificationDataTablePage({
   data,
   pageNo,
   pageSize,
   setPageNo,
 }: DisbursementResponseDataTablePageProps) {
-  const [currentData, setCurrentData] = useState<any[]>([]);
-  const [loadingNext, setLoadingNext] = useState(false);
-  const [loadingPrevious, setLoadingPrevious] = useState(false);
+  const [currentData, setCurrentData] = useState<DisbursementData[]>([]);
+  //   const [loadingNext, setLoadingNext] = useState(false);
+  //   const [loadingPrevious, setLoadingPrevious] = useState(false);
+
   const totalPages = Math.ceil(data.length / pageSize);
 
+  // Memoize the columns to avoid unnecessary recalculation on every render
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: "id",
+        header: () => <div className="text-left">ID</div>,
+        cell: ({ row }: { row: any }) => (
+          <div className="lowercase">
+            {row.getValue("id") || `${row.index + 1}`}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "mandate_reference",
+        header: () => <div>Mandate Reference</div>,
+      },
+      {
+        accessorKey: "transaction_id",
+        header: () => <div>Transaction ID</div>,
+      },
+      { accessorKey: "is_success", header: () => <div>Status</div> },
+      { accessorKey: "message", header: () => <div>Message</div> },
+    ],
+    []
+  );
+
+  // Paginate data based on the current page
   useEffect(() => {
     const startIdx = (pageNo - 1) * pageSize;
     const endIdx = startIdx + pageSize;
@@ -67,57 +84,66 @@ export function DisbursementResponseDataTablePage({
     getCoreRowModel: getCoreRowModel(),
   });
 
+  // Handle downloading CSV
   const downloadCSV = () => {
-    const headers = columns.map((column) => column.header);
+    const headers = columns
+      .map((column) =>
+        typeof column.header === "function" ? column.header() : column.header
+      )
+      .map((header) => header.props?.children ?? header);
+
     const rows = data
-      .map((row) =>
-        columns.map((column) => row[column.accessorKey] || "").join(",")
+      .map((row: DisbursementData) =>
+        columns
+          .map(
+            (column) => row[column.accessorKey as keyof DisbursementData] || ""
+          )
+          .join(",")
       )
       .join("\n");
-    const csvContent = `data:text/csv;charset=utf-8,${headers.join(
-      ","
-    )}\n${rows}`;
 
+    const csvContent = `data:text/csv;charset=utf-8,${headers.join(",")}\n${rows}`;
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "DISBURSED VERIFICATION REPORT.csv");
+    link.setAttribute("download", "DISBURSED_VERIFICATION_REPORT.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  const handleNextPage = () => {
-    setLoadingNext(true);
-    setPageNo(Math.min(pageNo + 1, totalPages));
-  };
+  // Handle pagination logic
+  //   const handleNextPage = () => {
+  //     setLoadingNext(true);
+  //     setPageNo(Math.min(pageNo + 1, totalPages));
+  //   };
 
-  const handlePreviousPage = () => {
-    setLoadingPrevious(true);
-    setPageNo(Math.max(pageNo - 1, 1));
-  };
+  //   const handlePreviousPage = () => {
+  //     setLoadingPrevious(true);
+  //     setPageNo(Math.max(pageNo - 1, 1));
+  //   };
 
-  useEffect(() => {
-    setLoadingNext(false);
-    setLoadingPrevious(false);
-  }, [pageNo]);
+  //   useEffect(() => {
+  //     setLoadingNext(false);
+  //     setLoadingPrevious(false);
+  //   }, [pageNo]);
 
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between py-4">
-        <h2 className="text-lg font-semibold">Disbursement Results</h2>
+    <div className="p-6 bg-white shadow-lg rounded-lg">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold">Disbursement Verification</h2>
         <Button
           variant="outline"
           size="sm"
-          className="ml-auto"
+          className="flex items-center space-x-2 px-4 py-2 border rounded-lg"
           onClick={downloadCSV}
         >
-          <Download className="mr-2 h-4 w-4" />
-          Download CSV
+          <Download size={18} />
+          <span>Download CSV</span>
         </Button>
       </div>
 
-      <div className="rounded-md border">
+      <div className="overflow-x-auto">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -164,34 +190,6 @@ export function DisbursementResponseDataTablePage({
           </TableBody>
         </Table>
       </div>
-
-      {/* <div className="flex items-center justify-between space-x-2 py-4">
-        <div className="text-sm text-muted-foreground">
-          Page {pageNo} of {totalPages}
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handlePreviousPage}
-            disabled={pageNo <= 1 || loadingPrevious}
-          >
-            {loadingPrevious ? (
-              <Spinner className="mr-2 h-4 w-4" />
-            ) : null}
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleNextPage}
-            disabled={pageNo >= totalPages || loadingNext}
-          >
-            {loadingNext ? <Spinner className="mr-2 h-4 w-4" /> : null}
-            Next
-          </Button>
-        </div>
-      </div> */}
     </div>
   );
 }
