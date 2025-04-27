@@ -374,7 +374,6 @@ export function ManualCollectionsDataTable({
               variant="outline"
               size="sm"
               onClick={downloadCSV}
-              disabled={!isDownloadReady}
               className="flex items-center gap-2"
             >
               <Download className="h-4 w-4" />
@@ -410,7 +409,7 @@ export function ManualCollectionsDataTable({
                   setStartDate(e.target.value);
                   setPageNo(1);
                 }}
-                className="w-[180px]"
+                className="w-[150px]"
               />
               <Input
                 type="date"
@@ -419,9 +418,9 @@ export function ManualCollectionsDataTable({
                   setEndDate(e.target.value);
                   setPageNo(1);
                 }}
-                className="w-[180px]"
+                className="w-[150px]"
               />
-              <Button onClick={handleSearchClick} className="px-4">
+              <Button onClick={handleSearchClick} className="">
                 Search
               </Button>
             </div>
