@@ -52,7 +52,7 @@ export const TableModal: React.FC<TableModalProps> = ({
       aria-modal="true"
       aria-labelledby={title ? "modal-title" : undefined}
     >
-      <div className="relative w-full max-w-lg bg-background p-6 shadow-lg border sm:rounded-lg animate-in zoom-in-95 fade-in-0">
+      <div className="relative w-full max-w-4xl h-[80vh] bg-background p-6 shadow-lg border sm:rounded-lg animate-in zoom-in-95 fade-in-0">
         {title && (
           <div className="flex items-center justify-between mb-4">
             <h2
@@ -72,7 +72,9 @@ export const TableModal: React.FC<TableModalProps> = ({
             </Button>
           </div>
         )}
-        <div className="relative overflow-auto">{children}</div>
+        <div className="relative overflow-auto h-[calc(80vh-50px)]">
+          {children}
+        </div>
       </div>
     </div>
   );

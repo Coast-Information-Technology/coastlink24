@@ -129,7 +129,7 @@ export function DisbursementVerificationDataTablePage({
   //   }, [pageNo]);
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg">
+    <section className="p-6 bg-white shadow-lg rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Disbursement Verification</h2>
         <Button
@@ -190,6 +190,6 @@ export function DisbursementVerificationDataTablePage({
           </TableBody>
         </Table>
       </div>
-    </div>
+    </section>
   );
 }

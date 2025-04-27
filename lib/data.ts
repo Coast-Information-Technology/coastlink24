@@ -86,7 +86,7 @@ export const sidebarData: ISidebarData = {
         },
         {
           title: "Search Multiple Payments",
-          url: "/dashboard/search_multiple_payments",
+          url: "/dashboard/disbursements/multiple-search",
         },
       ],
     },
