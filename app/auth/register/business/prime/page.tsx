@@ -35,8 +35,6 @@ const SignUpPage: React.FC = () => {
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [bvn, setBVN] = useState("");
-  const [businessBVN, setBusinessBVN] = useState("");
-  const [bvnError, setBvnError] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [pending, setPending] = useState(false);
   const [countdown, setCountdown] = useState(0);
@@ -59,6 +57,9 @@ const SignUpPage: React.FC = () => {
   const [cacDocument, setCacDocument] = useState<File | null>(null);
   const [licenseDocument, setLicenseDocument] = useState<File | null>(null);
   const [form7Document, setForm7Document] = useState<File | null>(null);
+  const [directorDateOfBirth, setDirectorDateOfBirth] = useState("");
+  const [businessBVN, setBusinessBVN] = useState("");
+  const [bvnError, setBvnError] = useState("");
 
   // Password requirement states
   const [hasMinLength, setHasMinLength] = useState(false);
@@ -406,8 +407,8 @@ const SignUpPage: React.FC = () => {
                   commence
                 </h2>
                 <p className="text-gray-600 text-[14px] lg:w-[20vw] pt-2 pb-4">
-                  To complete the KYC process for your business, the following
-                  are a few things you need to have...
+                  To complete your business KYC (Know Your Customer) and account
+                  setup, kindly have the following ready:
                 </p>
 
                 <div className="flex gap-2 mb-4 text-gray-600">
@@ -417,8 +418,20 @@ const SignUpPage: React.FC = () => {
                       You and Your Director{"'"}s BVN
                     </h3>
                     <p>
-                      We need this information as this is in accordance with the
-                      CBN regulations for compliance and account creation.
+                      To verify identities in compliance with CBN regulations.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlinePersonPin size={30} />
+                  <div className="">
+                    <h3 className="text-black">
+                      Director{"’"}s Valid Means of ID
+                    </h3>
+                    <p>
+                      National ID Card, International Passport, Driver{"'"}s
+                      License, or Voter{"’"}s Card .
                     </p>
                   </div>
                 </div>
@@ -427,10 +440,7 @@ const SignUpPage: React.FC = () => {
                   <MdOutlineEmail size={30} />
                   <div className="">
                     <h3 className="text-black">Valid Email Address</h3>
-                    <p>
-                      To successfully create your account, you need to enter a
-                      valid email address for yourself and the business.
-                    </p>
+                    <p>For account activation and communication.</p>
                   </div>
                 </div>
 
@@ -438,26 +448,25 @@ const SignUpPage: React.FC = () => {
                   <MdOutlinePhone size={30} />
                   <div className="">
                     <h3 className="text-black">Valid Phone Number</h3>
-                    <p>
-                      Kindly provide a valid phone number for yourself and the
-                      business.
-                    </p>
+                    <p>Linked to your business.</p>
                   </div>
                 </div>
 
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlineDescription size={30} />
                   <div className="">
-                    <h3 className="text-black">CAC Document</h3>
-                    <p>You will be required to upload your CAC document.</p>
+                    <h3 className="text-black">CAC Certificate</h3>
+                    <p>Proof of company registration.</p>
                   </div>
                 </div>
 
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlineBusinessCenter size={30} />
                   <div className="">
-                    <h3 className="text-black">CBN or Lending License</h3>
-                    <p>You will be required to upload your CAC document.</p>
+                    <h3 className="text-black">
+                      CBN License or Lending License
+                    </h3>
+                    <p>Proof of authority to operate as a lender.</p>
                   </div>
                 </div>
 
@@ -465,10 +474,7 @@ const SignUpPage: React.FC = () => {
                   <MdOutlineAssignment size={30} />
                   <div className="">
                     <h3 className="text-black">Form7 or Status Report</h3>
-                    <p>
-                      You will be required to upload your Form7 or Status report
-                      document.
-                    </p>
+                    <p>Current company information from CAC.</p>
                   </div>
                 </div>
 
@@ -489,8 +495,12 @@ const SignUpPage: React.FC = () => {
             {currentStep === 2 && (
               <div className="flex flex-col">
                 <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">
-                  Personal Information
+                  Personal Information (Account Admin)
                 </h2>
+
+                <p className="text-gray-600 text-[14px] lg:w-[20vw] pt-2 pb-4">
+                  Fill in details for the primary account holder/admin:
+                </p>
 
                 <div className="flex space-x-4 mb-4">
                   {/* First Name Field */}
@@ -503,6 +513,7 @@ const SignUpPage: React.FC = () => {
                       type="text"
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
+                      required
                     />
                   </div>
 
@@ -516,6 +527,7 @@ const SignUpPage: React.FC = () => {
                       type="text"
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
@@ -530,6 +542,7 @@ const SignUpPage: React.FC = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -547,6 +560,7 @@ const SignUpPage: React.FC = () => {
                         setPassword(e.target.value);
                         validatePassword(e.target.value);
                       }}
+                      required
                     />
                     <button
                       type="button"
@@ -605,6 +619,7 @@ const SignUpPage: React.FC = () => {
                         setConfirmPassword(e.target.value);
                         validateConfirmPassword(e.target.value);
                       }}
+                      required
                     />
                     <button
                       type="button"
@@ -638,6 +653,7 @@ const SignUpPage: React.FC = () => {
                       type="tel"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
+                      required
                     />
                   </div>
 
@@ -647,6 +663,7 @@ const SignUpPage: React.FC = () => {
                     <select
                       className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                       id="gender"
+                      required
                     >
                       <option value="">Gender</option>
                       <option value="male">Male</option>
@@ -665,6 +682,7 @@ const SignUpPage: React.FC = () => {
                     type="date"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
+                    required
                   />
                 </div>
 
@@ -676,6 +694,7 @@ const SignUpPage: React.FC = () => {
                     className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
+                    required
                   >
                     <option value="">Select your Country</option>
                     <option value="Australia">Australia</option>
@@ -704,7 +723,11 @@ const SignUpPage: React.FC = () => {
                       setBVN(e.target.value);
                       validateBVN(e.target.value);
                     }}
+                    required
                   />
+                  <span className="text-[12px] italic">
+                    Dial *565*0# to check for your valid BVN
+                  </span>
                   {bvnError && (
                     <p className="text-red-500 text-xs -mt-4 flex items-center gap-1">
                       <AlertCircleIcon size={15} className="text-red-500" />
@@ -745,10 +768,16 @@ const SignUpPage: React.FC = () => {
                   Business Information
                 </h2>
 
+                <p className="text-gray-600 text-[14px] lg:w-[20vw] pt-2 pb-4">
+                  Now complete your business profile:
+                </p>
+
                 <div className="flex space-x-4 mb-4">
                   {/* Business Name Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                    <label htmlFor="businessName">Business Name</label>
+                    <label htmlFor="businessName">
+                      Registered Business Name
+                    </label>
                     <input
                       id="businessName"
                       placeholder="Enter Business Name"
@@ -756,12 +785,15 @@ const SignUpPage: React.FC = () => {
                       type="text"
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
+                      required
                     />
                   </div>
 
                   {/* Business Email Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                    <label htmlFor="businessEmail">Business Email</label>
+                    <label htmlFor="businessEmail">
+                      Business Email Address
+                    </label>
                     <input
                       id="businessEmail"
                       placeholder="Enter Business Email"
@@ -769,13 +801,16 @@ const SignUpPage: React.FC = () => {
                       type="email"
                       value={businessEmail}
                       onChange={(e) => setBusinessEmail(e.target.value)}
+                      required
                     />
                   </div>
                 </div>
 
                 {/* Business Address Field */}
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-                  <label htmlFor="businessAddress">Business Address</label>
+                  <label htmlFor="businessAddress">
+                    Business Operating Address
+                  </label>
                   <input
                     id="businessAddress"
                     placeholder="Enter Business Address"
@@ -783,17 +818,23 @@ const SignUpPage: React.FC = () => {
                     type="text"
                     value={businessAddress}
                     onChange={(e) => setBusinessAddress(e.target.value)}
+                    required
                   />
                 </div>
 
                 <div className="flex space-x-4 mb-4">
                   {/* Business Phone Number Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                    <label htmlFor="businessPhone">Business Phone Number</label>
+                    <label htmlFor="businessPhone">
+                      Official Business Phone Number
+                    </label>
 
                     <div className="flex items-center border-[1px] bg-white border-[#ccc] rounded-md w-full focus-within:ring-1 focus-within:ring-blue-500 transition ease-in-out duration-150">
                       {/* Country Code Select */}
-                      <select className="bg-transparent text-gray-700 text-[14px] pl-2 py-3 border-r-[1px] border-[#ccc] outline-none focus:ring-0">
+                      <select
+                        className="bg-transparent text-gray-700 text-[14px] pl-2 py-3 border-r-[1px] border-[#ccc] outline-none focus:ring-0"
+                        required
+                      >
                         <option value="+234">+234</option>
                         <option value="+1">+1</option>
                         <option value="+44">+44</option>
@@ -809,6 +850,7 @@ const SignUpPage: React.FC = () => {
                         placeholder="Enter Business Phone Number"
                         className="text-gray-700 text-[14px] mb-0 p-3 w-full outline-none bg-transparent"
                         type="text"
+                        required
                       />
                     </div>
                   </div>
@@ -819,6 +861,7 @@ const SignUpPage: React.FC = () => {
                     <select
                       className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                       id="businessType"
+                      required
                     >
                       <option value="">Select Business Type</option>
                       <option value="sole-proprietorship">
@@ -838,6 +881,7 @@ const SignUpPage: React.FC = () => {
                   <label htmlFor="businessCountry">Business Country</label>
                   <select
                     id="businessCountry"
+                    required
                     className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   >
                     <option value="">Select your Business Country</option>
@@ -854,9 +898,9 @@ const SignUpPage: React.FC = () => {
                   </select>
                 </div>
 
-                {/* Business BVN Field */}
+                {/* Director's BVN Field */}
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-                  <label htmlFor="businessBvn">Business BVN</label>
+                  <label htmlFor="businessBvn">Director{"'"}s BVN</label>
                   <input
                     id="businessBvn"
                     placeholder="Enter your Business BVN"
@@ -867,13 +911,33 @@ const SignUpPage: React.FC = () => {
                       setBusinessBVN(e.target.value);
                       validateBVN(e.target.value);
                     }}
+                    required
                   />
+                  <span className="text-[12px] italic">
+                    Dial *565*0# to check for your valid BVN
+                  </span>
                   {bvnError && (
                     <p className="text-red-500 text-xs -mt-4 flex items-center gap-1">
                       <AlertCircleIcon size={15} className="text-red-500" />
                       {bvnError}
                     </p>
                   )}
+                </div>
+
+                {/* Director's Date of Birth Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="dateOfBirth">
+                    Director{"'"}s Date of Birth
+                  </label>
+                  <input
+                    id="dateOfBirth"
+                    placeholder="mm/dd/yyyy"
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    type="date"
+                    value={directorDateOfBirth}
+                    onChange={(e) => setDirectorDateOfBirth(e.target.value)}
+                    required
+                  />
                 </div>
 
                 {/* Document Upload Fields */}
@@ -889,6 +953,7 @@ const SignUpPage: React.FC = () => {
                           e.target.files ? e.target.files[0] : null
                         )
                       }
+                      required
                     />
                     <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
                       <svg
@@ -948,6 +1013,7 @@ const SignUpPage: React.FC = () => {
                           e.target.files ? e.target.files[0] : null
                         )
                       }
+                      required
                     />
                     <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
                       <svg
@@ -1005,6 +1071,7 @@ const SignUpPage: React.FC = () => {
                           e.target.files ? e.target.files[0] : null
                         )
                       }
+                      required
                     />
                     <div className="border-[1px] border-[#ccc] border-dashed rounded-md p-4 flex flex-col items-center justify-center bg-white hover:bg-gray-50 transition-colors">
                       <svg
