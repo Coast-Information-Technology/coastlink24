@@ -61,7 +61,7 @@ const SignUpPage: React.FC = () => {
   const [businessBVN, setBusinessBVN] = useState("");
   const [bvnError, setBvnError] = useState("");
   const [description, setDescription] = useState("");
-  const maxChars = 1000;
+  // const maxChars = 1000;
 
   // Password requirement states
   const [hasMinLength, setHasMinLength] = useState(false);
@@ -1032,12 +1032,12 @@ const SignUpPage: React.FC = () => {
                     name="businessDescription"
                     placeholder="Write a brief description about your business..."
                     rows={5}
-                    maxLength={maxChars}
+                    // maxLength={maxChars}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     className="resize-none text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ease-in-out duration-300"
                   ></textarea>
-                  <div className="flex justify-between text-[12px] text-gray-400 mt-1">
+                  {/* <div className="flex justify-between text-[12px] text-gray-400 mt-1">
                     <span>
                       {description.length} / {maxChars} characters
                     </span>
@@ -1046,7 +1046,7 @@ const SignUpPage: React.FC = () => {
                         Character limit reached
                       </span>
                     )}
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Document Upload Fields */}
