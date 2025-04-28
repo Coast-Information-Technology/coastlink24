@@ -1057,6 +1057,8 @@ const SignUpPage: React.FC = () => {
                       id="cacDocument"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
+                      accept="image/*,application/pdf"
+                      capture="environment"
                       onChange={(e) =>
                         setCacDocument(
                           e.target.files ? e.target.files[0] : null
@@ -1079,10 +1081,10 @@ const SignUpPage: React.FC = () => {
                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                       </svg>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 text-center">
                         Drag and drop your file here or{" "}
                         <span className="text-blue-500 font-medium">
-                          browse
+                          browse / take photo
                         </span>
                       </p>
                       {cacDocument && (
@@ -1117,6 +1119,8 @@ const SignUpPage: React.FC = () => {
                       id="licenseDocument"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
+                      accept="image/*,application/pdf"
+                      capture="environment"
                       onChange={(e) =>
                         setLicenseDocument(
                           e.target.files ? e.target.files[0] : null
@@ -1139,10 +1143,10 @@ const SignUpPage: React.FC = () => {
                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                       </svg>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 text-center">
                         Drag and drop your file here or{" "}
                         <span className="text-blue-500 font-medium">
-                          browse
+                          browse / take photo
                         </span>
                       </p>
                       {licenseDocument && (
@@ -1175,6 +1179,8 @@ const SignUpPage: React.FC = () => {
                       id="form7Document"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
+                      accept="image/*,application/pdf"
+                      capture="environment"
                       onChange={(e) =>
                         setForm7Document(
                           e.target.files ? e.target.files[0] : null
@@ -1197,10 +1203,10 @@ const SignUpPage: React.FC = () => {
                           d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                         />
                       </svg>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 text-center">
                         Drag and drop your file here or{" "}
                         <span className="text-blue-500 font-medium">
-                          browse
+                          browse / take photo
                         </span>
                       </p>
                       {form7Document && (
