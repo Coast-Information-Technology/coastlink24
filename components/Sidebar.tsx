@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   Sidebar as BaseSidebar,
   SidebarContent,
@@ -8,50 +8,59 @@ import {
   SidebarHeader,
   SidebarRail,
   useSidebar,
-} from "@/components/ui/sidebar"
-import Link from "next/link"
-import Image from "next/image"
-import { sidebarData } from "@/lib/data"
-import { ILogoProps } from "@/lib/types"
-import { LogOutIcon } from "lucide-react"
-import { MainMenus } from "./MainMenus"
-import { OtherMenus } from "./OtherMenus"
-import { postApiRequest } from "@/lib/apiRequest"
-import { useRouter } from "next/navigation"
-import { toast } from "react-toastify"
-import { deleteTokenFromCookies } from "@/lib/cookies"
+} from "@/components/ui/sidebar";
+import Link from "next/link";
+import Image from "next/image";
+import { sidebarData } from "@/lib/data";
+import { ILogoProps } from "@/lib/types";
+import { LogOutIcon } from "lucide-react";
+import { MainMenus } from "./MainMenus";
+import { OtherMenus } from "./OtherMenus";
+import { postApiRequest } from "@/lib/apiRequest";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { deleteTokenFromCookies, getTokenFromCookies } from "@/lib/cookies";
 
 export function Sidebar(props: React.ComponentProps<typeof BaseSidebar>) {
-  const sidebar = useSidebar()
-  const isCollapsed = sidebar.state === "collapsed"
-  const router = useRouter()
-  const [isLoggingOut, setIsLoggingOut] = React.useState(false)
+  const sidebar = useSidebar();
+  const isCollapsed = sidebar.state === "collapsed";
+  const router = useRouter();
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
 
   const handleLogout = async (): Promise<void> => {
     if (isLoggingOut) return;
     setIsLoggingOut(true);
-  
+
     try {
-      // Attempt server-side logout
-      await postApiRequest("/auth/token/logout/", {});
-      toast.success("Logged out successfully");
+      const token = getTokenFromCookies();
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/token/logout/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        deleteTokenFromCookies();
+        toast.success("Logged out successfully.");
+      } else {
+        console.warn("Server logout failed. Proceeding with local logout.");
+        toast.warn("Could not logout from server. Logging out locally.");
+      }
     } catch (error) {
-      // Log server-side failure, fallback to client-side logout
       console.error("Server-side logout failed:", error);
-      toast.warn("Could not reach server. Logging out locally.");
+      toast.error("Network error. Logging out locally.");
     } finally {
-      // Always perform client-side cleanup
+      // Always clean up
       deleteTokenFromCookies();
-  
-      // Optional: Clear any other auth state if stored
-      // localStorage.removeItem("userInfo"); // if used
-  
-      // Redirect to login
       router.push("/auth/login");
       setIsLoggingOut(false);
     }
-  };  
-  
+  };
 
   return (
     <BaseSidebar collapsible="icon" {...props}>
@@ -68,26 +77,34 @@ export function Sidebar(props: React.ComponentProps<typeof BaseSidebar>) {
         <button
           onClick={handleLogout}
           disabled={isLoggingOut}
-          className={`flex items-center gap-2 px-6 py-4 text-sm font-medium ${
-            isLoggingOut ? "opacity-50 cursor-not-allowed" : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+          className={`flex items-center gap-2 px-2 py-4 text-sm font-medium transition-colors ${
+            isLoggingOut
+              ? "opacity-50 cursor-not-allowed"
+              : "text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
           }`}
         >
           <LogOutIcon size={20} />
-          <span>{isLoggingOut ? "Logging out..." : "Logout"}</span>
+          {!isCollapsed && "Logout"}
         </button>
       </SidebarFooter>
 
       <SidebarRail />
     </BaseSidebar>
-  )
+  );
 }
 
 function Logo({ isCollapsed }: ILogoProps) {
   return (
     <div className="flex h-[60px] items-center px-1">
-      <Link href="/dashboard" passHref className="flex items-center gap-2 font-semibold">
+      <Link
+        href="/dashboard"
+        passHref
+        className="flex items-center gap-2 font-semibold"
+      >
         <Image
-          src={isCollapsed ? "/coastlink24.png" : "/Coastlink-brandlogo-blue.png"}
+          src={
+            isCollapsed ? "/coastlink24.png" : "/Coastlink-brandlogo-blue.png"
+          }
           alt="Coastlink24 logo"
           width={isCollapsed ? 30 : 150}
           height={isCollapsed ? 30 : 150}
@@ -96,5 +113,5 @@ function Logo({ isCollapsed }: ILogoProps) {
         {/* {!isCollapsed && <span>Coastlink24</span>} */}
       </Link>
     </div>
-  )
+  );
 }

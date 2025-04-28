@@ -523,11 +523,11 @@ export function LoansDataTable({
   }, [pageNo]);
 
   return (
-    <Card className="w-full border-0 shadow-none">
+    <Card className="w-full border-0 shadow-none -mt-8">
       <ToastContainer />
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span className="font-bold text-lg">Loan Request Tracking</span>
+          <span className="font-bold text-lg">Loan</span>
           <div className="primary-cta flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={downloadCSV}>
               <Download className="h-4 w-4 mr-2" />

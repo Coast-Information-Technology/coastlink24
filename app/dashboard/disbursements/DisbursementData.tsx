@@ -118,21 +118,19 @@ export function DisbursementsDataTable({
         cell: ({ row }) => {
           const rawStatus = row.original.transfer_status;
           const status = rawStatus?.toLowerCase().trim();
-      
+
           const statusColor =
             status === "success"
               ? "bg-green-500 text-white"
               : status === "failed"
-              ? "bg-red-500 text-white"
-              : "bg-orange-500 text-white";
-      
+                ? "bg-red-500 text-white"
+                : "bg-orange-500 text-white";
+
           return (
-            <Badge className={`capitalize ${statusColor}`}>
-              {rawStatus}
-            </Badge>
+            <Badge className={`capitalize ${statusColor}`}>{rawStatus}</Badge>
           );
         },
-      },      
+      },
       {
         id: "mandate_reference",
         header: () => <div>Mandate Reference</div>,
@@ -219,7 +217,12 @@ export function DisbursementsDataTable({
   });
 
   const downloadCSV = () => {
-    if (!columns || !downloadData || columns.length === 0 || downloadData.length === 0) {
+    if (
+      !columns ||
+      !downloadData ||
+      columns.length === 0 ||
+      downloadData.length === 0
+    ) {
       console.error("Columns or downloadData is missing or empty.");
       return;
     }
@@ -274,10 +277,10 @@ export function DisbursementsDataTable({
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full border-0 shadow-none">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>Disbursements</span>
+          <span className="font-bold text-lg">Disbursements</span>
           <div className="primary-cta flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={downloadCSV}>
               <Download className="h-4 w-4 mr-2" />
@@ -352,7 +355,9 @@ export function DisbursementsDataTable({
                     >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id}>
-                          <Link href={`/dashboard/disbursements/${row.getValue("id")}`}>
+                          <Link
+                            href={`/dashboard/disbursements/${row.getValue("id")}`}
+                          >
                             {flexRender(
                               cell.column.columnDef.cell,
                               cell.getContext()
@@ -378,7 +383,8 @@ export function DisbursementsDataTable({
 
           <div className="flex items-center justify-between">
             <div className="text-sm text-muted-foreground">
-              Page {pageNo} of {Math.ceil(totalCount / pageSize)} ({totalCount} total)
+              Page {pageNo} of {Math.ceil(totalCount / pageSize)} ({totalCount}{" "}
+              total)
             </div>
             <div className="flex items-center gap-2">
               <Button
@@ -393,7 +399,9 @@ export function DisbursementsDataTable({
                 variant="outline"
                 size="sm"
                 onClick={handleNextPage}
-                disabled={loadingNext || pageNo === Math.ceil(totalCount / pageSize)}
+                disabled={
+                  loadingNext || pageNo === Math.ceil(totalCount / pageSize)
+                }
               >
                 Next
               </Button>

@@ -405,126 +405,125 @@ export function LoanReqTrackingDataTable({
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-3 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search by Mandate Ref..."
-                value={tempSearchQuery}
-                onChange={handleSearchChange}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    handleSearchClick();
-                  }
-                }}
-                className="pl-10"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <Input
-                type="date"
-                value={startDate}
-                onChange={(e) => {
-                  setStartDate(e.target.value);
-                  setPageNo(1);
-                }}
-                className="w-[180px]"
-              />
-              <Input
-                type="date"
-                value={endDate}
-                onChange={(e) => {
-                  setEndDate(e.target.value);
-                  setPageNo(1);
-                }}
-                className="w-[180px]"
-              />
-            </div>
-          </div>
-
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableHead>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableHeader>
-              <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          <Link
-                            href={`/dashboard/loan_request_tracking/${row.getValue("id")}`}
-                          >
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext()
-                            )}
-                          </Link>
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      No results found.
-                    </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="text-sm text-muted-foreground">
-              Page {pageNo} of {Math.ceil(totalCount / pageSize)} ({totalCount}{" "}
-              total)
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handlePreviousPage}
-                disabled={loadingPrevious || pageNo === 1}
-              >
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleNextPage}
-                disabled={
-                  loadingNext || pageNo === Math.ceil(totalCount / pageSize)
-                }
-              >
-                Next
-              </Button>
-            </div>
-          </div>
+      <CardContent className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex items-center gap-2 w-full md:w-auto">
+          <Search size={18} className="text-gray-500" />
+          <Input
+            placeholder="Search by Mandate..."
+            onChange={handleSearchChange}
+            className="w-full md:w-64"
+            value={tempSearchQuery}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSearchClick();
+              }
+            }}
+          />
+          <Button onClick={handleSearchClick} className="whitespace-nowrap">
+            Search
+          </Button>
+        </div>
+        <div className="flex items-center gap-2">
+          <Input
+            type="date"
+            value={startDate}
+            onChange={(e) => {
+              setStartDate(e.target.value);
+              setPageNo(1);
+            }}
+            className="w-[180px]"
+          />
+          <Input
+            type="date"
+            value={endDate}
+            onChange={(e) => {
+              setEndDate(e.target.value);
+              setPageNo(1);
+            }}
+            className="w-[180px]"
+          />
         </div>
       </CardContent>
+
+      <div className="rounded-md border dark:text-white">
+        <Table>
+          <TableHeader className="text-white">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      <Link
+                        href={`/dashboard/loan_request_tracking/${row.getValue("id")}`}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </Link>
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No results found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <div className="text-sm text-muted-foreground">
+          Page {pageNo} of {Math.ceil(totalCount / pageSize)} ({totalCount}{" "}
+          total)
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handlePreviousPage}
+            disabled={loadingPrevious || pageNo === 1}
+          >
+            Previous
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleNextPage}
+            disabled={
+              loadingNext || pageNo === Math.ceil(totalCount / pageSize)
+            }
+          >
+            Next
+          </Button>
+        </div>
+      </div>
     </Card>
   );
 }
