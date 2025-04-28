@@ -60,6 +60,8 @@ const SignUpPage: React.FC = () => {
   const [directorDateOfBirth, setDirectorDateOfBirth] = useState("");
   const [businessBVN, setBusinessBVN] = useState("");
   const [bvnError, setBvnError] = useState("");
+  const [description, setDescription] = useState("");
+  const maxChars = 1000;
 
   // Password requirement states
   const [hasMinLength, setHasMinLength] = useState(false);
@@ -857,45 +859,20 @@ const SignUpPage: React.FC = () => {
 
                   {/* Business Type Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
-                    <label htmlFor="businessType">Business Type</label>
+                    <label htmlFor="businessType">Purpose of Sign Up</label>
                     <select
                       className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                       id="businessType"
                       required
                     >
-                      <option value="">Select Business Type</option>
+                      <option value="">Select Purpose of Sign Up</option>
                       <option value="sole-proprietorship">
-                        Sole Proprietorship
+                        Lending to SMEs
                       </option>
-                      <option value="partnership">Partnership</option>
-                      <option value="corporation">Corporation</option>
-                      <option value="limited-liability">
-                        Limited Liability Company
-                      </option>
+                      <option value="partnership">Personal Loans</option>
+                      <option value="corporation">Salary Loans</option>
                     </select>
                   </div>
-                </div>
-
-                {/* Business Country Field */}
-                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-                  <label htmlFor="businessCountry">Business Country</label>
-                  <select
-                    id="businessCountry"
-                    required
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
-                  >
-                    <option value="">Select your Business Country</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Brazil">Brazil</option>
-                    <option value="Canada">Canada</option>
-                    <option value="France">France</option>
-                    <option value="Germany">Germany</option>
-                    <option value="India">India</option>
-                    <option value="Nigeria">Nigeria</option>
-                    <option value="South Africa">South Africa</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="United States">United States</option>
-                  </select>
                 </div>
 
                 {/* Director's BVN Field */}
@@ -938,6 +915,138 @@ const SignUpPage: React.FC = () => {
                     onChange={(e) => setDirectorDateOfBirth(e.target.value)}
                     required
                   />
+                </div>
+
+                {/* Business Country Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="businessCountry">
+                    Country of Business Operation
+                  </label>
+                  <select
+                    id="businessCountry"
+                    required
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  >
+                    <option value="">
+                      Select Country of Business Operation
+                    </option>
+                    <option value="Australia">Australia</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Canada">Canada</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="India">India</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States">United States</option>
+                  </select>
+                </div>
+
+                {/* Business Employee Size Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="businessCountry">
+                    Business Employee Size
+                  </label>
+                  <select
+                    id="businessCountry"
+                    required
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  >
+                    <option value="">Select Employee Size</option>
+                    <option value="one">1 - 10</option>
+                    <option value="Eleven">11 - 50</option>
+                    <option value="fiftyOne">51 - 200</option>
+                    <option value="hundredPlus">200+</option>
+                  </select>
+                </div>
+
+                {/* Primary Industry Sector Field */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="industrySector">
+                    Primary Industry Sector
+                  </label>
+                  <select
+                    id="industrySector"
+                    required
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                  >
+                    <option value="">Select Industry Sector</option>
+                    <option value="agriculture">Agriculture</option>
+                    <option value="automotive">Automotive</option>
+                    <option value="banking">
+                      Banking & Financial Services
+                    </option>
+                    <option value="construction">Construction</option>
+                    <option value="consumerGoods">Consumer Goods</option>
+                    <option value="education">Education</option>
+                    <option value="energy">Energy & Utilities</option>
+                    <option value="engineering">Engineering</option>
+                    <option value="entertainment">Entertainment & Media</option>
+                    <option value="environmental">
+                      Environmental Services
+                    </option>
+                    <option value="fashion">Fashion & Apparel</option>
+                    <option value="food">Food & Beverage</option>
+                    <option value="government">Government</option>
+                    <option value="healthcare">
+                      Healthcare & Pharmaceuticals
+                    </option>
+                    <option value="hospitality">Hospitality & Tourism</option>
+                    <option value="insurance">Insurance</option>
+                    <option value="it">Information Technology (IT)</option>
+                    <option value="legal">Legal Services</option>
+                    <option value="logistics">
+                      Logistics & Transportation
+                    </option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="marketing">Marketing & Advertising</option>
+                    <option value="mining">Mining & Metals</option>
+                    <option value="nonprofit">Nonprofit & NGOs</option>
+                    <option value="realEstate">Real Estate</option>
+                    <option value="retail">Retail</option>
+                    <option value="science">Scientific Research</option>
+                    <option value="security">Security & Investigation</option>
+                    <option value="sports">Sports & Recreation</option>
+                    <option value="telecommunications">
+                      Telecommunications
+                    </option>
+                    <option value="transportation">
+                      Transportation Services
+                    </option>
+                    <option value="wholesale">Wholesale</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                {/* Brief Business Description */}
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                  <label
+                    htmlFor="businessDescription"
+                    className="text-gray-700 font-medium"
+                  >
+                    Brief Business Description
+                  </label>
+                  <textarea
+                    id="businessDescription"
+                    name="businessDescription"
+                    placeholder="Write a brief description about your business..."
+                    rows={5}
+                    maxLength={maxChars}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="resize-none text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all ease-in-out duration-300"
+                  ></textarea>
+                  <div className="flex justify-between text-[12px] text-gray-400 mt-1">
+                    <span>
+                      {description.length} / {maxChars} characters
+                    </span>
+                    {description.length >= maxChars && (
+                      <span className="text-red-500">
+                        Character limit reached
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Document Upload Fields */}
