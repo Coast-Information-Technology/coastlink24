@@ -684,7 +684,7 @@ const SignUpPage: React.FC = () => {
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
                     required
-                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white dark:bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   />
                 </div>
 
