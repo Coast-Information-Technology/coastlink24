@@ -573,7 +573,7 @@ const SignUpPage: React.FC = () => {
                     </button>
                   </div>
                   {passwordError && (
-                    <p className="text-red-500 text-xs -mt-2 w-[30vw]">
+                    <p className="text-red-500 text-xs md:-mt-2 md:w-[30vw]">
                       {passwordError}
                     </p>
                   )}
@@ -638,13 +638,13 @@ const SignUpPage: React.FC = () => {
                     </button>
                   </div>
                   {confirmPasswordError && (
-                    <p className="text-red-500 text-xs -mt-2">
+                    <p className="text-red-500 text-xs md:-mt-2">
                       {confirmPasswordError}
                     </p>
                   )}
                 </div>
 
-                <div className="flex space-x-4 mb-4">
+                <div className="flex flex-col md:flex-row space-x-4 mb-4">
                   {/* Phone Number Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
                     <label htmlFor="phoneNumber">Phone Number</label>
@@ -680,7 +680,7 @@ const SignUpPage: React.FC = () => {
                   <input
                     id="dateOfBirth"
                     placeholder="mm/dd/yyyy"
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md px-3 py-6 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     type="date"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
@@ -693,7 +693,7 @@ const SignUpPage: React.FC = () => {
                   <label htmlFor="country">Country</label>
                   <select
                     id="country"
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md px-3 py-6 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                     required
@@ -774,7 +774,7 @@ const SignUpPage: React.FC = () => {
                   Now complete your business profile:
                 </p>
 
-                <div className="flex space-x-4 mb-4">
+                <div className="flex flex-col md:flex-row space-x-4 mb-4">
                   {/* Business Name Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
                     <label htmlFor="businessName">
@@ -824,7 +824,7 @@ const SignUpPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="flex space-x-4 mb-4">
+                <div className="flex flex-col md:flex-row space-x-4 mb-4">
                   {/* Business Phone Number Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
                     <label htmlFor="businessPhone">
