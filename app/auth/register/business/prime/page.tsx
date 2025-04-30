@@ -682,6 +682,7 @@ const SignUpPage: React.FC = () => {
                     id="dateOfBirth"
                     type="date"
                     value={dateOfBirth}
+                    placeholder="mm/dd/yyyy"
                     onChange={(e) => setDateOfBirth(e.target.value)}
                     required
                     className="text-gray-700 text-[14px] border-[1px] bg-white dark:bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
@@ -1254,7 +1255,7 @@ const SignUpPage: React.FC = () => {
             )}
           </form>
 
-          <p className="text-[10px] fixed bottom-8 left-14 text-white font-light">
+          <p className="text-[10px] hidden lg:inline-block fixed bottom-8 left-14 text-white font-light">
             © 2024 Coastlink24. All rights reserved.
           </p>
         </div>
