@@ -644,9 +644,9 @@ const SignUpPage: React.FC = () => {
                   )}
                 </div>
 
-                <div className="flex flex-col md:flex-row space-x-4 mb-4">
+                <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
                   {/* Phone Number Field */}
-                  <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
+                  <div className="flex flex-col text-gray-700 w-full space-y-1 mb-2 text-[13px]">
                     <label htmlFor="phoneNumber">Phone Number</label>
                     <input
                       id="phoneNumber"
@@ -663,9 +663,9 @@ const SignUpPage: React.FC = () => {
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
                     <label htmlFor="gender">Select a Gender</label>
                     <select
-                      className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                       id="gender"
                       required
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     >
                       <option value="">Gender</option>
                       <option value="male">Male</option>
@@ -680,7 +680,7 @@ const SignUpPage: React.FC = () => {
                   <input
                     id="dateOfBirth"
                     placeholder="mm/dd/yyyy"
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md px-3 py-6 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     type="date"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
@@ -693,10 +693,10 @@ const SignUpPage: React.FC = () => {
                   <label htmlFor="country">Country</label>
                   <select
                     id="country"
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md px-3 py-6 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                     required
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   >
                     <option value="">Select your Country</option>
                     <option value="Australia">Australia</option>
