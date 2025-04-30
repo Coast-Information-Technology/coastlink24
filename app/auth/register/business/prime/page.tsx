@@ -17,6 +17,7 @@ import {
   MdOutlineBusinessCenter,
   MdOutlineAssignment,
 } from "react-icons/md";
+import { Input } from "@/components/ui/input";
 
 const INITIAL_FORM_DATA = {
   email: "",
@@ -677,7 +678,7 @@ const SignUpPage: React.FC = () => {
                 {/* Date of Birth Field */}
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
                   <label htmlFor="dateOfBirth">Date of Birth</label>
-                  <input
+                  <Input
                     id="dateOfBirth"
                     type="date"
                     value={dateOfBirth}
