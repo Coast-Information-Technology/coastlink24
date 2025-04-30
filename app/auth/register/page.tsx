@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { HiOutlineUser } from "react-icons/hi2";
 import { IoBusinessSharp } from "react-icons/io5";
+import { HiOutlineBadgeCheck, HiOutlineCurrencyDollar } from "react-icons/hi";
+import { GiReceiveMoney } from "react-icons/gi";
 
 const page = () => {
   return (
@@ -67,44 +69,62 @@ const page = () => {
           </p>
           <h1 className="text-2xl text-black font-bold">Create an Account</h1>
           <p className="text-gray-500 text-[14px] pb-10">
-            What do you want to use Coastlink24 for?
+            What do you want to use Coastlink24 Intelligence System for?
           </p>
 
           <Link
-            href="/auth/register/personal"
+            href="/auth/register/licenced-lenders"
             className="flex items-center gap-4 p-6 border-2 border-gray-300 rounded-md hover:border-l-blue-500 hover:border-t-blue-500 hover:border-r-blue-700 hover:border-b-blue-700 transition duration-200 ease-in-out group"
           >
-            <HiOutlineUser
+            <HiOutlineBadgeCheck
               size={60}
               className="text-black transition duration-200 group-hover:text-blue-500"
             />
 
             <div>
               <h3 className="text-black transition duration-200 group-hover:text-blue-500 text-[1.2rem] font-bold">
-                Personal
+                Licenced Lending
               </h3>
               <p className="text-gray-500 text-[12px]">
-                For Individuals, freelancers and SMEs looking to manage their
-                finances all in one place.
+                I have a lending license and I want to lend.
               </p>
             </div>
           </Link>
 
           <Link
-            href="/auth/register/business"
+            href="/auth/register/unlicenced-lenders"
             className="flex items-center gap-4 p-6 mt-8 border-2 border-gray-300 rounded-md hover:border-l-blue-500 hover:border-t-blue-500 hover:border-r-blue-700 hover:border-b-blue-700 transition duration-200 ease-in-out group"
           >
-            <IoBusinessSharp
+            <HiOutlineCurrencyDollar
               size={60}
               className="text-black transition duration-200 group-hover:text-blue-500"
             />
             <div>
               <h3 className="text-black transition duration-200 group-hover:text-blue-500 text-[1.2rem] font-bold">
-                Business
+                Unlicenced Lending
               </h3>
               <p className="text-gray-500 text-[12px]">
-                For registered businesses, fintechs, microfinance banks,
-                investors, to manage their organization all in one place.
+                I want to pledge my funds on Coastlink24 Intelligence System and
+                earn.
+              </p>
+            </div>
+          </Link>
+
+          <Link
+            href="/auth/register/investors"
+            className="flex items-center gap-4 p-6 mt-8 border-2 border-gray-300 rounded-md hover:border-l-blue-500 hover:border-t-blue-500 hover:border-r-blue-700 hover:border-b-blue-700 transition duration-200 ease-in-out group"
+          >
+            <GiReceiveMoney
+              size={60}
+              className="text-black transition duration-200 group-hover:text-blue-500"
+            />
+            <div>
+              <h3 className="text-black transition duration-200 group-hover:text-blue-500 text-[1.2rem] font-bold">
+                Investors
+              </h3>
+              <p className="text-gray-500 text-[12px]">
+                I want to pledge my funds on Coastink24 Intelligence System and
+                earn
               </p>
             </div>
           </Link>
