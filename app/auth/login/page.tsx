@@ -80,7 +80,7 @@ const LoginPage = () => {
           height={200}
           width={200}
         />
-        <p className="text-white text-sm font-light w-[33vw]">
+        <p className="text-white text-[14px] font-extralight text-justify w-[33vw]">
           Revolutionizing Lending Services with Cutting-Edge Technology. Manage
           loan requests, disbursements, and repayments through our innovative,
           user-friendly platform for both USSD and web users.

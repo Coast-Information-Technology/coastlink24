@@ -103,8 +103,8 @@ const page = () => {
                 Business
               </h3>
               <p className="text-gray-500 text-[12px]">
-                For registered businesses, fintechs, microfinance banks to
-                manage their organization all in one place.
+                For registered businesses, fintechs, microfinance banks,
+                investors, to manage their organization all in one place.
               </p>
             </div>
           </Link>
