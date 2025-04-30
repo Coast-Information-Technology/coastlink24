@@ -1058,7 +1058,6 @@ const SignUpPage: React.FC = () => {
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
                       accept="image/*,application/pdf"
-                      capture="environment"
                       onChange={(e) =>
                         setCacDocument(
                           e.target.files ? e.target.files[0] : null
@@ -1120,7 +1119,6 @@ const SignUpPage: React.FC = () => {
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
                       accept="image/*,application/pdf"
-                      capture="environment"
                       onChange={(e) =>
                         setLicenseDocument(
                           e.target.files ? e.target.files[0] : null
@@ -1180,7 +1178,6 @@ const SignUpPage: React.FC = () => {
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       type="file"
                       accept="image/*,application/pdf"
-                      capture="environment"
                       onChange={(e) =>
                         setForm7Document(
                           e.target.files ? e.target.files[0] : null
