@@ -667,7 +667,7 @@ const SignUpPage: React.FC = () => {
                       required
                       className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     >
-                      <option value="">Gender</option>
+                      <option value="">Select your Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                     </select>
@@ -679,12 +679,11 @@ const SignUpPage: React.FC = () => {
                   <label htmlFor="dateOfBirth">Date of Birth</label>
                   <input
                     id="dateOfBirth"
-                    placeholder="mm/dd/yyyy"
-                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     type="date"
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
                     required
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 w-full focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   />
                 </div>
 
