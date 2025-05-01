@@ -682,7 +682,7 @@ const SignUpPage: React.FC = () => {
                     type="date"
                     id="dateOfBirth"
                     name="dateOfBirth"
-                    className="w-full border border-gray-300 rounded-md p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full border border-gray-300 bg-white text-black rounded-md px-3 py-4 lg:p-3 lg:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
