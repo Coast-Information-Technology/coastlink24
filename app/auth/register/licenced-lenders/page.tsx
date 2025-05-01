@@ -685,7 +685,7 @@ const SignUpPage: React.FC = () => {
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)}
                     required
-                    className="w-full text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="w-full text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 py-4 md:py-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   />
                 </div>
 
@@ -775,7 +775,7 @@ const SignUpPage: React.FC = () => {
                   Now complete your business profile:
                 </p>
 
-                <div className="flex flex-col md:flex-row space-x-4 mb-4">
+                <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
                   {/* Business Name Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
                     <label htmlFor="businessName">
@@ -825,7 +825,7 @@ const SignUpPage: React.FC = () => {
                   />
                 </div>
 
-                <div className="flex flex-col md:flex-row space-x-4 mb-4">
+                <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
                   {/* Business Phone Number Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
                     <label htmlFor="businessPhone">
@@ -835,7 +835,7 @@ const SignUpPage: React.FC = () => {
                     <div className="flex items-center border-[1px] bg-white border-[#ccc] rounded-md w-full focus-within:ring-1 focus-within:ring-blue-500 transition ease-in-out duration-150">
                       {/* Country Code Select */}
                       <select
-                        className="bg-transparent text-gray-700 text-[14px] pl-2 py-3 border-r-[1px] border-[#ccc] outline-none focus:ring-0"
+                        className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                         required
                       >
                         <option value="+234">+234</option>
@@ -862,7 +862,7 @@ const SignUpPage: React.FC = () => {
                   <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px]">
                     <label htmlFor="businessType">Purpose of Sign Up</label>
                     <select
-                      className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                      className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                       id="businessType"
                       required
                     >
@@ -904,33 +904,29 @@ const SignUpPage: React.FC = () => {
 
                 {/* Director's Date of Birth Field */}
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-                  <label htmlFor="dateOfBirth">
-                    Director{"'"}s Date of Birth
-                  </label>
+                  <label htmlFor="directorDateOfBirth">Date of birth</label>
                   <input
-                    id="dateOfBirth"
-                    placeholder="mm/dd/yyyy"
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                     type="date"
+                    id="directorDateOfBirth"
+                    name="directorDateOfBirth"
                     value={directorDateOfBirth}
                     onChange={(e) => setDirectorDateOfBirth(e.target.value)}
                     required
+                    className="w-full text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 py-4 md:py-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   />
                 </div>
 
                 {/* Business Country Field */}
                 <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
-                  <label htmlFor="businessCountry">
-                    Country of Business Operation
-                  </label>
+                  <label htmlFor="businessCountry">Country</label>
                   <select
                     id="businessCountry"
+                    value={businessCountry}
+                    onChange={(e) => setBusinessCountry(e.target.value)}
                     required
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   >
-                    <option value="">
-                      Select Country of Business Operation
-                    </option>
+                    <option value="">Select your Country</option>
                     <option value="Australia">Australia</option>
                     <option value="Brazil">Brazil</option>
                     <option value="Canada">Canada</option>
@@ -952,7 +948,7 @@ const SignUpPage: React.FC = () => {
                   <select
                     id="businessCountry"
                     required
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   >
                     <option value="">Select Employee Size</option>
                     <option value="one">1 - 10</option>
@@ -970,7 +966,7 @@ const SignUpPage: React.FC = () => {
                   <select
                     id="industrySector"
                     required
-                    className="text-gray-500 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                    className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   >
                     <option value="">Select Industry Sector</option>
                     <option value="agriculture">Agriculture</option>

@@ -48,7 +48,7 @@ const page = () => {
         <div className="space-y-2 p-4 md:p-8 m-auto sm:w-[60vw] lg:w-[40vw]">
           <Link
             href="/"
-            className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-orange-300 to-red-600 dark:from-indigo-500 dark:via-sky-500 dark:to-emerald-500"
+            className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-indigo-500 to-blue-500 rounded"
           >
             <Image
               src="/coastlink-brandlogo.png"
