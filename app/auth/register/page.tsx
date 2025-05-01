@@ -44,7 +44,7 @@ const page = () => {
       </div>
 
       {/* Main section */}
-      <section className="h-screen w-full flex justify-center items-center bg-white px-10">
+      <section className="h-screen w-full flex justify-center items-center bg-white md:px-10">
         <div className="space-y-2 p-4 md:p-8 m-auto sm:w-[60vw] lg:w-[40vw]">
           <Link
             href="/"
