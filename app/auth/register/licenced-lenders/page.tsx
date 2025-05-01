@@ -835,7 +835,7 @@ const SignUpPage: React.FC = () => {
                     <div className="flex items-center border-[1px] bg-white border-[#ccc] rounded-md w-full focus-within:ring-1 focus-within:ring-blue-500 transition ease-in-out duration-150">
                       {/* Country Code Select */}
                       <select
-                        className="text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+                        className="text-gray-700 text-[14px] border-r-[1px] bg-white border-[#ccc] p-3 appearance-none focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                         required
                       >
                         <option value="+234">+234</option>
