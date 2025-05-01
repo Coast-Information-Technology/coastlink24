@@ -355,7 +355,7 @@ const SignUpPage: React.FC = () => {
             </Link>
           </p>
 
-          <form>
+          <form className="w-full">
             {/* Step indicator */}
             <div className="flex justify-between py-6">
               <div
@@ -645,7 +645,7 @@ const SignUpPage: React.FC = () => {
                   )}
                 </div>
 
-                <div className="flex flex-col md:flex-row md:space-x-4 mb-4">
+                <div className="flex flex-col md:flex-row md:space-x-4 mb-2">
                   {/* Phone Number Field */}
                   <div className="flex flex-col text-gray-700 w-full space-y-1 mb-2 text-[13px]">
                     <label htmlFor="phoneNumber">Phone Number</label>
@@ -676,18 +676,13 @@ const SignUpPage: React.FC = () => {
                 </div>
 
                 {/* Date of Birth Field */}
-                <div className="flex flex-col gap-1">
-                  <label
-                    htmlFor="dob"
-                    className="text-sm font-medium text-gray-700"
-                  >
-                    Date of birth
-                  </label>
+                <div className="flex flex-col text-gray-700 gap-1 w-full space-y-1 text-[13px] mb-4">
+                  <label htmlFor="dateOfBirth">Date of birth</label>
                   <input
                     type="date"
-                    id="dob"
-                    name="dob"
-                    className="border border-gray-300 rounded-md p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    className="w-full border border-gray-300 rounded-md p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 
