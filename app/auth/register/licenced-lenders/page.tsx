@@ -676,19 +676,18 @@ const SignUpPage: React.FC = () => {
                 </div>
 
                 {/* Date of Birth Field */}
-                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
+                <div className="flex flex-col gap-1">
                   <label
-                    className="block text-sm font-medium text-gray-700"
-                    htmlFor="dateOfBirth"
+                    htmlFor="dob"
+                    className="text-sm font-medium text-gray-700"
                   >
-                    Date of Birth
+                    Date of birth
                   </label>
                   <input
-                    className="appearance-none block w-full p-3 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    required
                     type="date"
-                    name="dob"
                     id="dob"
+                    name="dob"
+                    className="border border-gray-300 rounded-md p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
 

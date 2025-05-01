@@ -14,9 +14,12 @@ import {
   MdOutlineEmail,
   MdOutlinePhone,
   MdOutlineDescription,
-  MdOutlineBusinessCenter,
-  MdOutlineAssignment,
+  MdOutlineHome,
+  MdOutlineInsertDriveFile,
+  MdOutlineCreditCard,
 } from "react-icons/md";
+import { FaRegIdCard } from "react-icons/fa";
+import { HiOutlineDocumentText } from "react-icons/hi";
 import { Input } from "@/components/ui/input";
 
 const INITIAL_FORM_DATA = {
@@ -410,74 +413,94 @@ const SignUpPage: React.FC = () => {
                   commence
                 </h2>
                 <p className="text-gray-600 text-[14px] lg:w-[20vw] pt-2 pb-4">
-                  To complete your business KYC (Know Your Customer) and account
-                  setup, kindly have the following ready:
+                  To complete your onboarding and KYC verification, please
+                  prepare the following:
                 </p>
 
+                {/* BVN */}
                 <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlinePersonPin size={30} />
-                  <div className="">
+                  <MdOutlineCreditCard size={30} />
+                  <div className="space-y-1">
                     <h3 className="text-black">
-                      You and Your Director{"'"}s BVN
+                      Personal and/or Business Representative BVN
                     </h3>
-                    <p>
-                      To verify identities in compliance with CBN regulations.
+                    <p className="text-gray-600">
+                      For identity validation and compliance.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlinePersonPin size={30} />
-                  <div className="">
-                    <h3 className="text-black">
-                      Director{"’"}s Valid Means of ID
-                    </h3>
-                    <p>
-                      National ID Card, International Passport, Driver{"'"}s
-                      License, or Voter{"’"}s Card .
-                    </p>
-                  </div>
-                </div>
-
+                {/* Email */}
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlineEmail size={30} />
-                  <div className="">
-                    <h3 className="text-black">Valid Email Address</h3>
-                    <p>For account activation and communication.</p>
+                  <div className="space-y-1">
+                    <h3 className="text-black">Valid Personal Email Address</h3>
+                    <p className="text-gray-600">
+                      For verification and communications.
+                    </p>
                   </div>
                 </div>
 
+                {/* Phone */}
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlinePhone size={30} />
-                  <div className="">
+                  <div className="space-y-1">
                     <h3 className="text-black">Valid Phone Number</h3>
-                    <p>Linked to your business.</p>
+                    <p className="text-gray-600">
+                      Linked to your name or organization.
+                    </p>
                   </div>
                 </div>
 
+                {/* Business Reg (optional) */}
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlineDescription size={30} />
-                  <div className="">
-                    <h3 className="text-black">CAC Certificate</h3>
-                    <p>Proof of company registration.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlineBusinessCenter size={30} />
-                  <div className="">
+                  <div className="space-y-1">
                     <h3 className="text-black">
-                      CBN License or Lending License
+                      Business Registration Evidence (if available)
                     </h3>
-                    <p>Proof of authority to operate as a lender.</p>
+                    <p className="text-gray-600">
+                      Optional: e.g., CAC registration, cooperative certificate.
+                    </p>
                   </div>
                 </div>
 
+                {/* Proof of Address */}
                 <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlineAssignment size={30} />
-                  <div className="">
-                    <h3 className="text-black">Form7 or Status Report</h3>
-                    <p>Current company information from CAC.</p>
+                  <MdOutlineHome size={30} />
+                  <div className="space-y-1">
+                    <h3 className="text-black">Proof of Address</h3>
+                    <p className="text-gray-600">
+                      Utility bill or business location evidence.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Letter of Intent (optional) */}
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <HiOutlineDocumentText size={30} />
+                  <div className="space-y-1">
+                    <h3 className="text-black">
+                      Official Letter of Intent (Optional)
+                    </h3>
+                    <p className="text-gray-600">
+                      A simple letter stating the purpose of lending through
+                      Coastlink24.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Valid Means of ID */}
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <FaRegIdCard size={30} />
+                  <div className="space-y-1">
+                    <h3 className="text-black">
+                      Director/Owner’s Valid Means of ID
+                    </h3>
+                    <p className="text-gray-600">
+                      National ID, International Passport, Driver’s License, or
+                      Voter’s Card.
+                    </p>
                   </div>
                 </div>
 

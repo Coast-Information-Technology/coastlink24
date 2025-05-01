@@ -10,13 +10,13 @@ import { signUpSchema } from "@/utils/zodDefinition";
 import { postApiRequest } from "@/lib/apiRequest";
 import "react-toastify/dist/ReactToastify.min.css";
 import {
-  MdOutlinePersonPin,
   MdOutlineEmail,
   MdOutlinePhone,
-  MdOutlineDescription,
-  MdOutlineBusinessCenter,
-  MdOutlineAssignment,
+  MdOutlineCreditCard,
+  MdOutlineHome,
+  MdOutlineAccountBalance,
 } from "react-icons/md";
+import { FaRegIdCard } from "react-icons/fa";
 import { Input } from "@/components/ui/input";
 
 const INITIAL_FORM_DATA = {
@@ -410,74 +410,74 @@ const SignUpPage: React.FC = () => {
                   commence
                 </h2>
                 <p className="text-gray-600 text-[14px] lg:w-[20vw] pt-2 pb-4">
-                  To complete your business KYC (Know Your Customer) and account
-                  setup, kindly have the following ready:
+                  To complete your Investor KYC and Funding Wallet Activation,
+                  you will need:
                 </p>
 
-                <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlinePersonPin size={30} />
-                  <div className="">
-                    <h3 className="text-black">
-                      You and Your Director{"'"}s BVN
-                    </h3>
-                    <p>
-                      To verify identities in compliance with CBN regulations.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlinePersonPin size={30} />
-                  <div className="">
-                    <h3 className="text-black">
-                      Director{"’"}s Valid Means of ID
-                    </h3>
-                    <p>
-                      National ID Card, International Passport, Driver{"'"}s
-                      License, or Voter{"’"}s Card .
-                    </p>
-                  </div>
-                </div>
-
+                {/* Email */}
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlineEmail size={30} />
-                  <div className="">
+                  <div>
                     <h3 className="text-black">Valid Email Address</h3>
-                    <p>For account activation and communication.</p>
+                    <p>
+                      For communication, verification, and transaction alerts.
+                    </p>
                   </div>
                 </div>
 
+                {/* Phone */}
                 <div className="flex gap-2 mb-4 text-gray-600">
                   <MdOutlinePhone size={30} />
-                  <div className="">
+                  <div>
                     <h3 className="text-black">Valid Phone Number</h3>
-                    <p>Linked to your business.</p>
+                    <p>To receive SMS notifications and secure your account.</p>
                   </div>
                 </div>
 
+                {/* BVN */}
                 <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlineDescription size={30} />
-                  <div className="">
-                    <h3 className="text-black">CAC Certificate</h3>
-                    <p>Proof of company registration.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlineBusinessCenter size={30} />
-                  <div className="">
+                  <MdOutlineCreditCard size={30} />
+                  <div>
                     <h3 className="text-black">
-                      CBN License or Lending License
+                      Bank Verification Number (BVN)
                     </h3>
-                    <p>Proof of authority to operate as a lender.</p>
+                    <p>
+                      Required to link your investment wallet and comply with
+                      CBN regulations.
+                    </p>
                   </div>
                 </div>
 
+                {/* ID */}
                 <div className="flex gap-2 mb-4 text-gray-600">
-                  <MdOutlineAssignment size={30} />
-                  <div className="">
-                    <h3 className="text-black">Form7 or Status Report</h3>
-                    <p>Current company information from CAC.</p>
+                  <FaRegIdCard size={30} />
+                  <div>
+                    <h3 className="text-black">Means of Identification</h3>
+                    <p>
+                      Accepted: National ID, Driver’s License, International
+                      Passport, or Voter’s Card.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Address */}
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlineHome size={30} />
+                  <div>
+                    <h3 className="text-black">Proof of Address</h3>
+                    <p>
+                      Utility Bill or Bank Statement dated within the last 3
+                      months.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bank Account */}
+                <div className="flex gap-2 mb-4 text-gray-600">
+                  <MdOutlineAccountBalance size={30} />
+                  <div>
+                    <h3 className="text-black">Bank Account Details</h3>
+                    <p>For payouts (must match your BVN information).</p>
                   </div>
                 </div>
 
@@ -498,7 +498,7 @@ const SignUpPage: React.FC = () => {
             {currentStep === 2 && (
               <div className="flex flex-col">
                 <h2 className="text-[1.2rem] md:text-[1.5rem] text-black font-bold leading-tight pt-6 mb-6">
-                  Personal Information (Account Admin)
+                  Personal Information
                 </h2>
 
                 <p className="text-gray-600 text-[14px] lg:w-[20vw] pt-2 pb-4">
