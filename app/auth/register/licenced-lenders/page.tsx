@@ -676,13 +676,16 @@ const SignUpPage: React.FC = () => {
                 </div>
 
                 {/* Date of Birth Field */}
-                <div className="flex flex-col text-gray-700 gap-1 w-full space-y-1 text-[13px] mb-4">
+                <div className="flex flex-col text-gray-700 w-full space-y-1 text-[13px] mb-4">
                   <label htmlFor="dateOfBirth">Date of birth</label>
                   <input
                     type="date"
                     id="dateOfBirth"
                     name="dateOfBirth"
-                    className="w-full border border-gray-300 bg-white text-black rounded-md px-3 py-4 lg:p-3 lg:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={dateOfBirth}
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    required
+                    className="w-full text-gray-700 text-[14px] border-[1px] bg-white border-[#ccc] rounded-md p-3 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
                   />
                 </div>
 
