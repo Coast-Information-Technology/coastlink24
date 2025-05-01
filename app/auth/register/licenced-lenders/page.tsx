@@ -332,7 +332,7 @@ const SignUpPage: React.FC = () => {
       {/* Main section */}
       <section className="h-screen w-full flex justify-center items-center bg-white overflow-auto form-custom-scrollbar">
         <ToastContainer />
-        <div className="space-y-2 p-4 md:p-8 m-auto sm:w-[60vw] lg:w-[40vw]">
+        <div className="space-y-2 p-4 md:p-8 m-auto w-full sm:w-[60vw] lg:w-[40vw]">
           <Link
             href="/"
             className="lg:hidden flex items-center justify-center p-4 text-white text-2xl font-bold gap-2 bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500"
@@ -355,7 +355,7 @@ const SignUpPage: React.FC = () => {
             </Link>
           </p>
 
-          <form className="w-full">
+          <form>
             {/* Step indicator */}
             <div className="flex justify-between py-6">
               <div
