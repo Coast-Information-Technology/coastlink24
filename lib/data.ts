@@ -12,29 +12,103 @@ import {
 } from "lucide-react";
 import { MdOutlineDisplaySettings } from "react-icons/md";
 import { INavLink, ISidebarData } from "@/lib/types";
+import { Users, ShieldCheck, TrendingUp } from "lucide-react";
 
 // lib/data.ts
 
+// export const INavLinks: INavLink[] = [
+//   { href: "/", label: "Home" },
+//   { href: "/lenders", label: "For Lenders" },
+//   { href: "/investors", label: "For Investors" },
+//   { href: "/borrowers", label: "Borrowers" },
+//   { href: "/marketplace", label: "Market Place" },
+//   { href: "/features", label: "Features" },
+//   { href: "/pricing", label: "Pricing / Partnership Tiers" },
+//   { href: "/faq", label: "FAQs" },
+//   {
+//     label: "Resources",
+//     href: "/resources",
+//     subLinks: [
+//       { href: "/blog", label: "Blog / Insights" },
+//       { href: "/help-center", label: "Help Center / FAQ" },
+//       { href: "/testimonials", label: "Testimonials" },
+//     ],
+//   },
+//   { href: "/about", label: "About Us" },
+//   { href: "/contact", label: "Contact" },
+//   { href: "/auth/login", label: "Login" },
+// ];
+
 export const INavLinks: INavLink[] = [
   { href: "/", label: "Home" },
-  { href: "/lenders", label: "For Lenders" },
-  { href: "/investors", label: "For Investors" },
-  { href: "/borrowers", label: "Borrowers" },
-  { href: "/marketplace", label: "Market Place" },
+  { href: "/platform", label: "Platform" },
+  {
+    label: "Solutions",
+    href: "/solutions",
+    megaMenu: {
+      borrowers: [
+        { label: "Overview – What we offer you", href: "/borrowers#overview" },
+        { label: "How to Apply", href: "/borrowers#apply" },
+        { label: "USSD + Web Access", href: "/borrowers#access" },
+        { label: "FAQs for Borrowers", href: "/borrowers#faq" },
+        { label: "Repayments & Support", href: "/borrowers#support" },
+      ],
+      lenders: [
+        {
+          label: "Licensed Lenders – Use our engine to scale",
+          href: "/lenders#licensed",
+        },
+        {
+          label: "Unlicensed Lenders – No license? We've got you",
+          href: "/lenders#unlicensed",
+        },
+        { label: "Custom Dashboard", href: "/lenders#dashboard" },
+        { label: "BaaS API Integration", href: "/lenders#api" },
+        { label: "Mobile App Monitoring", href: "/lenders#monitoring" },
+      ],
+      investors: [
+        {
+          label: "Impact Funding – Invest in Africa’s credit ecosystem",
+          href: "/investors#impact",
+        },
+        {
+          label: "Returns & Risk – See yield and borrower analytics",
+          href: "/investors#returns",
+        },
+        { label: "How to Join", href: "/investors#join" },
+        { label: "Legal & KYC Assurance", href: "/investors#kyc" },
+        { label: "Investor Docs (PDF coming soon)", href: "#" },
+      ],
+      why: [
+        { label: "Unified Lending Engine", href: "/features#engine" },
+        { label: "Automated Workflows", href: "/features#automation" },
+        { label: "Multi-tenant Architecture", href: "/features#architecture" },
+        { label: "Regulatory-Ready + Compliant", href: "/features#compliance" },
+        { label: "Built by Fintech Veterans", href: "/features#team" },
+      ],
+    },
+  },
   { href: "/features", label: "Features" },
-  { href: "/pricing", label: "Pricing / Partnership Tiers" },
-  { href: "/faq", label: "FAQs" },
-  // {
-  //   label: "Resources",
-  //   subLinks: [
-  //     { href: "/blog", label: "Blog / Insights" },
-  //     { href: "/help-center", label: "Help Center / FAQ" },
-  //     { href: "/testimonials", label: "Testimonials" },
-  //   ],
-  // },
-  { href: "/about", label: "About Us" },
-  { href: "/contact", label: "Contact" },
-  { href: "/auth/login", label: "Login" },
+  { href: "/pricing", label: "Pricing" },
+  {
+    label: "Resources",
+    href: "/resources",
+    subLinks: [
+      { href: "/faq", label: "FAQs" },
+      { href: "/support", label: "Support Center" },
+      { href: "/docs", label: "Documentation" },
+      { href: "/news", label: "News & Updates" },
+      { href: "/regulatory", label: "Regulatory Insights" },
+    ],
+  },
+  {
+    label: "Company",
+    href: "/company",
+    subLinks: [
+      { href: "/about", label: "About Us" },
+      { href: "/contact", label: "Contact Us" },
+    ],
+  },
 ];
 
 export const sidebarData: ISidebarData = {

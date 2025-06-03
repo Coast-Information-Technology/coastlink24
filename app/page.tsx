@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const items = [
   {
@@ -30,27 +31,30 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section
-        className="relative section-padding-block section-padding-block-start pt-2 overflow-hidden bg-cover bg-no-repeat bg-bottom"
-        style={{
-          backgroundImage: "url('/hero-bg.png')",
-          backgroundPosition: "bottom center",
-          height: "100vh",
-        }}
-      >
+      <section className="relative md:pl-16 flex h-[50rem] w-full items-center justify-center bg-white pb-16 dark:bg-black overflow-hidden">
+        <div
+          className={cn(
+            "absolute inset-0",
+            "[background-size:40px_40px]",
+            "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
+            "dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]"
+          )}
+        />
         {/* Overlay for better text visibility */}
-        <div className="absolute inset-0 bg-blue-500/70 z-10" />
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
+        <div className="absolute inset-0 bg-blue-600/40 z-10" />
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
 
         {/* Hero Content */}
-        <div className="relative z-20 grid lg:grid-cols-2 items-center text-white text-center lg:text-left gap-8 px-4">
-          <div>
-            <h1 className="primary-heading text-white">
+        <div className="relative z-20 text-white text-center gap-8">
+          <div className="flex flex-col items-center md:max-w-[55rem] mx-auto text-center mt-12">
+            <h1 className="text-3xl md:text-6xl font-semibold text-white">
               Africa{"'"}s Unified Loan Infrastructure Engine
             </h1>
-            <p className="text-[1.2rem] italic pt-2">
+            <p className="text-[1rem] italic pt-2">
               - Borrow Smarter. Lend Faster. Invest Confidently.
             </p>
-            <p className="pt-6">
+            <p className="pt-6 text-[1.2rem]">
               We{"'"}re building the future of credit — accessible via USSD,
               Web, and Mobile, powered by automation and Backend-as-a-Service
               (BaaS).
@@ -71,17 +75,15 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
-          {/* Optional Image or illustration */}
-          <div className="relative z-20 pt-6">
-            <Image
-              src="/africa-unified-image.png"
-              alt="Fintech Illustration"
-              width={700}
-              height={600}
-              className="rounded-2xl shadow-xl mx-auto"
-            />
-          </div>
+        </div>
+        <div className="relative z-20">
+          <Image
+            src="/hero.jpg"
+            alt="Fintech Illustration"
+            width={800}
+            height={700}
+            className="rounded-2xl shadow-xl mx-auto -mr-20 object-contain"
+          />
         </div>
       </section>
 

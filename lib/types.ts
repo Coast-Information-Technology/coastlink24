@@ -5,10 +5,13 @@ import { ElementType } from "react";
 export interface INavLink {
   label: string;
   href: string;
-  subLinks?: Array<{
-    label: string;
-    href: string;
-  }>;
+  megaMenu?: {
+    borrowers?: Array<{ label: string; href: string }>;
+    lenders?: Array<{ label: string; href: string }>;
+    investors?: Array<{ label: string; href: string }>;
+    why?: Array<{ label: string; href: string }>;
+  };
+  subLinks?: Array<{ label: string; href: string }>;
 }
 
 // User interface
