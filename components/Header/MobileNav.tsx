@@ -8,14 +8,7 @@ import { INavLinks } from "@/lib/data";
 import { INavLink } from "@/lib/types";
 
 function isDropdownLink(item: INavLink): item is INavLink & {
-  subLinks: Array<
-    | { label: string; href: string }
-    | {
-        label: string;
-        href: string;
-        subLinks?: Array<{ label: string; href: string }>;
-      }
-  >;
+  subLinks: Array<{ label: string; href: string }>;
 } {
   return !!item.subLinks && item.subLinks.length > 0;
 }
@@ -59,6 +52,13 @@ export const MobileNav = ({ isOpen, setIsOpen, pathname }: Props) => {
         <X size={30} className="text-white" />
       </button>
 
+      {isOpen && (
+        <div
+          onClick={closeMenu}
+          className="fixed inset-0 bg-black bg-opacity-50 z-10"
+        />
+      )}
+
       <ul className="uppercase text-[16px] text-white flex flex-col px-6 my-4">
         {INavLinks.map((item, index) => {
           const isLastItem = index === INavLinks.length - 1;
@@ -69,41 +69,60 @@ export const MobileNav = ({ isOpen, setIsOpen, pathname }: Props) => {
                 key={`mobile-mega-${item.label}`}
                 className="py-3 border-b border-gray-300"
               >
-                <button
-                  className="uppercase flex items-center justify-between w-full"
-                  onClick={() =>
-                    setOpenDropdown(
-                      openDropdown === item.label ? null : item.label
-                    )
-                  }
-                >
-                  {item.label}
-                  {openDropdown === item.label ? (
-                    <ChevronUp size={18} />
-                  ) : (
-                    <ChevronDown size={18} />
-                  )}
-                </button>
+                <div className="flex items-center justify-between w-full">
+                  <Link
+                    href={`/${item.label.toLowerCase()}`}
+                    onClick={closeMenu}
+                    className="uppercase block hover:text-blue-400 font-semibold"
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    onClick={() =>
+                      setOpenDropdown(
+                        openDropdown === item.label ? null : item.label
+                      )
+                    }
+                    aria-label="Toggle submenu"
+                    className="ml-2"
+                  >
+                    {openDropdown === item.label ? (
+                      <ChevronUp size={18} />
+                    ) : (
+                      <ChevronDown size={18} />
+                    )}
+                  </button>
+                </div>
+
                 {openDropdown === item.label && (
                   <div className="pl-4 mt-2 space-y-4 text-[14px] text-gray-300">
                     {Object.entries(item.megaMenu).map(
                       ([groupTitle, links]) => (
                         <div key={groupTitle}>
-                          <button
-                            className="flex justify-between items-center w-full font-semibold text-left text-blue-200"
-                            onClick={() =>
-                              setOpenSubMenu(
-                                openSubMenu === groupTitle ? null : groupTitle
-                              )
-                            }
-                          >
-                            {groupTitle}
-                            {openSubMenu === groupTitle ? (
-                              <ChevronUp size={16} />
-                            ) : (
-                              <ChevronDown size={16} />
-                            )}
-                          </button>
+                          <div className="flex justify-between items-center">
+                            <Link
+                              href={`/${groupTitle.toLowerCase()}`}
+                              onClick={closeMenu}
+                              className="text-blue-200 font-semibold hover:text-blue-400"
+                            >
+                              {groupTitle}
+                            </Link>
+                            <button
+                              onClick={() =>
+                                setOpenSubMenu(
+                                  openSubMenu === groupTitle ? null : groupTitle
+                                )
+                              }
+                              aria-label="Toggle sublinks"
+                            >
+                              {openSubMenu === groupTitle ? (
+                                <ChevronUp size={16} />
+                              ) : (
+                                <ChevronDown size={16} />
+                              )}
+                            </button>
+                          </div>
+
                           {openSubMenu === groupTitle && (
                             <ul className="pl-3 mt-1 space-y-1">
                               {links.map((link) => (
@@ -134,21 +153,31 @@ export const MobileNav = ({ isOpen, setIsOpen, pathname }: Props) => {
                 key={`mobile-dropdown-${item.label}`}
                 className="py-3 border-b border-gray-300"
               >
-                <button
-                  className="uppercase flex items-center justify-between w-full"
-                  onClick={() =>
-                    setOpenDropdown(
-                      openDropdown === item.label ? null : item.label
-                    )
-                  }
-                >
-                  {item.label}
-                  {openDropdown === item.label ? (
-                    <ChevronUp size={18} />
-                  ) : (
-                    <ChevronDown size={18} />
-                  )}
-                </button>
+                <div className="flex items-center justify-between w-full">
+                  <Link
+                    href={item.href!}
+                    onClick={closeMenu}
+                    className="uppercase hover:text-blue-400"
+                  >
+                    {item.label}
+                  </Link>
+                  <button
+                    onClick={() =>
+                      setOpenDropdown(
+                        openDropdown === item.label ? null : item.label
+                      )
+                    }
+                    aria-label="Toggle dropdown"
+                    className="ml-2"
+                  >
+                    {openDropdown === item.label ? (
+                      <ChevronUp size={18} />
+                    ) : (
+                      <ChevronDown size={18} />
+                    )}
+                  </button>
+                </div>
+
                 {openDropdown === item.label && (
                   <ul className="pl-4 mt-2 space-y-2 text-[14px] text-gray-300">
                     {item.subLinks.map((sub) => (

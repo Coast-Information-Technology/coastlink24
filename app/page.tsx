@@ -267,8 +267,8 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="py-20 px-6 md:px-16 bg-gray-50 text-center text-gray-600">
-        <h2 className="text-3xl font-bold mb-10 text-black">Key Features</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
+        <h2 className="text-3xl font-bold mb-10 text-black">Key Features</h2>:{" "}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
           {[
             ["Automated KYC + Credit Scoring", "/icons/kyc.png"],
             [

@@ -1,4 +1,3 @@
-// DesktopNav.tsx
 "use client";
 
 import React, { useState } from "react";
@@ -52,25 +51,30 @@ export const DesktopNav = ({ pathname }: Props) => {
               <button className="flex items-center gap-1 hover:text-blue-200 capitalize">
                 {item.label} <ChevronDown size={16} />
               </button>
+
               {openDropdown === item.label && (
                 <nav className="absolute left-0 top-4 mt-1 w-[600px] h-auto bg-white text-gray-800 shadow-lg rounded-lg flex z-50 capitalize border-4 border-blue-400">
+                  {/* Mega menu section links */}
                   <div className="w-1/4 border-r-4 border-gray-200">
-                    {Object.keys(item.megaMenu).map((groupTitle) => (
-                      <button
-                        key={groupTitle}
-                        className={`block text-left text-[1rem] px-6 py-6 w-full uppercase ${
-                          activeMegaMenuSection === groupTitle
-                            ? "bg-blue-100 text-blue-600 font-semibold border-r-4 border-r-blue-400"
-                            : ""
-                        }`}
+                    {Object.keys(item.megaMenu).map((sectionKey) => (
+                      <Link
+                        key={sectionKey}
+                        href={`/${sectionKey}`}
                         onMouseEnter={() =>
-                          setActiveMegaMenuSection(groupTitle)
+                          setActiveMegaMenuSection(sectionKey)
                         }
+                        className={`block text-left text-[1rem] px-6 py-6 w-full uppercase transition ${
+                          activeMegaMenuSection === sectionKey
+                            ? "bg-blue-100 text-blue-600 font-semibold border-r-4 border-r-blue-400"
+                            : "hover:bg-gray-100"
+                        }`}
                       >
-                        {groupTitle}
-                      </button>
+                        {sectionKey}
+                      </Link>
                     ))}
                   </div>
+
+                  {/* Mega menu sub-links */}
                   <div className="w-full">
                     <ul className="text-md">
                       {activeMegaMenuSection &&
@@ -87,7 +91,7 @@ export const DesktopNav = ({ pathname }: Props) => {
                             </Link>
                             <ChevronRight
                               size={18}
-                              className="opacity-0 font-bold group-hover:opacity-100 text-blue-600 transition-opacity duration-200"
+                              className="opacity-0 group-hover:opacity-100 text-blue-600 transition-opacity duration-200"
                             />
                           </li>
                         ))}
@@ -109,6 +113,7 @@ export const DesktopNav = ({ pathname }: Props) => {
               >
                 {item.label} <ChevronDown size={16} />
               </button>
+
               {openDropdown === item.label && (
                 <div
                   onMouseEnter={() => setOpenDropdown(item.label)}
@@ -130,7 +135,7 @@ export const DesktopNav = ({ pathname }: Props) => {
 
                         <ChevronRight
                           size={18}
-                          className="opacity-0 font-bold group-hover:opacity-100 text-blue-600 transition-opacity duration-200"
+                          className="opacity-0 group-hover:opacity-100 text-blue-600 transition-opacity duration-200"
                         />
                       </li>
                     ))}

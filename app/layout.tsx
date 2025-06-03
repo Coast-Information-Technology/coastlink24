@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <Themes>
       <html lang="en">
-        <body className={`${poppins.className}`}>
+        <body className={`${rubik.className}`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
