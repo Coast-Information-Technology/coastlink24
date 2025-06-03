@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { INavLinks } from "@/lib/data";
 import { INavLink } from "@/lib/types";
 
@@ -71,17 +71,24 @@ export const DesktopNav = ({ pathname }: Props) => {
                       </button>
                     ))}
                   </div>
-                  <div className="w-3/4 pl-6">
-                    <ul className="space-y-4 text-md py-4">
+                  <div className="w-full">
+                    <ul className="text-md">
                       {activeMegaMenuSection &&
                         item.megaMenu[activeMegaMenuSection]?.map((link) => (
-                          <li key={link.href}>
+                          <li
+                            key={link.href}
+                            className="group flex items-center justify-between p-4 hover:bg-gray-200 transition"
+                          >
                             <Link
                               href={link.href}
-                              className="hover:text-blue-600 hover:font-semibold transition-all duration-100 ease-in-out"
+                              className="flex-1 text-gray-700 group-hover:text-blue-600 group-hover:font-semibold transition"
                             >
                               {link.label}
                             </Link>
+                            <ChevronRight
+                              size={18}
+                              className="opacity-0 font-bold group-hover:opacity-100 text-blue-600 transition-opacity duration-200"
+                            />
                           </li>
                         ))}
                     </ul>
@@ -106,17 +113,25 @@ export const DesktopNav = ({ pathname }: Props) => {
                 <div
                   onMouseEnter={() => setOpenDropdown(item.label)}
                   onMouseLeave={() => setOpenDropdown(null)}
-                  className="absolute left-0 top-full mt-1 w-[200px] border-4 border-blue-400 bg-white text-gray-800 shadow-md rounded-md py-3 px-4 z-50"
+                  className="absolute left-0 top-full mt-1 w-[200px] border-4 border-blue-400 bg-white text-gray-800 shadow-md rounded-md z-50"
                 >
-                  <ul className="space-y-2 text-[1rem] px-4">
+                  <ul className="text-[1rem]">
                     {item.subLinks.map((sub) => (
-                      <li key={sub.href}>
+                      <li
+                        key={sub.href}
+                        className="group flex items-center justify-between p-4 hover:bg-gray-200 transition"
+                      >
                         <Link
                           href={sub.href}
-                          className="hover:text-blue-600 hover:font-semibold transition-all duration-100 ease-in-out"
+                          className="group-hover:text-blue-600 group-hover:font-semibold transition hover:font-semibold"
                         >
                           {sub.label}
                         </Link>
+
+                        <ChevronRight
+                          size={18}
+                          className="opacity-0 font-bold group-hover:opacity-100 text-blue-600 transition-opacity duration-200"
+                        />
                       </li>
                     ))}
                   </ul>
