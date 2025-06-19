@@ -8,35 +8,37 @@ import { motion } from "framer-motion";
 
 const BorrowersPage = () => {
   return (
-    <main className="space-y-28 py-16 px-6 md:px-20 bg-white text-gray-800">
+    <main className="space-y-28 bg-white text-gray-800">
       {/* Hero Section */}
-      <motion.section
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="grid md:grid-cols-2 items-center gap-12"
-      >
-        <div className="space-y-4">
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900">
-            Access Loans in Minutes — Anytime, Anywhere.
-          </h1>
-          <p className="text-gray-600">
-            Whether you{"'"}re a business owner, salary earner, student, or
-            trader — Coast Link24 connects you to trusted lenders offering quick
-            and affordable loans via USSD, web, or mobile app.
-          </p>
-        </div>
-        <Image
-          src="/images/loan-hero.png"
-          alt="Loan access"
-          width={500}
-          height={500}
-          className="mx-auto"
-        />
-      </motion.section>
+      <section className="bg-[#005cfa] w-full">
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="grid md:grid-cols-2 items-center gap-12 py-16 px-6 md:px-20"
+        >
+          <div className="space-y-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-white">
+              Access Loans in Minutes — Anytime, Anywhere.
+            </h1>
+            <p className="text-gray-200">
+              Whether you{"'"}re a business owner, salary earner, student, or
+              trader — Coast Link24 connects you to trusted lenders offering
+              quick and affordable loans via USSD, web, or mobile app.
+            </p>
+          </div>
+          <Image
+            src="/images/loan-hero.png"
+            alt="Loan access"
+            width={500}
+            height={500}
+            className="mx-auto"
+          />
+        </motion.section>
+      </section>
 
       {/* Loan Methods */}
-      <section className="space-y-16">
+      <section className="space-y-16 py-16 px-6 md:px-20">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900">
           Multiple Ways to Apply for a Loan
         </h2>

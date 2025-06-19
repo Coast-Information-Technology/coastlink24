@@ -99,10 +99,10 @@ export default function Home() {
           )}
         />
         {/* Overlay for radial mask */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#1e3a8a)] dark:bg-blue-900"></div>
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#005cfa] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#1e3a8a)] dark:bg-blue-900"></div>
         {/* Blue overlay for contrast */}
         <div className="absolute inset-0 bg-blue-600/40 z-10" />
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#1e3a8a)] dark:bg-blue-900"></div>
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-[#005cfa] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,#1e3a8a)] dark:bg-blue-900"></div>
 
         {/* Grid Container */}
         <div className="relative z-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pt-20">
@@ -114,7 +114,7 @@ export default function Home() {
             <p className="text-[1rem] italic px-4 py-2 bg-white text-blue-600 rounded-full self-center lg:self-start">
               - Borrow Smarter. Lend Faster. Invest Confidently.
             </p>
-            <p className="pt-2 text-[1.2rem]">
+            <p className="pt-2 text-[1rem]">
               We{"'"}re building the future of credit — accessible via USSD,
               Web, and Mobile, powered by automation and Backend-as-a-Service
               (BaaS).
@@ -149,10 +149,13 @@ export default function Home() {
       </section>
 
       {/* Why Coast Link24 */}
-      <section className="py-20 bg-gray-50 text-center text-gray-600 px-6 md:px-16">
-        <h2 className="text-2xl md:text-4xl font-bold mb-10 text-black">
-          Why Coast Link24?
-        </h2>
+      <section className="py-20 bg-gray-100 text-center text-gray-600 px-6 md:px-16">
+        <div className="flex flex-col items-center mb-12">
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-700 pb-6">
+            Why Coast Link24?
+          </h2>
+          <span className="h-1 w-32 bg-gray-700"></span>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {whyItems.map(({ icon, title, desc }, index) => (
             <div
@@ -171,7 +174,7 @@ export default function Home() {
 
       {/* How It Works */}
       <section className="py-20 bg-white text-gray-600 px-6 lg:px-16">
-        <h2 className="text-2xl md:text-4xl font-bold text-center mb-12 text-black">
+        <h2 className="text-2xl md:text-4xl font-bold text-center mb-12 text-gray-700 pb-6">
           How It Works
         </h2>
 
@@ -179,7 +182,7 @@ export default function Home() {
           {items.map(({ title, desc, quote, img, url }, i) => (
             <Link
               href={url}
-              className="bg-white rounded-xl hover:shadow-lg px-6 py-4 space-y-3"
+              className="bg-white rounded-xl hover:shadow-lg px-6 py-4 flex flex-col h-full"
             >
               {/* Image */}
               <div className="h-[15rem] w-full">
@@ -191,11 +194,20 @@ export default function Home() {
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
-              <h3 className="text-xl font-bold text-black mb-2">{title}</h3>
-              <p className="text-sm mb-2">{desc}</p>
-              <blockquote className="italic text-gray-500 text-sm">
-                “{quote}”
-              </blockquote>
+
+              {/* Content */}
+              <div className="flex-1 space-y-3 mt-4">
+                <h3 className="text-xl font-bold text-black">{title}</h3>
+                <p className="text-sm">{desc}</p>
+                <blockquote className="italic text-gray-500 text-sm">
+                  “{quote}”
+                </blockquote>
+              </div>
+
+              {/* Button */}
+              <button className="mt-4 py-5 rounded-md bg-primary hover:bg-blue-500 font-semibold text-white text-center w-full">
+                Explore →
+              </button>
             </Link>
           ))}
         </div>
@@ -267,7 +279,9 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="py-20 px-6 md:px-16 bg-gray-50 text-center text-gray-600">
-        <h2 className="text-3xl font-bold mb-10 text-black">Key Features</h2>:{" "}
+        <h2 className="text-2xl md:text-4xl font-bold mb-10 text-gray-700 pb-6">
+          Key Features
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
           {[
             ["Automated KYC + Credit Scoring", "/icons/kyc.png"],
@@ -312,8 +326,10 @@ export default function Home() {
       </section>
 
       {/* Built For Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-500 to-indigo-600 text-center text-white px-6 md:px-16">
-        <h2 className="text-4xl font-extrabold mb-12 text-white">Built For:</h2>
+      <section className="py-20 bg-blue-800 text-center text-white px-6 md:px-16">
+        <h2 className="text-2xl md:text-4xl text-left font-extrabold mb-12 text-white pb-6">
+          Built For:
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           {services.map((item, idx) => (
             <div
@@ -334,8 +350,8 @@ export default function Home() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-blue-800 text-white text-center">
-        <h2 className="text-3xl font-bold mb-6 text-white">
+      <section className="py-20 bg-gray-100 text-white text-center">
+        <h2 className="text-2xl md:text-4xl font-bold mb-6 text-gray-700">
           Ready to Join the Future of Lending?
         </h2>
         <div className="flex flex-wrap justify-center gap-4 px-6">

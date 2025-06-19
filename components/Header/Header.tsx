@@ -23,8 +23,11 @@ export const Header = () => {
 
   useEffect(() => {
     if (!mounted) return;
+
     document.body.style.overflow = isOpen ? "hidden" : "unset";
-    return () => (document.body.style.overflow = "unset");
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isOpen, mounted]);
 
   useEffect(() => {

@@ -124,7 +124,7 @@ export const DesktopNav = ({ pathname }: Props) => {
                     {item.subLinks.map((sub) => (
                       <li
                         key={sub.href}
-                        className="group flex items-center justify-between p-4 hover:bg-gray-200 transition"
+                        className="group flex items-center justify-between p-4 px-6 hover:bg-gray-200 transition"
                       >
                         <Link
                           href={sub.href}
